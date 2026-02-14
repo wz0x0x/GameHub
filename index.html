@@ -81,9 +81,27 @@
     </div>
 
     <script>
-        function loadPayload(name) {
-            alert("جاري تشغيل ثغرة: " + name + " ... (سنقوم بربطها تقنياً في الخطوة القادمة)");
-        }
+    function loadPayload(payloadFile) {
+        // إظهار رسالة للمستخدم
+        alert("جاري تجهيز الثغرة... يرجى الانتظار");
+
+        // كود برمجي لتحميل ملف الـ .bin وإرساله للذاكرة
+        // ملاحظة: هذا الكود يفترض وجود ملف GoldHEN.bin في مجلد payloads
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', './payloads/' + payloadFile, true);
+        xhr.responseType = 'arraybuffer';
+        xhr.onload = function(e) {
+            if (this.status == 200) {
+                // هنا يتم استدعاء وظيفة الحقن الفعلية (تعتمد على نسخة الـ Webkit للجهاز)
+                // في الهوستات الاحترافية يتم تضمين ملف js خارجي مثل exploit.js
+                alert("تم تحميل الثغرة! انتظر تفعيل GoldHEN على الشاشة");
+                
+                // تشغيل ملف الـ BIN (هذا الجزء يتطلب ملفات تشغيل الثغرة الأساسية)
+                window.postMessage("load-payload", "*");
+            }
+        };
+        xhr.send();
+    }}
     </script>
 </body>
 </html>
