@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>مركز برامج PKG المطور</title>
+    <title>مركز برامج PKG</title>
     <style>
         body {
             margin: 0;
@@ -19,7 +19,7 @@
         }
 
         .glass-panel {
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(0, 0, 0, 0.8);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
             border-radius: 25px;
@@ -27,7 +27,7 @@
             width: 90%;
             max-width: 1100px;
             border: 1px solid rgba(255, 255, 255, 0.2);
-            box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.7);
         }
 
         .header {
@@ -42,98 +42,92 @@
         .back-btn {
             text-decoration: none;
             color: white;
-            background: rgba(220, 53, 69, 0.7);
+            background: #dc3545;
             padding: 10px 20px;
             border-radius: 10px;
-            transition: 0.3s;
+            font-weight: bold;
         }
-
-        .back-btn:hover { background: #dc3545; transform: scale(1.05); }
 
         .pkg-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
             gap: 20px;
         }
 
         .pkg-card {
-            background: rgba(0, 0, 0, 0.65);
+            background: rgba(255, 255, 255, 0.05);
             padding: 20px;
-            border-radius: 18px;
+            border-radius: 20px;
             text-align: center;
             border: 1px solid rgba(255,255,255,0.1);
             transition: 0.3s;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
         }
 
         .pkg-card:hover {
-            transform: translateY(-8px);
+            transform: translateY(-10px);
+            background: rgba(0, 123, 255, 0.2);
             border-color: #007bff;
-            box-shadow: 0 5px 20px rgba(0, 123, 255, 0.4);
         }
 
-        .pkg-card h3 { color: #007bff; margin: 10px 0; }
-        .pkg-card p { font-size: 0.9rem; opacity: 0.8; margin-bottom: 15px; min-height: 45px; }
+        /* تنسيق صور البرامج */
+        .pkg-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 15px;
+            margin-bottom: 15px;
+            object-fit: cover;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+        }
+
+        .pkg-card h3 { margin: 10px 0; font-size: 1.1rem; color: #fff; }
+        .pkg-card p { font-size: 0.8rem; opacity: 0.7; margin-bottom: 15px; height: 35px; }
 
         .download-link {
             display: block;
             background: #28a745;
             color: white;
             text-decoration: none;
-            padding: 12px;
-            border-radius: 10px;
+            padding: 10px;
+            border-radius: 8px;
             font-weight: bold;
-            transition: 0.3s;
         }
-
-        .download-link:hover { background: #218838; }
     </style>
 </head>
 <body>
 
 <div class="glass-panel">
     <div class="header">
-        <h1>مكتبة البرامج والأدوات 🛠️</h1>
-        <a href="index.html" class="back-btn">العودة للرئيسية</a>
+        <h1>مكتبة الأدوات المرئية 📸</h1>
+        <a href="index.html" class="back-btn">رجوع</a>
     </div>
 
     <div class="pkg-grid">
         <div class="pkg-card">
+            <img src="https://raw.githubusercontent.com/Lapy055/PS4-Explorer-2.0/main/icon0.png" class="pkg-icon" alt="Explorer">
             <h3>PS4 Explorer 2.0</h3>
-            <p>أفضل مدير ملفات لنقل وتثبيت الملفات من الـ USB.</p>
-            <a href="https://github.com/Lapy055/PS4-Explorer-2.0/releases/latest" class="download-link">تحميل PKG</a>
+            <p>مدير ملفات النظام</p>
+            <a href="https://github.com/Lapy055/PS4-Explorer-2.0/releases/latest" class="download-link">تحميل</a>
         </div>
 
         <div class="pkg-card">
-            <h3>Item Mounter</h3>
-            <p>لتركيب الألعاب والـ DLC والعملات الافتراضية بسهولة.</p>
-            <a href="https://github.com/Sistro/Item-Mounter/releases/latest" class="download-link">تحميل PKG</a>
-        </div>
-
-        <div class="pkg-card">
-            <h3>Web Trainer (Cheats)</h3>
-            <p>أداة الغش في الألعاب (زيادة المال، الصحة، إلخ) عبر الإنترنت.</p>
-            <a href="https://ps4trainer.com/trainer/index.html" class="download-link">فتح المدرب</a>
-        </div>
-
-        <div class="pkg-card">
-            <h3>Orbis Toolbox</h3>
-            <p>أداة احترافية لإظهار درجة الحرارة، سرعة المروحة، ومعلومات النظام.</p>
-            <a href="https://github.com/OSM-Made/Orbis-Toolbox/releases/latest" class="download-link">تحميل PKG</a>
-        </div>
-
-        <div class="pkg-card">
+            <img src="https://raw.githubusercontent.com/bucanero/apollo-ps4/master/assets/icon0.png" class="pkg-icon" alt="Apollo">
             <h3>Apollo Save Tool</h3>
-            <p>تعديل وفك قفل ملفات الحفظ (Save Games).</p>
-            <a href="https://github.com/bucanero/apollo-ps4/releases/latest" class="download-link">تحميل PKG</a>
+            <p>إدارة ملفات الحفظ</p>
+            <a href="https://github.com/bucanero/apollo-ps4/releases/latest" class="download-link">تحميل</a>
         </div>
 
         <div class="pkg-card">
+            <img src="https://pkg-zone.com/img/pkg-zone-logo.png" class="pkg-icon" alt="Store">
             <h3>Homebrew Store</h3>
-            <p>متجر التطبيقات الشامل لتحميل كل شيء من جهازك مباشرة.</p>
-            <a href="https://pkg-zone.com/download/HBS" class="download-link">تحميل PKG</a>
+            <p>متجر التطبيقات</p>
+            <a href="https://pkg-zone.com/download/HBS" class="download-link">تحميل</a>
+        </div>
+
+        <div class="pkg-card">
+            <img src="https://raw.githubusercontent.com/OSM-Made/Orbis-Toolbox/master/fbi.png" class="pkg-icon" alt="Toolbox">
+            <h3>Orbis Toolbox</h3>
+            <p>مراقب الحرارة والنظام</p>
+            <a href="https://github.com/OSM-Made/Orbis-Toolbox/releases/latest" class="download-link">تحميل</a>
         </div>
     </div>
 </div>
