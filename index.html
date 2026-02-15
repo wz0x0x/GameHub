@@ -72,13 +72,20 @@
     <div class="btn" onclick="loadPayload('ftp.bin')">FTP Server</div>
 </div>
     <script>
-        function loadPayload(fileName) {
-            console.log("Attempting to load: " + fileName);
-            alert("انتظر.. يتم الآن إرسال الملف: " + fileName);
-            
-            // هذا السطر هو المسؤول عن تشغيل الملف من مجلد payloads
-            window.location.href = "./payloads/" + fileName;
-        }
-    </script>
+    // هذه الوظيفة تقوم بتهيئة عملية التهكير قبل إرسال الملف
+    function loadPayload(payloadFile) {
+        alert("جاري تحضير الثغرة.. يرجى الانتظار");
+        
+        // المسار للملف في مستودعك
+        var payloadPath = "./payloads/" + payloadFile;
+        
+        // كود الحقن (هذا مثال مبسط، التشغيل الفعلي يتطلب ملفات js الثغرة في مجلدك)
+        setTimeout(function(){
+            window.location.href = payloadPath;
+            // ملاحظة: في الـ PS4، المتصفح سيتعرف على الـ .bin ويبدأ الحقن 
+            // إذا كانت ملفات الـ Webkit موجودة في مستودعك
+        }, 2000);
+    }
+</script>
 </body>
 </html>
