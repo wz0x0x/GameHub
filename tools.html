@@ -19,30 +19,29 @@
             -webkit-backdrop-filter: blur(20px);
             border-radius: 25px;
             padding: 30px;
-            width: 90%; max-width: 1000px;
+            width: 90%; max-width: 900px;
             border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; border-bottom: 1px solid rgba(255,255,255,0.2); padding-bottom: 15px; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 15px; }
-        
-        /* تصميم كروت الأدوات بشكل فخم */
-        .tool-card {
-            background: rgba(255, 255, 255, 0.05);
-            padding: 20px 10px;
-            border-radius: 15px;
             text-align: center;
-            cursor: pointer;
+        }
+        .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; border-bottom: 1px solid rgba(255,255,255,0.2); padding-bottom: 15px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 20px; }
+        
+        .tool-card {
+            background: rgba(255, 255, 255, 0.07);
+            padding: 20px;
+            border-radius: 15px;
             border: 1px solid rgba(255, 255, 255, 0.1);
             transition: 0.3s;
+            cursor: pointer;
         }
         .tool-card:hover {
             background: #007bff;
-            transform: scale(1.05);
-            border-color: white;
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,123,255,0.4);
         }
-        .tool-card img { width: 50px; height: 50px; margin-bottom: 10px; }
-        .tool-card h3 { font-size: 0.9rem; margin: 0; text-transform: uppercase; }
-        
+        .icon { font-size: 40px; margin-bottom: 10px; display: block; }
+        .tool-card h3 { font-size: 1rem; margin: 0; }
+
         .back-btn { background: #dc3545; color: white; padding: 10px 20px; border-radius: 10px; text-decoration: none; font-weight: bold; }
     </style>
 </head>
@@ -50,28 +49,42 @@
 
 <div class="glass-panel">
     <div class="header">
-        <h1>أدوات النظام | System Tools</h1>
+        <h1>أدوات النظام المتقدمة 🛠️</h1>
         <a href="index.html" class="back-btn">رجوع</a>
     </div>
 
     <div class="grid">
-        <div class="tool-card" onclick="run('disable_update.bin')"><img src="img/tools.png"><h3>Disable Update</h3></div>
-        <div class="tool-card" onclick="run('enable_update.bin')"><img src="img/tools.png"><h3>Enable Update</h3></div>
-        <div class="tool-card" onclick="run('fan_control.bin')"><img src="img/tools.png"><h3>Fan Control</h3></div>
-        <div class="tool-card" onclick="run('history_blocker.bin')"><img src="img/tools.png"><h3>History Blocker</h3></div>
-        <div class="tool-card" onclick="run('app_dumper.bin')"><img src="img/tools.png"><h3>App Dumper</h3></div>
-        <div class="tool-card" onclick="run('kernel_dumper.bin')"><img src="img/tools.png"><h3>Kernel Dumper</h3></div>
-        <div class="tool-card" onclick="run('webrte.bin')"><img src="img/tools.png"><h3>WebRTE</h3></div>
-        <div class="tool-card" onclick="run('ps4debug.bin')"><img src="img/tools.png"><h3>PS4Debug</h3></div>
-        <div class="tool-card" onclick="run('exit_idu.bin')"><img src="img/tools.png"><h3>Exit IDU</h3></div>
-        <div class="tool-card" onclick="run('rif_renamer.bin')"><img src="img/tools.png"><h3>RIF Renamer</h3></div>
-        <div class="tool-card" onclick="run('todex.bin')"><img src="img/tools.png"><h3>ToDex</h3></div>
+        <div class="tool-card" onclick="run('ps4debug.bin')">
+            <span class="icon">🐞</span>
+            <h3>PS4 Debug</h3>
+        </div>
+
+        <div class="tool-card" onclick="run('historyblocker.bin')">
+            <span class="icon">🚫</span>
+            <h3>History Blocker</h3>
+        </div>
+
+        <div class="tool-card" onclick="run('disableupdates.bin')">
+            <span class="icon">🛑</span>
+            <h3>Disable Updates</h3>
+        </div>
+
+        <div class="tool-card" onclick="run('WebRTE.bin')">
+            <span class="icon">🎮</span>
+            <h3>WebRTE (Cheats)</h3>
+        </div>
+
+        <div class="tool-card" onclick="run('ToDex.bin')">
+            <span class="icon">🔓</span>
+            <h3>ToDex Mode</h3>
+        </div>
     </div>
 </div>
 
 <script>
     function run(file) {
         alert("جاري تفعيل الأداة: " + file);
+        // تأكد أن المجلد اسمه payloads في GitHub
         window.location.href = "./payloads/" + file;
     }
 </script>
