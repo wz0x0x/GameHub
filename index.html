@@ -65,22 +65,12 @@
 </head>
 <body>
 
-    <div class="container">
-        <h1>PS4 Jailbreak Host 9.00</h1>
-
-        <div class="grid">
-            <div class="btn" onclick="loadPayload('goldhen.bin')">تشغيل GoldHEN</div>
-            
-            <a href="pkgs.html" class="btn">برامج PKG</a>
-            
-            <div class="btn" onclick="loadPayload('ftp.bin')">FTP Server</div>
-            
-            <div class="btn" onclick="loadPayload('binloader.bin')">Bin Loader</div>
-        </div>
-
-        <div class="footer">Created by wz0x0x | 2026</div>
-    </div>
-
+   <div class="grid">
+    <div class="btn" onclick="loadPayload('goldhen.bin')">تشغيل GoldHEN</div>
+    <a href="pkgs.html" class="btn">برامج PKG</a>
+    <a href="tools.html" class="btn" style="background: rgba(0, 123, 255, 0.4);">الأدوات | Tools</a>
+    <div class="btn" onclick="loadPayload('ftp.bin')">FTP Server</div>
+</div>
     <script>
         function loadPayload(fileName) {
             console.log("Attempting to load: " + fileName);
