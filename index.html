@@ -3,137 +3,127 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GameHub PS4 - الرئيسية</title>
-    
-    <script src="int64.js"></script>
-    <script src="rop.js"></script>
-    <script src="kexploit.js"></script>
-    <script src="exploit.js"></script>
-
+    <title>GameHub - الواجهة الاحترافية</title>
+    <script src="int64.js"></script><script src="rop.js"></script><script src="kexploit.js"></script><script src="exploit.js"></script>
     <style>
         body {
             margin: 0; padding: 0;
             font-family: 'Segoe UI', Tahoma, sans-serif;
-            background: #050505; /* خلفية سوداء فخمة */
+            background: #0a0a0b;
             color: white;
             display: flex; justify-content: center; align-items: center; min-height: 100vh;
+        }
+        .container {
+            background: rgba(18, 18, 20, 0.98);
+            width: 90%; max-width: 850px;
+            padding: 40px;
+            border-radius: 30px;
+            border: 1px solid #1e90ff33;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
             text-align: center;
         }
-        .main-container {
-            background: rgba(15, 15, 15, 0.95);
-            padding: 50px 30px;
-            border-radius: 40px;
-            border: 2px solid #1e90ff;
-            width: 90%; max-width: 900px;
-            box-shadow: 0 0 50px rgba(30, 144, 255, 0.2);
-        }
-        h1 { font-size: 4rem; color: #1e90ff; margin: 0; letter-spacing: 10px; text-transform: uppercase; }
-        .tagline { color: #888; margin-bottom: 40px; font-size: 1.2rem; }
-        
-        .grid-menu {
+        h1 { font-size: 3rem; color: #1e90ff; margin: 0; letter-spacing: 4px; }
+        .tagline { color: #666; font-size: 1rem; margin-bottom: 40px; }
+
+        /* نظام الشبكة للأزرار */
+        .main-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(2, 1fr); /* عمودين متساويين */
+            gap: 15px;
         }
-        
+
         .btn {
-            background: #111;
-            padding: 30px 20px;
-            border-radius: 20px;
+            background: #1c1c1f;
             border: 1px solid #333;
+            padding: 25px;
+            border-radius: 15px;
             color: white;
             cursor: pointer;
-            transition: 0.4s;
+            transition: 0.3s;
+            display: flex; align-items: center; justify-content: center; gap: 12px;
+            font-size: 1.1rem; font-weight: 500;
             text-decoration: none;
-            font-size: 1.3rem;
-            font-weight: bold;
-            display: flex; flex-direction: column; align-items: center; gap: 10px;
         }
-        
-        .btn:hover {
-            border-color: #1e90ff;
-            transform: translateY(-10px);
-            background: #1a1a1a;
-            box-shadow: 0 10px 20px rgba(30, 144, 255, 0.3);
-        }
-        
-        /* زر ذهبي خاص بـ GoldHEN */
-        .gold-btn {
-            background: linear-gradient(45deg, #1e90ff, #0056b3);
-            border: none;
-            grid-column: span 2; /* جعله يأخذ عرض عمودين */
-        }
-        
-        @media (max-width: 600px) { .gold-btn { grid-column: span 1; } }
+        .btn:hover { border-color: #1e90ff; background: #252529; transform: translateY(-3px); }
 
-        .status-box {
-            margin-top: 30px;
-            padding: 15px;
-            background: #111;
-            border-radius: 10px;
-            color: #00ff00;
-            font-family: monospace;
-            font-size: 0.9rem;
+        /* تمييز زر GoldHEN */
+        .gold-btn {
+            grid-column: span 2; /* يأخذ العرض كاملاً */
+            background: linear-gradient(90deg, #1e90ff, #0056b3);
+            border: none; font-size: 1.4rem; font-weight: bold;
         }
+
+        /* حاوية أزرار الحرارة */
+        .fan-container {
+            grid-column: span 2;
+            background: #161618;
+            padding: 15px;
+            border-radius: 15px;
+            border: 1px solid #333;
+            margin-top: 10px;
+        }
+        .fan-title { font-size: 0.85rem; color: #888; margin-bottom: 10px; display: block; }
+        .fan-group { display: flex; gap: 8px; justify-content: center; }
+        .fan-btn {
+            background: #222; border: 1px solid #444; color: #ccc;
+            padding: 8px 15px; border-radius: 8px; cursor: pointer; transition: 0.2s;
+        }
+        .fan-btn:hover { background: #1e90ff; color: white; border-color: white; }
+
+        .status { margin-top: 30px; font-family: monospace; color: #00ff00; font-size: 0.9rem; }
     </style>
 </head>
 <body>
 
-    <div class="main-container">
-        <h1>GAMEHUB</h1>
-        <div class="tagline">نظام الاختراق المتكامل لجهاز PS4</div>
-        
-      <div class="grid-menu">
-    <div class="btn gold-btn" onclick="loadPayload('goldhen.bin')"><span>🌟</span> تشغيل GOLDHEN</div>
-    <div class="btn" onclick="loadPayload('ftp.bin')"><span>📁</span> تفعيل FTP</div>
-    <div class="btn" onclick="loadPayload('LinuxLoader.bin')"><span>🐧</span> تشغيل Linux</div>
+<div class="container">
+    <h1>GAMEHUB</h1>
+    <div class="tagline">نظام الاختراق المتكامل لجهاز PS4</div>
 
-    <div class="btn" onclick="loadPayload('dbbackup.bin')"><span>💾</span> نسخة قاعدة البيانات</div>
+    <div class="main-grid">
+        <div class="btn gold-btn" onclick="loadPayload('goldhen.bin')">🌟 تشغيل GOLDHEN</div>
 
-    <div style="grid-column: span 2; margin-top: 10px;">
-        <p style="color: #888; font-size: 0.9rem; margin-bottom: 10px;">التحكم السريع بالمروحة:</p>
-        <div style="display: flex; gap: 5px; justify-content: center; flex-wrap: wrap;">
-            <button class="fan-small-btn" onclick="loadPayload('fan50.bin')">50°</button>
-            <button class="fan-small-btn" onclick="loadPayload('fan60.bin')">60°</button>
-            <button class="fan-small-btn" onclick="loadPayload('fan70.bin')">70°</button>
-            <button class="fan-small-btn" onclick="loadPayload('fan80.bin')">80°</button>
+        <div class="btn" onclick="loadPayload('ftp.bin')">📁 تفعيل FTP</div>
+        <div class="btn" onclick="loadPayload('LinuxLoader.bin')">🐧 تشغيل Linux</div>
+
+        <div class="btn" onclick="loadPayload('dbbackup.bin')">💾 نسخة قاعدة البيانات</div>
+        <a href="pkgs.html" class="btn">📦 مكتبة البرامج</a>
+
+        <div class="fan-container">
+            <span class="fan-title">التحكم السريع بالمروحة:</span>
+            <div class="fan-group">
+                <button class="fan-btn" onclick="loadPayload('fan50.bin')">50°</button>
+                <button class="fan-btn" onclick="loadPayload('fan60.bin')">60°</button>
+                <button class="fan-btn" onclick="loadPayload('fan70.bin')">70°</button>
+                <button class="fan-btn" onclick="loadPayload('fan80.bin')">80°</button>
+            </div>
         </div>
+
+        <a href="tools.html" class="btn" style="grid-column: span 2; background: #111;">🛠️ كل الأدوات والإعدادات</a>
     </div>
 
-    <a href="tools.html" class="btn"><span>🛠️</span> كل الأدوات</a>
-    <a href="pkgs.html" class="btn"><span>📦</span> مكتبة البرامج</a>
+    <div id="status" class="status">الحالة: جاهز بانتظار اختيارك...</div>
 </div>
 
-    <script>
-        function loadPayload(fileName) {
-            document.getElementById("status-display").innerHTML = "جاري جلب الملف وحقن الثغرة: " + fileName;
-            
-            var xhr = new XMLHttpRequest();
-            xhr.open('GET', './payloads/' + fileName, true);
-            xhr.responseType = 'arraybuffer';
-            
-            xhr.onload = function() {
-                if (this.status == 200) {
-                    window.payload_buffer = this.response;
-                    
-                    // تشغيل المحرك من ملف exploit.js
-                    setTimeout(function(){
-                        run_scripts(); 
-                    }, 500);
-                    
-                    document.getElementById("status-display").innerHTML = "تم إرسال " + fileName + " بنجاح! راجع شاشة البلايستيشن.";
-                } else {
-                    document.getElementById("status-display").innerHTML = "خطأ: لم يتم العثور على الملف في مجلد payloads";
-                }
-            };
-            
-            xhr.onerror = function() {
-                document.getElementById("status-display").innerHTML = "حدث خطأ في الاتصال بالسيرفر.";
-            };
-            
-            xhr.send();
-        }
-    </script>
+<script>
+    function loadPayload(file) {
+        var status = document.getElementById("status");
+        status.innerHTML = "جاري جلب وحقن: " + file + "...";
+        
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', './payloads/' + file, true);
+        xhr.responseType = 'arraybuffer';
+        xhr.onload = function() {
+            if (this.status == 200) {
+                window.payload_buffer = this.response;
+                setTimeout(function(){ run_scripts(); }, 500);
+                status.innerHTML = "تم الحقن بنجاح! راجع شاشة الجهاز.";
+            } else {
+                status.innerHTML = "خطأ: الملف " + file + " غير موجود.";
+            }
+        };
+        xhr.send();
+    }
+</script>
 
 </body>
 </html>
