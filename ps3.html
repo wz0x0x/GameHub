@@ -34,6 +34,7 @@
     </div>
     <div id="ps3-section" class="button-list active">
   <div class="glass-container">
+      
     <div class="section-header" style="color: #ff4444;">أدوات النظام (PS3 Tools)</div>
     <div class="main-grid">
         <button class="btn" onclick="executeCommand('/mount_ps3/dev_hdd0/game/BLES80608/USRDIR/RELOAD.SELF')">تشغيل MultiMan</button>
@@ -41,46 +42,46 @@
         <button class="btn" onclick="executeCommand('/mount_ps3/dev_hdd0/game/BLES00808/USRDIR/RELOAD.SELF')">مدير الملفات IrisMan</button>
     </div>
 
-    <div class="section-header" style="color: #00ff00;">تثبيت أدوات النظام (Direct Install)</div>
-    <div class="main-grid">
-        <button class="btn" onclick="installPkg('https://github.com/aldostools/webman-mod/releases/latest/download/webMAN_MOD_1.47.45_Installer.pkg')">تثبيت WebMAN</button>
-        <button class="btn" onclick="installPkg('https://github.com/bucanero/ArtemisPS3/releases/download/v1.2.0/ArtemisPS3.pkg')">تثبيت Artemis (الغش)</button>
-    </div>
+  <div class="main-grid">
+    <div class="section-header" style="color: #ff4444;">أدوات النظام</div>
+    <button class="btn" onclick="executePS3('/mount_ps3/dev_hdd0/game/BLES80608/USRDIR/RELOAD.SELF')">تشغيل MultiMan</button>
+    <button class="btn" onclick="executePS3('/setup.ps3')">إعدادات WebMan</button>
+    <button class="btn" onclick="executePS3('/mount_ps3/dev_hdd0/game/BLES00808/USRDIR/RELOAD.SELF')">مدير الملفات IrisMan</button>
 
-    <div class="section-header" style="color: #1e90ff;">تشغيل مودات الألعاب (HDD Direct)</div>
-    <div class="main-grid">
-        <button class="btn" onclick="executeCommand('/plugin.ps3?load=/dev_hdd0/tmp/gtav_menu.sprx')">تفعيل مود GTA V</button>
-        <button class="btn" onclick="executeCommand('/plugin.ps3?load=/dev_hdd0/plugins/bo2_menu.sprx')">تفعيل مود BO2</button>
-        <button class="btn" onclick="executeCommand('/plugin.ps3?load=/dev_hdd0/plugins/mw3_menu.sprx')">تفعيل مود MW3</button>
-    </div>
+    <div class="section-header" style="color: #1e90ff;">تشغيل مودات الألعاب (HDD)</div>
+    <button class="btn" onclick="executePS3('/plugin.ps3?load=/dev_hdd0/tmp/gtav_menu.sprx')">تفعيل مود GTA V</button>
+    <button class="btn" onclick="executePS3('/plugin.ps3?load=/dev_hdd0/plugins/bo2_menu.sprx')">تفعيل مود BO2</button>
+    <button class="btn" onclick="executePS3('/plugin.ps3?load=/dev_hdd0/plugins/mw3_menu.sprx')">تفعيل مود MW3</button>
+
+    <div class="section-header" style="color: #00ff00;">تثبيت برامج (Direct Install)</div>
+    <button class="btn" onclick="quickInstall('https://github.com/aldostools/webman-mod/releases/latest/download/webMAN_MOD_1.47.45_Installer.pkg')">تثبيت WebMAN</button>
 </div>
 
 <script>
-// دالة إرسال الأوامر العامة للنظام والمودات
-function executeCommand(cmd) {
-    logActivity("جاري إرسال الأمر: " + cmd);
-    // التواصل مع WebMan عبر الـ IP المحلي للجهاز
-    var url = "http://127.0.0.1" + cmd;
-    var img = new Image();
-    img.src = url;
+// هذه الدالة هي اللي تربط الزر بالنظام
+function executePS3(command) {
+    // 127.0.0.1 هو عنوان جهاز البلايستيشن داخلياً
+    var url = "http://127.0.0.1" + command;
     
-    img.onload = function() { logActivity("تم التنفيذ بنجاح ✅"); };
-    img.onerror = function() { logActivity("تم إرسال الطلب للجهاز"); };
+    // إرسال الطلب في الخلفية
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", url, true);
+    
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState == 4) {
+            // تحديث نص الحالة في الهوست
+            var statusDiv = document.getElementById("activity");
+            if(statusDiv) statusDiv.innerText = "> تم تنفيذ الأمر: " + command;
+        }
+    };
+    xhr.send();
 }
 
-// دالة التثبيت المباشر لملفات PKG
-function installPkg(url) {
-    logActivity("جاري تحميل وتثبيت الملف...");
-    var installUrl = "http://127.0.0.1/install.ps3?url=" + url;
-    var img = new Image();
-    img.src = installUrl;
-    alert("بدأ التحميل! راجع قائمة Package Manager في الجهاز");
-}
-
-// دالة لتحديث نص الحالة في أسفل الهوست
-function logActivity(msg) {
-    var status = document.getElementById("activity");
-    if(status) status.innerText = "> " + msg;
+// دالة التثبيت المباشر
+function quickInstall(pkgUrl) {
+    var installCommand = "/install.ps3?url=" + pkgUrl;
+    executePS3(installCommand);
+    alert("بدأ التحميل والتثبيت في البلايستيشن! راجع التنبيهات في جهازك.");
 }
 </script>
     
