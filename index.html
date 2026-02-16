@@ -3,122 +3,56 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GameHub Host - Home</title>
-    
+    <title>GameHub PS4 Host</title>
     <script src="int64.js"></script>
     <script src="rop.js"></script>
     <script src="kexploit.js"></script>
     <script src="exploit.js"></script>
-
     <style>
-        body {
-            margin: 0; padding: 0;
-            font-family: 'Segoe UI', sans-serif;
-            background: url('img/background.jpg') no-repeat center center fixed;
-            background-size: cover;
-            color: white;
-            display: flex; justify-content: center; align-items: center; min-height: 100vh;
-        }
-        .main-panel {
-            background: rgba(0, 0, 0, 0.85);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border-radius: 30px;
-            padding: 40px;
-            width: 90%; max-width: 900px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            text-align: center;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.9);
-        }
-        h1 { font-size: 2.5rem; margin-bottom: 30px; color: #007bff; text-shadow: 0 0 15px rgba(0,123,255,0.5); }
-        
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-        }
-        .btn {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 25px;
-            border-radius: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            color: white;
-            cursor: pointer;
-            transition: 0.4s;
-            font-weight: bold;
-            font-size: 1.2rem;
-            text-decoration: none;
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
-        }
-        .btn:hover {
-            background: #007bff;
-            border-color: white;
-            transform: translateY(-10px);
-            box-shadow: 0 10px 20px rgba(0,123,255,0.4);
-        }
-        .status { margin-top: 30px; font-size: 1.1rem; color: #aaa; }
+        body { margin: 0; padding: 0; font-family: 'Segoe UI', sans-serif; background: #0f0f0f; color: white; display: flex; justify-content: center; align-items: center; min-height: 100vh; text-align: center; }
+        .container { background: rgba(20, 20, 20, 0.95); padding: 50px; border-radius: 30px; border: 2px solid #1e90ff; width: 85%; box-shadow: 0 0 30px rgba(30, 144, 255, 0.3); }
+        h1 { font-size: 3rem; color: #1e90ff; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 5px; }
+        .subtitle { color: #888; margin-bottom: 40px; font-size: 1.2rem; }
+        .menu-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 25px; }
+        .main-btn { background: linear-gradient(45deg, #1e90ff, #00bfff); padding: 30px; border-radius: 20px; cursor: pointer; text-decoration: none; color: white; font-weight: bold; font-size: 1.5rem; border: none; transition: 0.3s; }
+        .main-btn:hover { transform: translateY(-10px); box-shadow: 0 10px 20px rgba(30, 144, 255, 0.5); }
+        .tools-link { background: #222; border: 1px solid #444; }
+        .status-bar { margin-top: 30px; padding: 15px; background: #1a1a1a; border-radius: 10px; color: #00ff00; font-family: monospace; }
     </style>
 </head>
 <body>
-
-<div class="main-panel">
-    <h1>GameHub HOST v1.0 🚀</h1>
-    
-    <div class="grid">
-        <div class="btn" onclick="loadPayload('goldhen.bin')">
-            <span>🌟</span>
-            <br>GoldHEN v2.4
+    <div class="container">
+        <h1>GAMEHUB</h1>
+        <div class="subtitle">نظام تشغيل الثغرات المتكامل</div>
+        
+        <div class="menu-grid">
+            <button class="main-btn" onclick="injectPayload('goldhen.bin')">تشغيل GOLDHEN</button>
+            
+            <a href="tools.html" class="main-btn tools-link">الأدوات المتقدمة</a>
+            
+            <a href="pkgs.html" class="main-btn tools-link">مكتبة PKG</a>
         </div>
 
-        <a href="tools.html" class="btn">
-            <span>🛠️</span>
-            <br>الأدوات | Tools
-        </a>
-
-        <a href="pkgs.html" class="btn">
-            <span>📦</span>
-            <br>برامج | PKGS
-        </a>
+        <div id="display" class="status-bar">الحالة: جاهز للإرسال...</div>
     </div>
 
-    <div id="status-bar" class="status">مرحبا بكم في هوستنا المتواضع</div>
-</div>
-
-<script>
-    function loadPayload(fileName) {
-        document.getElementById("status-bar").innerHTML = "جاري كسر حماية النظام وحقن " + fileName + "...";
-        
-        var path = "./payloads/" + fileName;
-        var xhr = new XMLHttpRequest();
-        xhr.open('GET', path, true);
-        xhr.responseType = 'arraybuffer';
-        xhr.onload = function(e) {
-            if (this.status == 200) {
-                // وضع الملف في الذاكرة المخصصة للثغرة (تعريف الـ Buffer)
-                window.payload_buffer = this.response;
-                
-                // تشغيل وظيفة الـ Exploit الموجودة في الملفات الخارجية
-                setTimeout(function(){
-                    run_scripts(); 
-                }, 1000);
-                
-                document.getElementById("status-bar").innerHTML = "تم إرسال الملف! انتظر ظهور الإشعار على الشاشة.";
-            } else {
-                alert("خطأ: لم يتم العثور على ملف " + fileName + " في مجلد payloads.");
-            }
-        };
-        xhr.send();
-    }
-
-    // وظيفة تلقائية عند فتح الموقع (اختياري لتهيئة الكاش)
-    window.onload = function() {
-        if(window.applicationCache) {
-            window.applicationCache.addEventListener('updateready', function() {
-                window.location.reload();
-            });
+    <script>
+        function injectPayload(fileName) {
+            document.getElementById("display").innerHTML = "جاري الاتصال بالنظام وحقن: " + fileName;
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', './payloads/' + fileName, true);
+            xhr.responseType = 'arraybuffer';
+            xhr.onload = function() {
+                if (this.status == 200) {
+                    window.payload_buffer = this.response; // تخزين الملف للحقن
+                    setTimeout(run_scripts, 500); // استدعاء المحرك من ملف exploit.js
+                    document.getElementById("display").innerHTML = "تم الحقن بنجاح! انتظر إشعار الجهاز.";
+                } else {
+                    document.getElementById("display").innerHTML = "خطأ: تأكد من وجود ملف " + fileName + " في payloads";
+                }
+            };
+            xhr.send();
         }
-    };
-</script>
-
+    </script>
 </body>
 </html>
