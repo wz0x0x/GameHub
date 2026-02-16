@@ -58,7 +58,40 @@
     
     <button class="btn" onclick="triggerPS3Mod('/dev_hdd0/plugins/bo2_cheats.sprx')">تفعيل مود BO2</button>
 </div>
+<div class="main-grid">
+    <div class="section-header" style="color: #00ff00;">تثبيت أدوات النظام (Direct Install)</div>
+    <button class="btn" onclick="installPkg('https://github.com/aldostools/webman-mod/releases/latest/download/webMAN_MOD_1.47.45_Installer.pkg')">تثبيت WebMAN (أساسي)</button>
+    <button class="btn" onclick="installPkg('رابط_ملف_الأرتيمس_هنا.pkg')">تثبيت برنامج الغش (Artemis)</button>
 
+    <div class="section-header" style="color: #1e90ff;">تشغيل مودات الألعاب (HDD Direct)</div>
+    <button class="btn" onclick="triggerPS3Mod('/dev_hdd0/tmp/gtav_menu.sprx')">تشغيل مود GTA V</button>
+    <button class="btn" onclick="triggerPS3Mod('/dev_hdd0/plugins/bo2_menu.sprx')">تشغيل مود BO2</button>
+    <button class="btn" onclick="triggerPS3Mod('/dev_hdd0/plugins/mw3_menu.sprx')">تشغيل مود MW3</button>
+</div>
+
+<script>
+// دالة التثبيت المباشر (تعتمد على وجود WebMAN عند المستخدم)
+function installPkg(pkgUrl) {
+    logActivity("جاري إرسال أمر التثبيت للجهاز...");
+    // هذا الأمر يخبر الويبمان بتحميل وتثبيت الملف مباشرة
+    var command = "http://127.0.0.1/install.ps3?url=" + pkgUrl;
+    
+    var img = new Image();
+    img.src = command;
+    img.onload = function() { alert("بدأ التثبيت! تحقق من قائمة (Package Manager) في جهازك."); };
+}
+
+// دالة تشغيل المود من الهاردسك
+function triggerPS3Mod(path) {
+    logActivity("جاري تفعيل المود من المسار: " + path);
+    var command = "http://127.0.0.1/plugin.ps3?load=" + path;
+    
+    var img = new Image();
+    img.src = command;
+    logActivity("تم إرسال أمر التفعيل ✅");
+}
+</script>
+    
 <script>
 function triggerPS3Mod(pluginPath) {
     logActivity("جاري إرسال أمر التفعيل للجهاز...");
