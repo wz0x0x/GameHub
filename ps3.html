@@ -1,136 +1,115 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GameHub - PS3 Gateway</title>
+    <title>GameHub PS3 - Optimized</title>
     <style>
-        body { margin: 0; padding: 20px; font-family: 'Segoe UI', sans-serif; background: #050505; color: white; text-align: center; }
-        .container { max-width: 800px; margin: auto; padding-top: 50px; }
-        h1 { color: #ff4444; text-shadow: 0 0 15px rgba(255,68,68,0.4); font-size: 2.5rem; }
-        .info-card { background: #111; border: 1px solid #333; padding: 20px; border-radius: 15px; margin-bottom: 30px; color: #888; }
-        .ps3-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; }
-        .ps3-btn { background: #1a1a1a; border: 1px solid #444; padding: 25px; border-radius: 12px; color: white; text-decoration: none; transition: 0.3s; font-weight: bold; }
-        .ps3-btn:hover { border-color: #ff4444; background: #251010; transform: translateY(-5px); box-shadow: 0 5px 15px rgba(255,68,68,0.2); }
-        .back-link { margin-top: 40px; display: inline-block; color: #666; text-decoration: none; border-bottom: 1px solid #333; }
+        /* نظام ألوان متوافق مع شاشات التلفزيون القديمة والجديدة */
+        body { 
+            background-color: #0a0a0a; 
+            color: white; 
+            font-family: Arial, sans-serif; /* الخطوط الأساسية أفضل للـ PS3 */
+            text-align: center; 
+            margin: 0; padding: 20px;
+        }
+
+        h2 { color: #1e90ff; text-shadow: 2px 2px black; margin-bottom: 10px; }
+
+        /* حاوية الأزرار - نظام قديم (Table-like) لضمان عدم التداخل */
+        .container { 
+            width: 95%; 
+            margin: auto; 
+            background: #151515; 
+            border: 2px solid #333; 
+            padding: 15px; 
+            border-radius: 10px;
+        }
+
+        .section-title { 
+            background: #222; 
+            padding: 10px; 
+            margin: 20px 0 10px 0; 
+            border-right: 8px solid #1e90ff; 
+            font-weight: bold;
+            font-size: 1.2rem;
+            text-align: right;
+        }
+
+        /* تصميم الأزرار - بدون فليكس بوكس عشان ما تطلع فوق بعض */
+        .btn { 
+            display: inline-block; /* الطريقة الآمنة للـ PS3 */
+            width: 44%; 
+            margin: 5px; 
+            padding: 20px 5px; 
+            background: #333; 
+            color: white; 
+            text-decoration: none; 
+            border: 2px solid #444; 
+            border-radius: 8px; 
+            font-size: 1.1rem; 
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .btn:hover { background: #1e90ff; border-color: white; }
+        .btn-green { border-color: #00ff00; color: #00ff00; }
+        .btn-red { border-color: #ff4444; color: #ff4444; }
+
+        #status-box { 
+            margin-top: 20px; 
+            padding: 10px; 
+            background: #000; 
+            border: 1px dashed #555; 
+            color: #00ff00; 
+            font-family: monospace;
+        }
     </style>
 </head>
 <body>
+
+    <h2>مركز تحكم GameHub PS3</h2>
+
     <div class="container">
-        <h1>PS3XPLOIT GATEWAY 🕹️</h1>
-        <div class="info-card">
-            أنت الآن تنتقل إلى أدوات اختراق جهاز PS3. اختر الوجهة المطلوبة للبدء في عملية التعديل.
-        </div>
         
-       <div class="ps3-grid">
-    <a href="https://ps3xploit.me/hen/filler.html" class="ps3-btn" onclick="logActivity('Launching PS3 HEN Auto-Installer...')">🚀 تفعيل PS3 HEN</a>
-    
-    <a href="https://ps3xploit.me/bgtoolset/" class="ps3-btn" onclick="logActivity('Initializing PS3 Toolset...')">🛠️ PS3 Toolset (CFW)</a>
-    
-    <a href="https://ps3xploit.me/index.html" class="ps3-btn" onclick="logActivity('Opening Official PS3Xploit Portal...')">🌐 الموقع الرسمي الكامل</a>
-</div>
+        <div class="section-title" style="border-color: #ff4444;">أدوات النظام</div>
+        <button class="btn" onclick="exe('/mount_ps3/dev_hdd0/game/BLES80608/USRDIR/RELOAD.SELF')">MultiMan</button>
+        <button class="btn" onclick="exe('/setup.ps3')">إعدادات WebMan</button>
 
-        <a href="index.html" class="back-link">العودة إلى GameHub PS4</a>
+        <div class="section-title" style="border-color: #00ff00;">تثبيت مباشر (PKG)</div>
+        <button class="btn btn-green" onclick="ins('https://github.com/aldostools/webman-mod/releases/latest/download/webMAN_MOD_1.47.45_Installer.pkg')">تثبيت WebMan</button>
+        <button class="btn btn-green" onclick="ins('https://github.com/bucanero/ArtemisPS3/releases/download/v1.2.0/ArtemisPS3.pkg')">تثبيت Artemis</button>
+
+        <div class="section-title" style="border-color: #1e90ff;">تشغيل مودات HDD</div>
+        <button class="btn" onclick="exe('/plugin.ps3?load=/dev_hdd0/tmp/LTS.sprx')">مود GTA V</button>
+        <button class="btn" onclick="exe('/plugin.ps3?load=/dev_hdd0/plugins/BO2.sprx')">مود BO2</button>
+        <button class="btn" onclick="exe('/plugin.ps3?load=/dev_hdd0/tmp/MW3.sprx')">مود MW3</button>
+
+        <div class="section-title" style="border-color: #aaaaaa;">الصيانة</div>
+        <button class="btn btn-red" onclick="exe('/cpursx.ps3')">حرارة الجهاز</button>
+        <button class="btn btn-red" onclick="exe('/reboot.ps3')">إعادة تشغيل</button>
+
     </div>
-    <div id="ps3-section" class="button-list active">
-  <div class="glass-container">
-      
-    <div class="section-header" style="color: #ff4444;">أدوات النظام (PS3 Tools)</div>
-    <div class="main-grid">
-        <button class="btn" onclick="executeCommand('/mount_ps3/dev_hdd0/game/BLES80608/USRDIR/RELOAD.SELF')">تشغيل MultiMan</button>
-        <button class="btn" onclick="executeCommand('/setup.ps3')">إعدادات WebMan</button>
-        <button class="btn" onclick="executeCommand('/mount_ps3/dev_hdd0/game/BLES00808/USRDIR/RELOAD.SELF')">مدير الملفات IrisMan</button>
-    </div>
 
-  <div class="main-grid">
-    <div class="section-header" style="color: #ff4444;">أدوات النظام</div>
-    <button class="btn" onclick="executePS3('/mount_ps3/dev_hdd0/game/BLES80608/USRDIR/RELOAD.SELF')">تشغيل MultiMan</button>
-    <button class="btn" onclick="executePS3('/setup.ps3')">إعدادات WebMan</button>
-    <button class="btn" onclick="executePS3('/mount_ps3/dev_hdd0/game/BLES00808/USRDIR/RELOAD.SELF')">مدير الملفات IrisMan</button>
+    <div id="status-box">الحالة: جاهز لإرسال الأوامر</div>
 
-    <div class="section-header" style="color: #1e90ff;">تشغيل مودات الألعاب (HDD)</div>
-    <button class="btn" onclick="executePS3('/plugin.ps3?load=/dev_hdd0/tmp/gtav_menu.sprx')">تفعيل مود GTA V</button>
-    <button class="btn" onclick="executePS3('/plugin.ps3?load=/dev_hdd0/plugins/bo2_menu.sprx')">تفعيل مود BO2</button>
-    <button class="btn" onclick="executePS3('/plugin.ps3?load=/dev_hdd0/plugins/mw3_menu.sprx')">تفعيل مود MW3</button>
+    <script>
+        function log(m) { document.getElementById("status-box").innerHTML = "الحالة: " + m; }
 
-    <div class="section-header" style="color: #00ff00;">تثبيت برامج (Direct Install)</div>
-    <button class="btn" onclick="quickInstall('https://github.com/aldostools/webman-mod/releases/latest/download/webMAN_MOD_1.47.45_Installer.pkg')">تثبيت WebMAN</button>
-</div>
-
-<script>
-// هذه الدالة هي اللي تربط الزر بالنظام
-function executePS3(command) {
-    // 127.0.0.1 هو عنوان جهاز البلايستيشن داخلياً
-    var url = "http://127.0.0.1" + command;
-    
-    // إرسال الطلب في الخلفية
-    var xhr = new XMLHttpRequest();
-    xhr.open("GET", url, true);
-    
-    xhr.onreadystatechange = function() {
-        if (xhr.readyState == 4) {
-            // تحديث نص الحالة في الهوست
-            var statusDiv = document.getElementById("activity");
-            if(statusDiv) statusDiv.innerText = "> تم تنفيذ الأمر: " + command;
+        function exe(cmd) {
+            log("جاري التفعيل...");
+            var img = new Image();
+            img.src = "http://127.0.0.1" + cmd;
+            img.onload = function() { log("تم التنفيذ ✅"); };
+            img.onerror = function() { log("تم إرسال الأمر"); };
         }
-    };
-    xhr.send();
-}
 
-// دالة التثبيت المباشر
-function quickInstall(pkgUrl) {
-    var installCommand = "/install.ps3?url=" + pkgUrl;
-    executePS3(installCommand);
-    alert("بدأ التحميل والتثبيت في البلايستيشن! راجع التنبيهات في جهازك.");
-}
-</script>
-    
-<script>
-function triggerPS3Mod(pluginPath) {
-    logActivity("جاري إرسال أمر التفعيل للجهاز...");
-    
-    // ملاحظة: IP الجهاز غالباً يكون localhost إذا كنت تتصفح من البلايستيشن نفسه
-    var ps3IP = "127.0.0.1"; 
-    
-    // هذا هو "الأمر السحري" الذي يفعله الويبمان
-    var commandUrl = "http://" + ps3IP + "/plugin.ps3?load=" + pluginPath;
+        function ins(url) {
+            log("بدأ التثبيت...");
+            var img = new Image();
+            img.src = "http://127.0.0.1/install.ps3?url=" + url;
+            alert("بدأ التحميل! تفقد قائمة Package Manager");
+        }
+    </script>
 
-    // إرسال الأمر في الخلفية بدون مغادرة الصفحة
-    var img = new Image();
-    img.src = commandUrl; 
-    
-    img.onload = function() {
-        logActivity("تم إرسال الأمر بنجاح ✅ (تأكد من وجود الملف في الهارد)");
-    };
-    img.onerror = function() {
-        // حتى لو أعطى خطأ، غالباً الأمر يصل للجهاز
-        logActivity("تم تنفيذ الأمر! تحقق من شاشة الجهاز");
-    };
-}
-</script>
-    
-<script>
-function executePS3Command(path) {
-    logActivity("جاري إرسال أمر التشغيل...");
-    // هذا الرابط يكلم الـ WebMan مباشرة ليقوم بتحميل المود
-    window.location.href = "http://localhost/plugin.ps3?load=" + path;
-}
-</script>
-    
-<script>
-    // إضافة خلفيات سينمائية خاصة بـ PS3
-    function changeBgPS3(type) {
-        let body = document.getElementById('mainBody');
-        if(type === 'gta_ps3') body.style.background = "linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url('https://gamingbolt.com/wp-content/uploads/2013/09/gta-5-ps3.jpg') center/cover";
-        if(type === 'bo2') body.style.background = "linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url('https://images8.alphacoders.com/463/463174.jpg') center/cover";
-    }
-    
-    // دالة خاصة لحقن ملفات PS3 (تأكد من وجود المجلد payloads/ps3/)
-    function loadPS3Payload(file) {
-        logActivity("جاري إرسال أداة PS3: " + file);
-        // هنا نستخدم نفس منطق الحقن السابق
-        loadPayload('ps3/' + file); 
-    }
-</script>
 </body>
 </html>
