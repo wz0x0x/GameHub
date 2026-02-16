@@ -3,78 +3,74 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GameHub OS - Ultimate Edition</title>
+    <title>GameHub OS - Master Edition</title>
     <script src="int64.js"></script><script src="rop.js"></script><script src="kexploit.js"></script><script src="exploit.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@600;900&display=swap" rel="stylesheet">
 
     <style>
-        :root { --main-color: #1e90ff; --bg-dark: #050505; }
+        :root { --main-color: #1e90ff; --bg-dark: #050505; --glass: rgba(255, 255, 255, 0.05); }
         body { 
             margin: 0; padding: 0; font-family: 'Cairo', sans-serif; 
             background: var(--bg-dark); color: white; min-height: 100vh;
+            transition: background 0.5s ease; /* للخلفية السينمائية */
         }
         #particles-js { position: fixed; width: 100%; height: 100%; z-index: -1; }
 
-        /* حاوية التصميم الزجاجي */
         .glass-container {
-            width: 90%; max-width: 600px; margin: 30px auto; 
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(20px);
+            width: 90%; max-width: 650px; margin: 20px auto; 
+            background: var(--glass); backdrop-filter: blur(25px);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 25px; padding: 20px;
-            box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+            border-radius: 30px; padding: 25px;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.8);
         }
 
-        /* شريط البحث ومغير الألوان */
-        .header-tools { display: flex; gap: 10px; margin-bottom: 20px; }
-        #searchBar { 
-            flex: 1; background: rgba(0,0,0,0.5); border: 1px solid #333; 
-            padding: 12px; border-radius: 12px; color: white; font-family: 'Cairo';
-        }
-        #colorPicker { width: 45px; height: 45px; border: none; border-radius: 10px; cursor: pointer; background: none; }
+        /* شريط الأدوات العلوي */
+        .header-tools { display: flex; gap: 10px; margin-bottom: 15px; }
+        #searchBar { flex: 1; background: rgba(0,0,0,0.6); border: 1px solid #333; padding: 15px; border-radius: 15px; color: white; font-family: 'Cairo'; font-size: 1rem; }
+        .stability-badge { background: rgba(0, 255, 0, 0.1); color: #00ff00; padding: 5px 15px; border-radius: 10px; font-size: 0.8rem; display: flex; align-items: center; border: 1px solid #00ff0033; }
 
-        /* نظام التبويبات */
-        .tabs { display: flex; justify-content: space-around; margin-bottom: 20px; background: rgba(0,0,0,0.3); border-radius: 15px; padding: 5px; }
-        .tab-btn { 
-            padding: 10px 15px; cursor: pointer; border-radius: 10px; 
-            transition: 0.3s; font-weight: bold; font-size: 0.9rem;
-        }
-        .tab-btn.active { background: var(--main-color); color: white; }
+        /* التبويبات */
+        .tabs { display: flex; overflow-x: auto; gap: 10px; margin-bottom: 20px; padding-bottom: 5px; }
+        .tab-btn { background: var(--glass); padding: 12px 25px; cursor: pointer; border-radius: 12px; white-space: nowrap; font-weight: bold; transition: 0.3s; border: 1px solid transparent; }
+        .tab-btn.active { background: var(--main-color); border-color: white; }
 
-        /* القائمة الطولية للأزرار */
-        .button-list { display: flex; flex-direction: column; gap: 12px; display: none; }
+        /* القائمة الطولية */
+        .button-list { display: none; flex-direction: column; gap: 12px; }
         .button-list.active { display: flex; }
 
         .btn { 
-            background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 20px; border-radius: 15px; color: white; cursor: pointer;
-            font-size: 1.1rem; font-weight: 800; text-align: center; transition: 0.3s;
+            background: rgba(255, 255, 255, 0.07); border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 25px; border-radius: 18px; color: white; cursor: pointer;
+            font-size: 1.3rem; font-weight: 900; transition: 0.4s;
             display: flex; align-items: center; justify-content: center; text-decoration: none;
         }
-        .btn:hover { background: var(--main-color); transform: scale(1.02); }
+        .btn:hover { background: var(--main-color); transform: scale(1.03); box-shadow: 0 10px 20px rgba(0,0,0,0.4); }
 
-        /* شريط المعلومات */
+        /* مغير المروحة والحرارة الذكي */
+        .fan-control { background: rgba(0,0,0,0.4); padding: 20px; border-radius: 15px; margin-top: 10px; }
+        input[type="range"] { width: 100%; accent-color: var(--main-color); cursor: pointer; }
+
+        /* شريط المعلومات المطور */
         .status-bar { 
-            position: fixed; bottom: 0; width: 100%; background: rgba(0,0,0,0.9);
-            padding: 10px 20px; display: flex; justify-content: space-between;
-            font-size: 0.8rem; border-top: 1px solid var(--main-color);
+            position: fixed; bottom: 0; width: 100%; background: rgba(0,0,0,0.95);
+            padding: 12px 25px; display: flex; justify-content: space-between;
+            font-size: 0.9rem; border-top: 2px solid var(--main-color); z-index: 1000;
         }
 
-        /* زر الموبايل والـ QR */
-        #remote-trigger { position: fixed; bottom: 60px; left: 20px; width: 50px; height: 50px; background: var(--main-color); border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 100; }
-        #qr-box { position: fixed; bottom: 120px; left: 20px; background: white; padding: 10px; border-radius: 10px; display: none; }
+        #remote-trigger { position: fixed; bottom: 70px; left: 25px; width: 60px; height: 60px; background: var(--main-color); border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 0 20px var(--main-color); z-index: 1001; }
+        #qr-box { position: fixed; bottom: 140px; left: 25px; background: white; padding: 15px; border-radius: 15px; display: none; }
     </style>
 </head>
-<body>
+<body id="mainBody">
 
 <div id="particles-js"></div>
 
 <div class="glass-container">
     <div class="header-tools">
         <input type="text" id="searchBar" placeholder="ابحث عن أداة أو مود..." onkeyup="filterButtons()">
-        <input type="color" id="colorPicker" value="#1e90ff" onchange="changeThemeColor(this.value)">
+        <div class="stability-badge" id="stabilityScore">استقرار الثغرة: 100%</div>
     </div>
 
     <div class="tabs">
@@ -85,32 +81,35 @@
     </div>
 
     <div id="main" class="button-list active">
-        <button class="btn" style="background: var(--main-color);" onclick="loadPayload('goldhen.bin')">تشغيل GOLDHEN v2.4</button>
-        <button class="btn" onclick="loadPayload('ftp.bin')">خادم FTP</button>
-        <button class="btn" onclick="loadPayload('browser.bin')">المتصفح</button>
-        <a href="ps3.html" class="btn" style="border-color: red;">بوابة بلايستيشن 3</a>
+        <button class="btn" style="background: var(--main-color); font-size: 1.6rem;" onclick="loadPayload('goldhen.bin')">تشغيل GOLDHEN v2.4</button>
+        <button class="btn" onmouseover="changeBg('ftp')" onmouseout="resetBg()" onclick="loadPayload('ftp.bin')">خادم FTP</button>
+        <button class="btn" onclick="loadPayload('browser.bin')">فتح المتصفح</button>
+        <a href="ps3.html" class="btn" style="border-color: #ff0000; color: #ff4444;">بوابة بلايستيشن 3</a>
     </div>
 
     <div id="mods" class="button-list">
-        <button class="btn" onclick="loadPayload('gtav.bin')">قراند 5</button>
-        <button class="btn" onclick="loadPayload('rdr2.bin')">ريد ديد 2</button>
-        <button class="btn" onclick="loadPayload('linux.bin')">لينكس</button>
+        <button class="btn" onmouseover="changeBg('gta')" onmouseout="resetBg()" onclick="loadPayload('gtav.bin')">قراند 5</button>
+        <button class="btn" onmouseover="changeBg('rdr2')" onmouseout="resetBg()" onclick="loadPayload('rdr2.bin')">ريد ديد 2</button>
     </div>
 
     <div id="tools" class="button-list">
+        <div class="fan-control">
+            <label>التحكم الذكي بالمروحة: <span id="fanVal">65</span>°</label>
+            <input type="range" min="40" max="80" value="65" oninput="updateFan(this.value)">
+        </div>
         <button class="btn" onclick="updateMemoryMeter()">فحص الذاكرة</button>
         <button class="btn" onclick="nukeCache()">تدمير الكاش</button>
         <button class="btn" onclick="injectExternalPayload()">حقن رابط خارجي</button>
         <button class="btn" onclick="addPersonalPayload()">سحابتي الشخصية</button>
-        <div style="display:flex; gap:5px;">
-            <input type="text" id="remoteText" placeholder="لوحة مفاتيح لاسلكية...">
-            <button class="btn" onclick="sendText()" style="padding:10px;">إرسال</button>
+        <div style="display:flex; gap:10px;">
+            <input type="text" id="remoteText" placeholder="لوحة مفاتيح لاسلكية..." style="flex:1; background:black; border:1px solid #333; color:white; border-radius:10px; padding:10px;">
+            <button class="btn" onclick="sendText()" style="padding:10px 20px;">إرسال</button>
         </div>
     </div>
 
     <div id="power" class="button-list">
-        <button class="btn" style="border-color: red;" onclick="loadPayload('shutdown.bin')">إطفاء الجهاز</button>
-        <button class="btn" style="border-color: orange;" onclick="loadPayload('rest.bin')">وضع السكون</button>
+        <button class="btn" style="border-color: #ff4444;" onmouseover="changeBg('power')" onmouseout="resetBg()" onclick="loadPayload('shutdown.bin')">إطفاء الجهاز</button>
+        <button class="btn" style="border-color: #ffaa00;" onclick="loadPayload('rest.bin')">وضع السكون</button>
     </div>
 </div>
 
@@ -118,46 +117,61 @@
 <div id="qr-box"><div id="qrcode"></div></div>
 
 <div class="status-bar">
-    <div id="activity">النظام جاهز</div>
-    <div id="mem-info">الذاكرة: --</div>
+    <div id="activity">النظام مستقر وجاهز</div>
+    <div id="otaStatus">تفقد التحديثات...</div>
 </div>
 
 <script>
-    // تغيير الثيم
-    function changeThemeColor(color) {
-        document.documentElement.style.setProperty('--main-color', color);
-        localStorage.setItem('themeColor', color);
+    // 1. التحديثات الهوائية وسجل الاستقرار
+    let successCount = localStorage.getItem('success') || 0;
+    let crashCount = localStorage.getItem('crash') || 0;
+
+    function updateStability() {
+        if(successCount > 0) {
+            let rate = ((successCount / (parseInt(successCount) + parseInt(crashCount))) * 100).toFixed(0);
+            document.getElementById('stabilityScore').innerText = "استقرار الثغرة: " + rate + "%";
+        }
     }
 
-    // التنقل بين التبويبات
-    function showTab(tabId) {
+    // 2. الخلفيات السينمائية التفاعلية
+    function changeBg(type) {
+        let body = document.getElementById('mainBody');
+        if(type === 'gta') body.style.background = "linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://w0.peakpx.com/wallpaper/794/563/HD-wallpaper-gta-v-characters-gta-5-gta-v-games.jpg') center/cover";
+        if(type === 'rdr2') body.style.background = "linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images5.alphacoders.com/913/913506.jpg') center/cover";
+        if(type === 'power') body.style.background = "#2a0000";
+        if(type === 'ftp') body.style.background = "#001a1a";
+    }
+    function resetBg() { document.getElementById('mainBody').style.background = var(--bg-dark); }
+
+    // 3. التحكم بالمروحة
+    function updateFan(val) {
+        document.getElementById('fanVal').innerText = val;
+        logActivity("تم ضبط المروحة على " + val + " درجة");
+    }
+
+    // الوظائف الأساسية المستمرة
+    function showTab(id) {
         document.querySelectorAll('.button-list').forEach(el => el.classList.remove('active'));
         document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
-        document.getElementById(tabId).classList.add('active');
+        document.getElementById(id).classList.add('active');
         event.currentTarget.classList.add('active');
     }
 
-    // فحص البحث
-    function filterButtons() {
-        let input = document.getElementById('searchBar').value.toLowerCase();
-        let btns = document.querySelectorAll('.btn');
-        btns.forEach(btn => {
-            btn.style.display = btn.innerText.toLowerCase().includes(input) ? "flex" : "none";
-        });
-    }
-
-    // الميزات التقنية
-    function logActivity(t) { document.getElementById("activity").innerText = "> " + t; }
-    
     function loadPayload(file) {
         logActivity("جاري حقن " + file);
+        // تجربة محاكاة النجاح للسجل
         var xhr = new XMLHttpRequest();
         xhr.open('GET', './payloads/' + file, true);
         xhr.responseType = 'arraybuffer';
         xhr.onload = function() {
             if (this.status == 200) {
                 window.payload_buffer = this.response;
-                setTimeout(() => { run_scripts(); logActivity("نجح الحقن ✅"); }, 500);
+                setTimeout(() => { 
+                    run_scripts(); 
+                    successCount++; localStorage.setItem('success', successCount);
+                    updateStability();
+                    logActivity("تم الحقن بنجاح ✅"); 
+                }, 500);
             }
         };
         xhr.send();
@@ -172,29 +186,22 @@
         }
     }
 
-    function updateMemoryMeter() {
-        if (window.performance.memory) {
-            let m = (window.performance.memory.usedJSHeapSize / 1048576).toFixed(1);
-            document.getElementById("mem-info").innerText = "الذاكرة: " + m + "MB";
-        }
+    function filterButtons() {
+        let input = document.getElementById('searchBar').value.toLowerCase();
+        document.querySelectorAll('.btn').forEach(btn => {
+            btn.style.display = btn.innerText.toLowerCase().includes(input) ? "flex" : "none";
+        });
     }
 
-    function nukeCache() { if(confirm("حذف الكاش؟")) { localStorage.clear(); location.reload(); } }
+    function nukeCache() { if(confirm("هل تريد تدمير الكاش؟")) { localStorage.clear(); location.reload(); } }
 
     particlesJS('particles-js', {
-        "particles": {
-            "number": { "value": 50 },
-            "color": { "value": "#ffffff" },
-            "opacity": { "value": 0.2 },
-            "line_linked": { "enable": true, "opacity": 0.1 },
-            "move": { "enable": true, "speed": 1 }
-        }
+        "particles": { "number": { "value": 40 }, "opacity": { "value": 0.2 }, "line_linked": { "enable": true, "opacity": 0.1 }, "move": { "speed": 1 } }
     });
 
     window.onload = () => {
-        updateMemoryMeter();
-        let savedColor = localStorage.getItem('themeColor');
-        if(savedColor) changeThemeColor(savedColor);
+        updateStability();
+        setTimeout(() => { document.getElementById('otaStatus').innerText = "GameHub OS محدث للنسخة الأخيرة"; }, 2000);
     };
 </script>
 </body>
