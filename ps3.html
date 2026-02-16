@@ -34,61 +34,54 @@
     </div>
     <div id="ps3-section" class="button-list active">
     <div class="section-header" style="grid-column: span 1; color: #ff4444; border-right: 5px solid #ff4444; padding-right: 15px; margin: 15px 0;">أدوات النظام (PS3 Tools)</div>
-    
-    <button class="btn" style="border-color: #ff4444;" onclick="loadPS3Payload('hen_enabler.bin')">تفعيل HEN</button>
-    <button class="btn" onclick="loadPS3Payload('multiman.bin')">تشغيل MultiMan</button>
-    <button class="btn" onclick="loadPS3Payload('webman.bin')">إعدادات WebMan</button>
-    <button class="btn" onclick="loadPS3Payload('irisman.bin')">مدير الملفات IrisMan</button>
+    <div class="glass-container">
+    <div class="section-header" style="color: #ff4444;">أدوات النظام (PS3 Tools)</div>
+    <div class="main-grid">
+        <button class="btn" onclick="executeCommand('/mount_ps3/dev_hdd0/game/BLES80608/USRDIR/RELOAD.SELF')">تشغيل MultiMan</button>
+        <button class="btn" onclick="executeCommand('/setup.ps3')">إعدادات WebMan</button>
+        <button class="btn" onclick="executeCommand('/mount_ps3/dev_hdd0/game/BLES00808/USRDIR/RELOAD.SELF')">مدير الملفات IrisMan</button>
+    </div>
 
-    <div class="section-header" style="grid-column: span 1; color: #00ffcc; border-right: 5px solid #00ffcc; padding-right: 15px; margin: 15px 0;">مود منيو PS3 (Mod Menus)</div>
-    
-    <button class="btn" onmouseover="changeBg('gta_ps3')" onmouseout="resetBg()" onclick="loadPS3Payload('gta_v_mod.bin')">GTA V Mod Menu</button>
-    <button class="btn" onmouseover="changeBg('bo2')" onmouseout="resetBg()" onclick="loadPS3Payload('bo2_zombies.bin')">BO2 Zombies Mod</button>
-    <button class="btn" onmouseover="changeBg('mw3')" onmouseout="resetBg()" onclick="loadPS3Payload('mw3_menu.bin')">Modern Warfare 3</button>
-    <button class="btn" onclick="loadPS3Payload('minecraft.bin')">Minecraft Mod Hub</button>
-
-    <div class="section-header" style="grid-column: span 1; color: #aaaaaa; border-right: 5px solid #aaaaaa; padding-right: 15px; margin: 15px 0;">الصيانة والحماية</div>
-    <button class="btn" onclick="loadPS3Payload('idps_stealer.bin')">سحب IDPS / PSID</button>
-    <button class="btn" style="background: #400;" onclick="loadPS3Payload('clear_history.bin')">مسح سجل الأونلاين</button>
-</div>
-
-    <button class="btn" onclick="executePS3Command('/mount_ps3/dev_hdd0/plugins/GTA_V_Menu.sprx')">تفعيل مود قراند من الجهاز</button>
-<div class="main-grid">
-    <button class="btn" onclick="triggerPS3Mod('/dev_hdd0/tmp/gtav_menu.sprx')">تفعيل مود قراند 5</button>
-    
-    <button class="btn" onclick="triggerPS3Mod('/dev_hdd0/plugins/bo2_cheats.sprx')">تفعيل مود BO2</button>
-</div>
-<div class="main-grid">
     <div class="section-header" style="color: #00ff00;">تثبيت أدوات النظام (Direct Install)</div>
-    <button class="btn" onclick="installPkg('https://github.com/aldostools/webman-mod/releases/latest/download/webMAN_MOD_1.47.45_Installer.pkg')">تثبيت WebMAN (أساسي)</button>
-    <button class="btn" onclick="installPkg('رابط_ملف_الأرتيمس_هنا.pkg')">تثبيت برنامج الغش (Artemis)</button>
+    <div class="main-grid">
+        <button class="btn" onclick="installPkg('https://github.com/aldostools/webman-mod/releases/latest/download/webMAN_MOD_1.47.45_Installer.pkg')">تثبيت WebMAN</button>
+        <button class="btn" onclick="installPkg('https://github.com/bucanero/ArtemisPS3/releases/download/v1.2.0/ArtemisPS3.pkg')">تثبيت Artemis (الغش)</button>
+    </div>
 
     <div class="section-header" style="color: #1e90ff;">تشغيل مودات الألعاب (HDD Direct)</div>
-    <button class="btn" onclick="triggerPS3Mod('/dev_hdd0/tmp/gtav_menu.sprx')">تشغيل مود GTA V</button>
-    <button class="btn" onclick="triggerPS3Mod('/dev_hdd0/plugins/bo2_menu.sprx')">تشغيل مود BO2</button>
-    <button class="btn" onclick="triggerPS3Mod('/dev_hdd0/plugins/mw3_menu.sprx')">تشغيل مود MW3</button>
+    <div class="main-grid">
+        <button class="btn" onclick="executeCommand('/plugin.ps3?load=/dev_hdd0/tmp/gtav_menu.sprx')">تفعيل مود GTA V</button>
+        <button class="btn" onclick="executeCommand('/plugin.ps3?load=/dev_hdd0/plugins/bo2_menu.sprx')">تفعيل مود BO2</button>
+        <button class="btn" onclick="executeCommand('/plugin.ps3?load=/dev_hdd0/plugins/mw3_menu.sprx')">تفعيل مود MW3</button>
+    </div>
 </div>
 
 <script>
-// دالة التثبيت المباشر (تعتمد على وجود WebMAN عند المستخدم)
-function installPkg(pkgUrl) {
-    logActivity("جاري إرسال أمر التثبيت للجهاز...");
-    // هذا الأمر يخبر الويبمان بتحميل وتثبيت الملف مباشرة
-    var command = "http://127.0.0.1/install.ps3?url=" + pkgUrl;
-    
+// دالة إرسال الأوامر العامة للنظام والمودات
+function executeCommand(cmd) {
+    logActivity("جاري إرسال الأمر: " + cmd);
+    // التواصل مع WebMan عبر الـ IP المحلي للجهاز
+    var url = "http://127.0.0.1" + cmd;
     var img = new Image();
-    img.src = command;
-    img.onload = function() { alert("بدأ التثبيت! تحقق من قائمة (Package Manager) في جهازك."); };
+    img.src = url;
+    
+    img.onload = function() { logActivity("تم التنفيذ بنجاح ✅"); };
+    img.onerror = function() { logActivity("تم إرسال الطلب للجهاز"); };
 }
 
-// دالة تشغيل المود من الهاردسك
-function triggerPS3Mod(path) {
-    logActivity("جاري تفعيل المود من المسار: " + path);
-    var command = "http://127.0.0.1/plugin.ps3?load=" + path;
-    
+// دالة التثبيت المباشر لملفات PKG
+function installPkg(url) {
+    logActivity("جاري تحميل وتثبيت الملف...");
+    var installUrl = "http://127.0.0.1/install.ps3?url=" + url;
     var img = new Image();
-    img.src = command;
-    logActivity("تم إرسال أمر التفعيل ✅");
+    img.src = installUrl;
+    alert("بدأ التحميل! راجع قائمة Package Manager في الجهاز");
+}
+
+// دالة لتحديث نص الحالة في أسفل الهوست
+function logActivity(msg) {
+    var status = document.getElementById("activity");
+    if(status) status.innerText = "> " + msg;
 }
 </script>
     
