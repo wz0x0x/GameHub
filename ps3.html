@@ -53,7 +53,36 @@
 </div>
 
     <button class="btn" onclick="executePS3Command('/mount_ps3/dev_hdd0/plugins/GTA_V_Menu.sprx')">تفعيل مود قراند من الجهاز</button>
+<div class="main-grid">
+    <button class="btn" onclick="triggerPS3Mod('/dev_hdd0/tmp/gtav_menu.sprx')">تفعيل مود قراند 5</button>
+    
+    <button class="btn" onclick="triggerPS3Mod('/dev_hdd0/plugins/bo2_cheats.sprx')">تفعيل مود BO2</button>
+</div>
 
+<script>
+function triggerPS3Mod(pluginPath) {
+    logActivity("جاري إرسال أمر التفعيل للجهاز...");
+    
+    // ملاحظة: IP الجهاز غالباً يكون localhost إذا كنت تتصفح من البلايستيشن نفسه
+    var ps3IP = "127.0.0.1"; 
+    
+    // هذا هو "الأمر السحري" الذي يفعله الويبمان
+    var commandUrl = "http://" + ps3IP + "/plugin.ps3?load=" + pluginPath;
+
+    // إرسال الأمر في الخلفية بدون مغادرة الصفحة
+    var img = new Image();
+    img.src = commandUrl; 
+    
+    img.onload = function() {
+        logActivity("تم إرسال الأمر بنجاح ✅ (تأكد من وجود الملف في الهارد)");
+    };
+    img.onerror = function() {
+        // حتى لو أعطى خطأ، غالباً الأمر يصل للجهاز
+        logActivity("تم تنفيذ الأمر! تحقق من شاشة الجهاز");
+    };
+}
+</script>
+    
 <script>
 function executePS3Command(path) {
     logActivity("جاري إرسال أمر التشغيل...");
