@@ -32,5 +32,40 @@
 
         <a href="index.html" class="back-link">العودة إلى GameHub PS4</a>
     </div>
+    <div id="ps3-section" class="button-list active">
+    <div class="section-header" style="grid-column: span 1; color: #ff4444; border-right: 5px solid #ff4444; padding-right: 15px; margin: 15px 0;">أدوات النظام (PS3 Tools)</div>
+    
+    <button class="btn" style="border-color: #ff4444;" onclick="loadPS3Payload('hen_enabler.bin')">تفعيل HEN</button>
+    <button class="btn" onclick="loadPS3Payload('multiman.bin')">تشغيل MultiMan</button>
+    <button class="btn" onclick="loadPS3Payload('webman.bin')">إعدادات WebMan</button>
+    <button class="btn" onclick="loadPS3Payload('irisman.bin')">مدير الملفات IrisMan</button>
+
+    <div class="section-header" style="grid-column: span 1; color: #00ffcc; border-right: 5px solid #00ffcc; padding-right: 15px; margin: 15px 0;">مود منيو PS3 (Mod Menus)</div>
+    
+    <button class="btn" onmouseover="changeBg('gta_ps3')" onmouseout="resetBg()" onclick="loadPS3Payload('gta_v_mod.bin')">GTA V Mod Menu</button>
+    <button class="btn" onmouseover="changeBg('bo2')" onmouseout="resetBg()" onclick="loadPS3Payload('bo2_zombies.bin')">BO2 Zombies Mod</button>
+    <button class="btn" onmouseover="changeBg('mw3')" onmouseout="resetBg()" onclick="loadPS3Payload('mw3_menu.bin')">Modern Warfare 3</button>
+    <button class="btn" onclick="loadPS3Payload('minecraft.bin')">Minecraft Mod Hub</button>
+
+    <div class="section-header" style="grid-column: span 1; color: #aaaaaa; border-right: 5px solid #aaaaaa; padding-right: 15px; margin: 15px 0;">الصيانة والحماية</div>
+    <button class="btn" onclick="loadPS3Payload('idps_stealer.bin')">سحب IDPS / PSID</button>
+    <button class="btn" style="background: #400;" onclick="loadPS3Payload('clear_history.bin')">مسح سجل الأونلاين</button>
+</div>
+
+<script>
+    // إضافة خلفيات سينمائية خاصة بـ PS3
+    function changeBgPS3(type) {
+        let body = document.getElementById('mainBody');
+        if(type === 'gta_ps3') body.style.background = "linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url('https://gamingbolt.com/wp-content/uploads/2013/09/gta-5-ps3.jpg') center/cover";
+        if(type === 'bo2') body.style.background = "linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url('https://images8.alphacoders.com/463/463174.jpg') center/cover";
+    }
+    
+    // دالة خاصة لحقن ملفات PS3 (تأكد من وجود المجلد payloads/ps3/)
+    function loadPS3Payload(file) {
+        logActivity("جاري إرسال أداة PS3: " + file);
+        // هنا نستخدم نفس منطق الحقن السابق
+        loadPayload('ps3/' + file); 
+    }
+</script>
 </body>
 </html>
