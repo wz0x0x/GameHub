@@ -71,26 +71,33 @@
             xhr.onload = function() {
                 if (this.status == 200) {
                     // تخزين البيانات في الـ Buffer الخاص بالمحرك
-                    window.payload_buffer = this.response;
-                    
-                    // تشغيل سكريبت الثغرة (من ملف exploit.js)
-                    setTimeout(function(){
-                        run_scripts(); 
-                    }, 500);
-                    
-                    alert("تم إرسال " + file + " بنجاح! انتظر إشعار النظام.");
-                } else {
-                    alert("خطأ: لم يتم العثور على الملف " + file + " في مجلد payloads.");
-                }
-            };
-            
-            xhr.onerror = function() {
-                alert("حدث خطأ في الاتصال أثناء جلب الملف.");
-            };
-            
-            xhr.send();
-        }
-    </script>
+                  <script>
+    function loadPayload(file) {
+        // تحديث النص في واجهة المستخدم
+        document.getElementById("status-display").innerHTML = "جاري إرسال: " + file;
+
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', './payloads/' + file, true);
+        xhr.responseType = 'arraybuffer';
+        
+        xhr.onload = function() {
+            if (this.status == 200) {
+                // هذا هو المتغير الذي تحتاجه ملفات الـ JS (exploit.js) للعمل
+                window.payload_buffer = this.response;
+                
+                // تشغيل المحرك الأساسي الموجود في ملفاتك
+                setTimeout(function(){
+                    run_scripts(); 
+                }, 500);
+                
+                document.getElementById("status-display").innerHTML = "تم الحقن بنجاح!";
+            } else {
+                alert("الملف " + file + " غير موجود في مجلد payloads");
+            }
+        };
+        xhr.send();
+    }
+</script>
 
 </body>
 </html>
