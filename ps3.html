@@ -52,6 +52,16 @@
     <button class="btn" style="background: #400;" onclick="loadPS3Payload('clear_history.bin')">مسح سجل الأونلاين</button>
 </div>
 
+    <button class="btn" onclick="executePS3Command('/mount_ps3/dev_hdd0/plugins/GTA_V_Menu.sprx')">تفعيل مود قراند من الجهاز</button>
+
+<script>
+function executePS3Command(path) {
+    logActivity("جاري إرسال أمر التشغيل...");
+    // هذا الرابط يكلم الـ WebMan مباشرة ليقوم بتحميل المود
+    window.location.href = "http://localhost/plugin.ps3?load=" + path;
+}
+</script>
+    
 <script>
     // إضافة خلفيات سينمائية خاصة بـ PS3
     function changeBgPS3(type) {
