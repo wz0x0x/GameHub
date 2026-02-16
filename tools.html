@@ -3,52 +3,141 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GameHub - Tools</title>
+    <title>GameHub - الأدوات</title>
+    
     <script src="int64.js"></script>
     <script src="rop.js"></script>
     <script src="kexploit.js"></script>
     <script src="exploit.js"></script>
+
     <style>
-        body { margin: 0; padding: 20px; font-family: sans-serif; background: #0a0a0a; color: white; text-align: center; }
-        h1 { color: #1e90ff; margin-bottom: 30px; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px; max-width: 1100px; margin: auto; }
-        .tool-card { background: #1a1a1a; padding: 20px; border-radius: 15px; border: 1px solid #333; cursor: pointer; transition: 0.3s; }
-        .tool-card:hover { border-color: #1e90ff; background: #222; transform: scale(1.05); }
-        .icon { font-size: 2.5rem; margin-bottom: 10px; display: block; }
-        .back-home { display: inline-block; margin-top: 40px; color: #ff4444; text-decoration: none; font-weight: bold; border: 1px solid #ff4444; padding: 10px 25px; border-radius: 10px; }
+        body {
+            margin: 0; padding: 20px;
+            font-family: 'Segoe UI', Tahoma, sans-serif;
+            background: #0a0a0a;
+            color: white;
+            text-align: center;
+        }
+        .header { margin-bottom: 30px; }
+        h1 { color: #1e90ff; font-size: 2.2rem; margin-bottom: 10px; }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            max-width: 1200px;
+            margin: auto;
+        }
+        .tool-card {
+            background: #161616;
+            padding: 20px;
+            border-radius: 15px;
+            border: 1px solid #333;
+            cursor: pointer;
+            transition: 0.3s ease-in-out;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .tool-card:hover {
+            border-color: #1e90ff;
+            background: #1f1f1f;
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(30, 144, 255, 0.3);
+        }
+        .icon { font-size: 2.5rem; margin-bottom: 10px; }
+        .name { font-weight: bold; font-size: 1.1rem; color: #1e90ff; margin-bottom: 5px; }
+        .desc { font-size: 0.85rem; color: #bbb; line-height: 1.5; }
+        .back-btn {
+            display: inline-block;
+            margin-top: 40px;
+            padding: 10px 30px;
+            border: 1px solid #ff4444;
+            color: #ff4444;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+        }
+        .back-btn:hover { background: #ff4444; color: white; }
     </style>
 </head>
 <body>
-    <h1>GAMEHUB TOOLS 🛠️</h1>
-    
-    <div class="grid">
-        <div class="tool-card" onclick="inject('ps4debug.bin')"><span class="icon">🐞</span>PS4 Debug</div>
-        <div class="tool-card" onclick="inject('WebRTE.bin')"><span class="icon">🎮</span>WebRTE Cheats</div>
-        <div class="tool-card" onclick="inject('ToDex.bin')"><span class="icon">🔓</span>ToDex Mode</div>
-        <div class="tool-card" onclick="inject('historyblocker.bin')"><span class="icon">🚫</span>History Blocker</div>
-        <div class="tool-card" onclick="inject('disableupdates.bin')"><span class="icon">🛑</span>Disable Update</div>
-        
-        <div class="tool-card" onclick="inject('appdumper.bin')"><span class="icon">📦</span>App Dumper</div>
-        <div class="tool-card" onclick="inject('kerneldumper.bin')"><span class="icon">🧠</span>Kernel Dumper</div>
-        <div class="tool-card" onclick="inject('rifrenamer.bin')"><span class="icon">🔑</span>RIF Renamer</div>
+
+    <div class="header">
+        <h1>أدوات نظام GAMEHUB 🛠️</h1>
+        <p>اختر الأداة المناسبة لحقنها في النظام</p>
     </div>
 
-    <a href="index.html" class="back-home">العودة للرئيسية</a>
+    <div class="grid">
+        <div class="tool-card" onclick="inject('ps4debug.bin')">
+            <span class="icon">🐞</span>
+            <div class="name">مصحح الأخطاء (Debug)</div>
+            <div class="desc">يسمح بالتحكم الكامل في الذاكرة وتعديل قيم الألعاب عبر الكمبيوتر.</div>
+        </div>
+
+        <div class="tool-card" onclick="inject('WebRTE.bin')">
+            <span class="icon">🎮</span>
+            <div class="name">محرك الغش (WebRTE)</div>
+            <div class="desc">تفعيل ميزة الغش والرموز السرية داخل الألعاب مباشرة.</div>
+        </div>
+
+        <div class="tool-card" onclick="inject('ToDex.bin')">
+            <span class="icon">🔓</span>
+            <div class="name">وضع المطور (ToDex)</div>
+            <div class="desc">يفتح خيارات التطوير المخفية في النظام لتحكم أوسع بالملفات.</div>
+        </div>
+
+        <div class="tool-card" onclick="inject('historyblocker.bin')">
+            <span class="icon">🚫</span>
+            <div class="name">مانع السجل</div>
+            <div class="desc">يمنع المتصفح من حفظ تاريخ المواقع التي تزورها للحفاظ على الخصوصية.</div>
+        </div>
+
+        <div class="tool-card" onclick="inject('disableupdates.bin')">
+            <span class="icon">🛑</span>
+            <div class="name">إيقاف التحديثات</div>
+            <div class="desc">منع الجهاز نهائياً من محاولة تحميل تحديثات النظام الرسمية.</div>
+        </div>
+
+        <div class="tool-card" onclick="inject('appdumper.bin')">
+            <span class="icon">📦</span>
+            <div class="name">سحب الألعاب (Dumper)</div>
+            <div class="desc">لتحويل الألعاب المثبتة أو الأقراص إلى ملفات PKG قابلة للتثبيت.</div>
+        </div>
+
+        <div class="tool-card" onclick="inject('kerneldumper.bin')">
+            <span class="icon">🧠</span>
+            <div class="name">سحب النواة (Kernel)</div>
+            <div class="desc">نسخ ملفات النظام الأساسية والعميقة لأغراض التحليل والتطوير.</div>
+        </div>
+
+        <div class="tool-card" onclick="inject('rifrenamer.bin')">
+            <span class="icon">🔑</span>
+            <div class="name">معدل التراخيص (RIF)</div>
+            <div class="desc">تعديل تراخيص الألعاب لتتمكن من تشغيلها على أي حساب بالجهاز.</div>
+        </div>
+    </div>
+
+    <a href="index.html" class="back-btn">العودة للرئيسية</a>
 
     <script>
         function inject(file) {
-            alert("بدء تفعيل: " + file);
+            console.log("محاولة حقن ملف: " + file);
             var xhr = new XMLHttpRequest();
+            // المسار لمجلد payloads الذي أنشأته
             xhr.open('GET', './payloads/' + file, true);
             xhr.responseType = 'arraybuffer';
             xhr.onload = function() {
                 if (this.status == 200) {
                     window.payload_buffer = this.response;
+                    // تشغيل المحرك من ملف exploit.js
                     setTimeout(run_scripts, 500);
+                } else {
+                    alert("خطأ: تعذر العثور على ملف " + file + " في مجلد payloads.");
                 }
             };
             xhr.send();
         }
     </script>
+
 </body>
 </html>
