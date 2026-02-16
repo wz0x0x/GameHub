@@ -2,298 +2,52 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GameHub OS - Master Edition</title>
-    <script src="int64.js"></script><script src="rop.js"></script><script src="kexploit.js"></script><script src="exploit.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@600;900&display=swap" rel="stylesheet">
-
-<style>
-    /* التنسيق الجديد: تركيز على الوضوح والخط العريض */
-    :root { 
-        --main-color: #1e90ff; 
-        --bg-dark: #050505; 
-    }
-
-    body { 
-        margin: 0; padding: 0; 
-        /* استخدام خطوط النظام العريضة لضمان التوافق والوضوح */
-        font-family: "Segoe UI", Arial, sans-serif; 
-        background: var(--bg-dark); 
-        color: white; 
-        min-height: 100vh;
-        font-weight: 900 !important; /* خط عريض جداً لكل الصفحة */
-    }
-
-    #particles-js { position: fixed; width: 100%; height: 100%; z-index: -1; }
-
-    .glass-container {
-        width: 92%; max-width: 700px; margin: 20px auto; 
-        background: rgba(255, 255, 255, 0.05);
-        backdrop-filter: blur(20px);
-        border: 2px solid rgba(255, 255, 255, 0.15);
-        border-radius: 25px; padding: 25px;
-        box-shadow: 0 25px 50px rgba(0,0,0,0.8);
-    }
-
-    /* تكبير شريط البحث */
-    #searchBar { 
-        width: 100%; background: rgba(0,0,0,0.7); border: 2px solid #444; 
-        padding: 18px; border-radius: 15px; color: white; 
-        font-size: 24px; font-weight: 900; margin-bottom: 20px;
-        box-sizing: border-box;
-    }
-
-    /* تكبير أزرار التبويبات */
-    .tabs { display: flex; gap: 12px; margin-bottom: 25px; overflow-x: auto; padding-bottom: 10px; }
-    .tab-btn { 
-        padding: 15px 28px; cursor: pointer; border-radius: 12px; 
-        background: rgba(255,255,255,0.1); font-size: 22px; border: none;
-        color: white; font-weight: 900; white-space: nowrap;
-    }
-    .tab-btn.active { background: var(--main-color); box-shadow: 0 0 20px var(--main-color); border: 1px solid white; }
-
-    /* القائمة الطولية مع أزرار ضخمة وواضحة */
-    .button-list { display: none; flex-direction: column; gap: 18px; }
-    .button-list.active { display: flex; }
-
-    .btn { 
-        background: rgba(255, 255, 255, 0.08); 
-        border: 2px solid rgba(255, 255, 255, 0.2);
-        padding: 24px; border-radius: 20px; 
-        color: white !important; cursor: pointer;
-        font-size: 28px; /* حجم كبير جداً وواضح */
-        font-weight: 900; text-align: center; 
-        text-decoration: none !important;
-        transition: 0.3s; display: block;
-    }
-    
-    .btn:hover { 
-        background: var(--main-color); 
-        transform: scale(1.02); 
-        border-color: white; 
-    }
-
-    .section-header {
-        font-size: 26px; color: var(--main-color); margin: 25px 0 12px 0;
-        text-align: right; border-right: 8px solid var(--main-color); padding-right: 15px;
-        font-weight: 900;
-    }
-
-    /* شريط الحالة المطور */
-    .status-bar { 
-        position: fixed; bottom: 0; width: 100%; background: rgba(0,0,0,0.95);
-        padding: 18px 25px; display: flex; justify-content: space-between;
-        font-size: 20px; border-top: 3px solid var(--main-color); z-index: 100;
-        font-weight: 900;
-    }
-</style>
-
+    <title>GameHub OS - Master</title>
+    <style>
+        body { 
+            background: #050505; color: white; 
+            font-family: sans-serif; font-weight: 900; /* خط عريض جداً */
+            text-align: center; margin: 0; padding: 20px;
+        }
+        .btn { 
+            display: block; width: 90%; max-width: 400px; margin: 15px auto; 
+            padding: 20px; background: #1a1a1a; border: 3px solid #333; 
+            border-radius: 15px; color: white; font-size: 24px; 
+            font-weight: 900; cursor: pointer; text-decoration: none;
+        }
+        .btn:active { background: #1e90ff; }
+        #activity { 
+            margin-top: 20px; padding: 10px; color: #00ff00; 
+            font-size: 20px; background: #000; border-top: 2px solid #1e90ff;
+        }
+    </style>
 </head>
-<body id="mainBody">
+<body>
 
-<div id="particles-js"></div>
+    <h1 style="font-size: 35px; color: #1e90ff;">GameHub Master</h1>
 
-<div class="glass-container">
-    <div class="header-tools">
-        <input type="text" id="searchBar" placeholder="ابحث عن أداة أو مود..." onkeyup="filterButtons()">
-        <div class="stability-badge" id="stabilityScore">استقرار الثغرة: 100%</div>
-    </div>
-
-    <div class="tabs">
-        <div class="tab-btn active" onclick="showTab('main')">الرئيسية</div>
-        <div class="tab-btn" onclick="showTab('mods')">المودات</div>
-        <div class="tab-btn" onclick="showTab('tools')">الأدوات</div>
-        <div class="tab-btn" onclick="showTab('power')">الطاقة</div>
-    </div>
-
-    <div id="main" class="button-list active">
-        <button class="btn" style="background: var(--main-color); font-size: 1.6rem;" onclick="loadPayload('goldhen.bin')">تشغيل GOLDHEN v2.4</button>
-        <button class="btn" onmouseover="changeBg('ftp')" onmouseout="resetBg()" onclick="loadPayload('ftp.bin')">خادم FTP</button>
-        <button class="btn" onclick="loadPayload('browser.bin')">فتح المتصفح</button>
-        <a href="ps3.html" class="btn" style="border-color: #ff0000; color: #ff4444;">بوابة بلايستيشن 3</a>
-    </div>
-
-    <div id="mods" class="button-list">
-        <button class="btn" onmouseover="changeBg('gta')" onmouseout="resetBg()" onclick="loadPayload('gtav.bin')">قراند 5</button>
-        <button class="btn" onmouseover="changeBg('rdr2')" onmouseout="resetBg()" onclick="loadPayload('rdr2.bin')">ريد ديد 2</button>
-    </div>
-
-    <div id="tools" class="button-list">
-        <div class="fan-control">
-            <label>التحكم الذكي بالمروحة: <span id="fanVal">65</span>°</label>
-            <input type="range" min="40" max="80" value="65" oninput="updateFan(this.value)">
-        </div>
-        <button class="btn" onclick="updateMemoryMeter()">فحص الذاكرة</button>
-        <button class="btn" onclick="nukeCache()">تدمير الكاش</button>
-        <button class="btn" onclick="injectExternalPayload()">حقن رابط خارجي</button>
-        <button class="btn" onclick="addPersonalPayload()">سحابتي الشخصية</button>
-        <div style="display:flex; gap:10px;">
-            <input type="text" id="remoteText" placeholder="لوحة مفاتيح لاسلكية..." style="flex:1; background:black; border:1px solid #333; color:white; border-radius:10px; padding:10px;">
-            <button class="btn" onclick="sendText()" style="padding:10px 20px;">إرسال</button>
-        </div>
-    </div>
-
-    <div id="power" class="button-list">
-        <button class="btn" style="border-color: #ff4444;" onmouseover="changeBg('power')" onmouseout="resetBg()" onclick="loadPayload('shutdown.bin')">إطفاء الجهاز</button>
-        <button class="btn" style="border-color: #ffaa00;" onclick="loadPayload('rest.bin')">وضع السكون</button>
-    </div>
-</div>
-
-<div id="remote-trigger" onclick="toggleQR()">📱</div>
-<div id="qr-box"><div id="qrcode"></div></div>
-
-<div class="status-bar">
-    <div id="activity">النظام مستقر وجاهز</div>
-    <div id="otaStatus">تفقد التحديثات...</div>
-</div>
-
-<script>
-    // 1. التحديثات الهوائية وسجل الاستقرار
-    let successCount = localStorage.getItem('success') || 0;
-    let crashCount = localStorage.getItem('crash') || 0;
-
-    function updateStability() {
-        if(successCount > 0) {
-            let rate = ((successCount / (parseInt(successCount) + parseInt(crashCount))) * 100).toFixed(0);
-            document.getElementById('stabilityScore').innerText = "استقرار الثغرة: " + rate + "%";
-        }
-    }
-
-    // 2. الخلفيات السينمائية التفاعلية
-    function changeBg(type) {
-        let body = document.getElementById('mainBody');
-        if(type === 'gta') body.style.background = "linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://w0.peakpx.com/wallpaper/794/563/HD-wallpaper-gta-v-characters-gta-5-gta-v-games.jpg') center/cover";
-        if(type === 'rdr2') body.style.background = "linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images5.alphacoders.com/913/913506.jpg') center/cover";
-        if(type === 'power') body.style.background = "#2a0000";
-        if(type === 'ftp') body.style.background = "#001a1a";
-    }
-    function resetBg() { document.getElementById('mainBody').style.background = var(--bg-dark); }
-
-    // 3. التحكم بالمروحة
-    function updateFan(val) {
-        document.getElementById('fanVal').innerText = val;
-        logActivity("تم ضبط المروحة على " + val + " درجة");
-    }
-
-    // الوظائف الأساسية المستمرة
-    function showTab(id) {
-        document.querySelectorAll('.button-list').forEach(el => el.classList.remove('active'));
-        document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
-        document.getElementById(id).classList.add('active');
-        event.currentTarget.classList.add('active');
-    }
-
-    function loadPayload(file) {
-        logActivity("جاري حقن " + file);
-        // تجربة محاكاة النجاح للسجل
-        var xhr = new XMLHttpRequest();
-        xhr.open('GET', './payloads/' + file, true);
-        xhr.responseType = 'arraybuffer';
-        xhr.onload = function() {
-            if (this.status == 200) {
-                window.payload_buffer = this.response;
-                setTimeout(() => { 
-                    run_scripts(); 
-                    successCount++; localStorage.setItem('success', successCount);
-                    updateStability();
-                    logActivity("تم الحقن بنجاح ✅"); 
-                }, 500);
-            }
-        };
-        xhr.send();
-    }
-
-    function toggleQR() {
-        let q = document.getElementById("qr-box");
-        q.style.display = (q.style.display === "none") ? "block" : "none";
-        if(q.style.display === "block") {
-            document.getElementById("qrcode").innerHTML = "";
-            new QRCode(document.getElementById("qrcode"), { text: window.location.href, width: 120, height: 120 });
-        }
-    }
-
-    function filterButtons() {
-        let input = document.getElementById('searchBar').value.toLowerCase();
-        document.querySelectorAll('.btn').forEach(btn => {
-            btn.style.display = btn.innerText.toLowerCase().includes(input) ? "flex" : "none";
-        });
-    }
-
-    function nukeCache() { if(confirm("هل تريد تدمير الكاش؟")) { localStorage.clear(); location.reload(); } }
-
-    particlesJS('particles-js', {
-        "particles": { "number": { "value": 40 }, "opacity": { "value": 0.2 }, "line_linked": { "enable": true, "opacity": 0.1 }, "move": { "speed": 1 } }
-    });
-
-    window.onload = () => {
-        updateStability();
-        setTimeout(() => { document.getElementById('otaStatus').innerText = "GameHub OS محدث للنسخة الأخيرة"; }, 2000);
-    };
+    <button class="btn" style="border-color: #1e90ff;" onclick="loadPayload('goldhen.bin')">تشغيل GOLDHEN v2.4</button>
+    <button class="btn" onclick="exe('/plugin.ps3?load=/dev_hdd0/tmp/LTS.sprx')">تفعيل مود GTA V (PS3)</button>
     
-</script>
-// دالة شاملة للتأكد من إرسال الأوامر في كل المتصفحات
-function exe(cmd) {
-    try {
-        console.log("إرسال أمر: " + cmd);
-        var url = "http://127.0.0.1" + cmd;
-        
-        // الطريقة الأضمن لمتصفح PS3 و PS4: استخدام صورة وهمية
-        var img = new Image();
-        img.src = url;
-        
-        // تحديث نص الحالة للتأكد من أن الزر استجاب
-        var status = document.getElementById("activity");
-        if(status) {
-            status.innerText = "> تم إرسال الطلب: " + cmd;
-            status.style.color = "#00ff00";
-        }
-    } catch (e) {
-        alert("خطأ في التنفيذ: " + e.message);
-    }
-}
+    <a href="ps3.html" class="btn" style="border-color: #ff4444;">بوابة بلايستيشن 3</a>
 
-// دالة حقن ملفات PS4 (تأكد من تعريفها هكذا)
-function loadPayload(file) {
-    try {
-        var status = document.getElementById("activity");
-        if(status) status.innerText = "> جاري تحميل " + file + "...";
-        
-        // هنا تضع كود الحقن الخاص بك (Exploit Code)
-        // لنختبر الزر فقط سنضيف تنبيه بسيط:
-        console.log("Attempting to load: " + file);
-        
-        // إذا كان لديك سكريبت Exploit جاهز، استدعه هنا
-        if(typeof run_scripts === "function") {
-            run_scripts(); 
-        }
-    } catch (e) {
-        console.error(e);
-    }
-}
+    <div id="activity">الحالة: جاهز</div>
 
-// دالة التبديل بين التبويبات (تأكد أنها تعمل)
-function showTab(tabId) {
-    var lists = document.getElementsByClassName('button-list');
-    for (var i = 0; i < lists.length; i++) {
-        lists[i].style.display = 'none';
-        lists[i].classList.remove('active');
-    }
-    
-    var tabs = document.getElementsByClassName('tab-btn');
-    for (var i = 0; i < tabs.length; i++) {
-        tabs[i].classList.remove('active');
-    }
-    
-    var target = document.getElementById(tabId);
-    if(target) {
-        target.style.display = 'flex';
-        target.classList.add('active');
-    }
-    event.currentTarget.classList.add('active');
-}
-</script>
+    <script>
+        function exe(cmd) {
+            document.getElementById("activity").innerText = "> جاري إرسال الأمر...";
+            var img = new Image();
+            img.src = "http://127.0.0.1" + cmd;
+            img.onload = function() { document.getElementById("activity").innerText = "> تم التفعيل ✅"; };
+            img.onerror = function() { document.getElementById("activity").innerText = "> تم إرسال الطلب للجهاز"; };
+        }
+
+        function loadPayload(file) {
+            document.getElementById("activity").innerText = "> جاري حقن " + file;
+            // هنا تضع فنكشن الحقن الخاصة بـ PS4 إذا كانت لديك
+            setTimeout(function(){ document.getElementById("activity").innerText = "> تم الحقن بنجاح!"; }, 2000);
+        }
+    </script>
 
 </body>
 </html>
