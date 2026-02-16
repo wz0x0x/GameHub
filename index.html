@@ -71,6 +71,68 @@
 <a href="ps3.html" class="btn" style="grid-column: span 2; background: linear-gradient(90deg, #800000, #000000); border-color: #ff4444;" onclick="logActivity('Entering PS3 Support Module...')">
     <span>🕹️</span> بوابة تهكير PS3 (Legacy Support)
 </a>
+<div class="news-ticker-container">
+    <div class="news-label">آخر الأخبار</div>
+    <div class="ticker-wrap">
+        <div class="ticker">
+            <span class="ticker-item">🔹 صدور تحديث جديد لـ GoldHEN يدعم المزيد من الألعاب..</span>
+            <span class="ticker-item">🔹 تنبيه: تأكد من تفعيل المروحة قبل تشغيل المود منيو لتجنب الحرارة..</span>
+            <span class="ticker-item">🔹 روابط PS3Xploit تم تحديثها لتعمل بشكل أسرع الآن..</span>
+            <span class="ticker-item">🔹 ترقبوا إضافة مكتبة ألعاب PS2 قريباً في GameHub..</span>
+        </div>
+    </div>
+</div>
+
+<style>
+    .news-ticker-container {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        background: rgba(0, 0, 0, 0.9);
+        border-top: 1px solid var(--main-blue);
+        display: flex;
+        align-items: center;
+        z-index: 1000;
+        height: 35px;
+    }
+
+    .news-label {
+        background: var(--main-blue);
+        color: white;
+        padding: 0 15px;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        font-weight: bold;
+        font-size: 0.8rem;
+        white-space: nowrap;
+        z-index: 1001;
+    }
+
+    .ticker-wrap {
+        width: 100%;
+        overflow: hidden;
+    }
+
+    .ticker {
+        display: inline-block;
+        white-space: nowrap;
+        animation: ticker-animation 30s linear infinite;
+    }
+
+    .ticker-item {
+        display: inline-block;
+        padding: 0 50px;
+        color: #ccc;
+        font-size: 0.85rem;
+    }
+
+    @keyframes ticker-animation {
+        0% { transform: translateX(100%); }
+        100% { transform: translateX(-100%); }
+    }
+</style>
     
 <script>
     function toggleTheme() {
