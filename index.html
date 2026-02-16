@@ -232,5 +232,67 @@
         setTimeout(() => { document.getElementById('otaStatus').innerText = "GameHub OS محدث للنسخة الأخيرة"; }, 2000);
     };
 </script>
+// دالة شاملة للتأكد من إرسال الأوامر في كل المتصفحات
+function exe(cmd) {
+    try {
+        console.log("إرسال أمر: " + cmd);
+        var url = "http://127.0.0.1" + cmd;
+        
+        // الطريقة الأضمن لمتصفح PS3 و PS4: استخدام صورة وهمية
+        var img = new Image();
+        img.src = url;
+        
+        // تحديث نص الحالة للتأكد من أن الزر استجاب
+        var status = document.getElementById("activity");
+        if(status) {
+            status.innerText = "> تم إرسال الطلب: " + cmd;
+            status.style.color = "#00ff00";
+        }
+    } catch (e) {
+        alert("خطأ في التنفيذ: " + e.message);
+    }
+}
+
+// دالة حقن ملفات PS4 (تأكد من تعريفها هكذا)
+function loadPayload(file) {
+    try {
+        var status = document.getElementById("activity");
+        if(status) status.innerText = "> جاري تحميل " + file + "...";
+        
+        // هنا تضع كود الحقن الخاص بك (Exploit Code)
+        // لنختبر الزر فقط سنضيف تنبيه بسيط:
+        console.log("Attempting to load: " + file);
+        
+        // إذا كان لديك سكريبت Exploit جاهز، استدعه هنا
+        if(typeof run_scripts === "function") {
+            run_scripts(); 
+        }
+    } catch (e) {
+        console.error(e);
+    }
+}
+
+// دالة التبديل بين التبويبات (تأكد أنها تعمل)
+function showTab(tabId) {
+    var lists = document.getElementsByClassName('button-list');
+    for (var i = 0; i < lists.length; i++) {
+        lists[i].style.display = 'none';
+        lists[i].classList.remove('active');
+    }
+    
+    var tabs = document.getElementsByClassName('tab-btn');
+    for (var i = 0; i < tabs.length; i++) {
+        tabs[i].classList.remove('active');
+    }
+    
+    var target = document.getElementById(tabId);
+    if(target) {
+        target.style.display = 'flex';
+        target.classList.add('active');
+    }
+    event.currentTarget.classList.add('active');
+}
+</script>
+
 </body>
 </html>
