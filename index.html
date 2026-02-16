@@ -3,190 +3,201 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GameHub OS - Ultimate Edition</title>
+    <title>GameHub OS - Total Control</title>
     <script src="int64.js"></script><script src="rop.js"></script><script src="kexploit.js"></script><script src="exploit.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    
     <style>
-        :root { --main-blue: #1e90ff; --bg-dark: #0a0a0c; --card-bg: #161618; }
-        body { margin: 0; padding: 0; font-family: 'Segoe UI', sans-serif; background: var(--bg-dark); color: white; display: flex; justify-content: center; align-items: center; min-height: 100vh; transition: 0.5s; }
+        :root { --main-blue: #1e90ff; --bg-dark: #0a0a0c; --card-bg: rgba(22, 22, 24, 0.9); --power-red: #ff4444; }
+        body { margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, sans-serif; background: var(--bg-dark); color: white; min-height: 100vh; overflow-x: hidden; }
         
-        .dashboard { background: rgba(18, 18, 20, 0.98); width: 90%; max-width: 950px; padding: 30px; border-radius: 25px; border: 1px solid rgba(30, 144, 255, 0.2); box-shadow: 0 30px 60px rgba(0,0,0,0.6); position: relative; }
+        /* طبقة الخلفية المتحركة */
+        #particles-js { position: fixed; width: 100%; height: 100%; z-index: -1; }
 
-        /* الهيدر والتحكم */
+        .dashboard { width: 90%; max-width: 900px; margin: 40px auto; padding: 30px; border-radius: 25px; border: 1px solid rgba(30, 144, 255, 0.2); background: rgba(18, 18, 20, 0.8); backdrop-filter: blur(10px); box-shadow: 0 30px 60px rgba(0,0,0,0.6); }
+
+        /* شريط المعلومات */
         .top-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; padding-bottom: 15px; border-bottom: 1px solid #333; }
-        .theme-btn { background: none; border: 1px solid var(--main-blue); color: var(--main-blue); padding: 5px 15px; border-radius: 8px; cursor: pointer; font-size: 0.8rem; }
-        .theme-btn:hover { background: var(--main-blue); color: white; }
+        .user-name-input { background: none; border: 1px dashed #444; color: var(--main-blue); padding: 5px; border-radius: 8px; width: 80px; outline: none; }
 
-        /* العناوين الفرعية */
-        .section-header { grid-column: span 2; font-size: 0.9rem; color: var(--main-blue); margin: 15px 0 5px; text-align: right; letter-spacing: 1px; font-weight: bold; border-right: 3px solid var(--main-blue); padding-right: 10px; }
-
-        /* الشبكة */
+        /* الأقسام والأزرار */
+        .section-header { font-size: 0.9rem; color: var(--main-blue); margin: 20px 0 10px; border-right: 3px solid var(--main-blue); padding-right: 10px; font-weight: bold; }
         .main-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
-        .btn { background: var(--card-bg); border: 1px solid #333; padding: 18px; border-radius: 12px; color: white; cursor: pointer; transition: 0.3s; display: flex; align-items: center; justify-content: center; gap: 10px; font-weight: 500; text-decoration: none; font-size: 1rem; }
-        .btn:hover { border-color: var(--main-blue); transform: translateY(-3px); box-shadow: 0 5px 15px rgba(30, 144, 255, 0.1); }
+        
+        .btn { position: relative; background: var(--card-bg); border: 1px solid #333; padding: 18px; border-radius: 12px; color: white; cursor: pointer; transition: 0.3s; display: flex; align-items: center; justify-content: center; gap: 10px; font-weight: 500; text-decoration: none; overflow: hidden; }
+        .btn:hover { border-color: var(--main-blue); transform: translateY(-3px); box-shadow: 0 0 20px rgba(30, 144, 255, 0.4); }
+        
+        /* تلميحات المعلومات (خيار ز) */
+        .btn:hover::after { content: attr(data-info); position: absolute; bottom: 110%; background: #222; color: #fff; padding: 8px; border-radius: 5px; font-size: 0.7rem; width: 180px; border: 1px solid var(--main-blue); z-index: 10; }
+
         .gold-btn { grid-column: span 2; background: linear-gradient(90deg, var(--main-blue), #0056b3); border: none; font-size: 1.2rem; }
+        .power-btn:hover { border-color: var(--power-red); box-shadow: 0 0 20px rgba(255, 68, 68, 0.4); }
 
-        /* الأيقونات الملونة للمودات */
-        .mod-btn { border-color: #ffcc0033; }
-        .mod-btn:hover { border-color: #ffcc00; color: #ffcc00; }
+        /* سجل النشاط وشريط الأخبار */
+        .activity-log { margin-top: 20px; background: rgba(0,0,0,0.8); padding: 10px; border-radius: 10px; font-family: monospace; font-size: 0.75rem; color: #00ff00; height: 35px; border: 1px solid #1a1a1a; direction: ltr; }
+        
+        .news-ticker-container { position: fixed; bottom: 0; left: 0; width: 100%; background: #000; border-top: 1px solid var(--main-blue); display: flex; height: 30px; align-items: center; z-index: 100; }
+        .ticker { white-space: nowrap; animation: ticker-animation 30s linear infinite; color: #ccc; font-size: 0.8rem; }
+        @keyframes ticker-animation { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
 
-        .activity-log { margin-top: 20px; background: #000; padding: 10px; border-radius: 8px; font-family: monospace; font-size: 0.7rem; color: #00ff00; height: 35px; border: 1px solid #1a1a1a; text-align: left; direction: ltr; }
-        #toast { visibility: hidden; min-width: 200px; background: #111; border-right: 4px solid var(--main-blue); color: white; padding: 15px; position: fixed; left: 20px; top: 20px; border-radius: 10px; z-index: 1000; opacity: 0; transition: 0.4s; }
+        /* ريموت الموبايل */
+        #mobile-remote-box { position: fixed; bottom: 70px; left: 20px; background: #111; border: 1px solid var(--main-blue); padding: 15px; border-radius: 15px; display: none; z-index: 1000; }
+        .remote-trigger { position: fixed; bottom: 50px; left: 20px; width: 50px; height: 50px; background: var(--main-blue); border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 1001; font-size: 20px; }
+
+        /* التنسيق للموبايل (Media Queries) */
+        @media (max-width: 600px) {
+            .main-grid { grid-template-columns: 1fr; }
+            .btn { padding: 30px; font-size: 1.2rem; }
+        }
     </style>
 </head>
 <body>
 
+<div id="particles-js"></div>
+
 <div class="dashboard">
+    <div id="auto-load-box" style="display:none; background: rgba(30, 144, 255, 0.1); border: 1px solid var(--main-blue); padding: 10px; border-radius: 10px; margin-bottom: 15px; text-align: center;">
+        سيتم تشغيل GoldHEN تلقائياً خلال <span id="countdown">5</span> ثوانٍ... 
+        <button onclick="cancelAutoLoad()" style="background:red; color:white; border:none; padding:3px 10px; border-radius:5px; cursor:pointer;">إلغاء</button>
+    </div>
+
     <div class="top-bar">
-        <div style="display:flex; align-items:center; gap:10px;">
-            <span id="greeting" style="color:var(--main-blue); font-weight:bold;">مرحباً،</span>
-            <input type="text" id="userName" style="background:none; border:1px dashed #444; color:white; padding:3px; width:80px;" onchange="saveName(this.value)">
-        </div>
-        <button class="theme-btn" onclick="toggleTheme()">تغيير الثيم 🎨</button>
+        <div>مرحباً، <input type="text" id="userName" class="user-name-input" placeholder="اسمك" onchange="saveName(this.value)"></div>
+        <div id="live-clock">00:00:00</div>
     </div>
 
     <div class="main-grid">
-        <div class="btn gold-btn" onclick="loadPayload('goldhen.bin')">🌟 تشغيل GOLDHEN v2.4</div>
+        <button class="btn gold-btn" data-info="تشغيل الثغرة الأساسية GoldHEN v2.4 لفك الحماية." onclick="loadPayload('goldhen.bin')">🌟 تشغيل GOLDHEN</button>
 
-        <div class="section-header">قائمة المود منيو (Mod Menus) 🎮</div>
-        <div class="btn mod-btn" onclick="loadPayload('GTAV_LTS.bin')">🚗 GTA V Menu</div>
-        <div class="btn mod-btn" onclick="loadPayload('RDR2_Oros.bin')">🐎 RDR2 Menu</div>
+        <div class="section-header">المود منيو والأدوات 🎮</div>
+        <button class="btn" data-info="مود منيو قراند 5 الشهير." onclick="loadPayload('GTAV_LTS.bin')">🚗 GTA V Menu</button>
+        <button class="btn" data-info="مود منيو ريد ديد 2." onclick="loadPayload('RDR2_Oros.bin')">🐎 RDR2 Menu</button>
 
-        <div class="section-header">أدوات الغش (Cheats) 💎</div>
-        <div class="btn" onclick="loadPayload('WebRTE.bin')">⚡ تفعيل WebRTE</div>
-        <div class="btn" onclick="loadPayload('OrbisToolbox.bin')">⚙️ Orbis Toolbox</div>
+        <div class="section-header">التحكم بالنظام والطاقة ⚡</div>
+        <button class="btn power-btn" data-info="إغلاق الجهاز بالكامل." onclick="loadPayload('shutdown.bin')">🛑 Shutdown</button>
+        <button class="btn" style="border-color: #ffaa00;" data-info="إدخال الجهاز في وضع الاستعداد." onclick="loadPayload('restmode.bin')">🌙 Rest Mode</button>
+        
+        <div class="section-header">أدوات متقدمة (Advanced) ⚙️</div>
+        <button class="btn" onclick="updateMemoryMeter()">🧠 فحص الذاكرة</button>
+        <button class="btn" onclick="injectExternalPayload()">🔗 حقن رابط خارجي</button>
+        <button class="btn" onclick="addPersonalPayload()">☁️ مكتبتي السحابية</button>
+        <button class="btn" style="color:red" onclick="nukeCache()">🧨 تدمير الكاش</button>
 
-        <div class="section-header">أدوات النظام السريعة 🛠️</div>
-        <div class="btn" onclick="loadPayload('ftp.bin')">📁 خادم FTP</div>
-        <div class="btn" onclick="loadPayload('LinuxLoader.bin')">🐧 تشغيل Linux</div>
-        <div class="btn" onclick="loadPayload('dbbackup.bin')">💾 نسخة قاعدة البيانات</div>
-        <a href="tools.html" class="btn">⚙️ كل الأدوات</a>
+        <div class="section-header" style="color: #ff4444; border-color: #ff4444;">بوابة PS3 🕹️</div>
+        <a href="ps3.html" class="btn" style="grid-column: span 2; background: #2a0000;">انقر لدخول بوابة PS3Xploit</a>
     </div>
 
-    <div id="activity" class="activity-log">> GameHub OS Loaded Successfully...</div>
+    <div class="section-header">لوحة مفاتيح لاسلكية ⌨️</div>
+    <div style="display:flex; gap:5px;">
+        <input type="text" id="remoteText" placeholder="اكتب نصاً لإرساله..." style="flex:1; background:#000; border:1px solid #444; color:white; padding:10px; border-radius:8px;">
+        <button onclick="sendTextToPS4()" style="background:var(--main-blue); border:none; color:white; padding:10px 20px; border-radius:8px; cursor:pointer;">إرسال</button>
+    </div>
+
+    <div id="personal-list" class="main-grid" style="margin-top:10px;"></div>
+
+    <div id="activity" class="activity-log">> System Ready. Check Memory...</div>
 </div>
 
-<div id="toast"><span id="toast-msg"></span></div>
-    
-<div class="section-header" style="color: #ff4444; border-right-color: #ff4444;">دعم الأنظمة الأخرى 🎮</div>
-<a href="ps3.html" class="btn" style="grid-column: span 2; background: linear-gradient(90deg, #800000, #000000); border-color: #ff4444;" onclick="logActivity('Entering PS3 Support Module...')">
-    <span>🕹️</span> بوابة تهكير PS3 (Legacy Support)
-</a>
+<div class="remote-trigger" onclick="toggleRemote()">📱</div>
+<div id="mobile-remote-box">
+    <div id="qrcode"></div>
+    <p style="font-size:0.6rem; color:white; margin-top:5px;">امسح للتحكم من الموبايل</p>
+</div>
+
 <div class="news-ticker-container">
-    <div class="news-label">آخر الأخبار</div>
-    <div class="ticker-wrap">
-        <div class="ticker">
-            <span class="ticker-item">🔹 صدور تحديث جديد لـ GoldHEN يدعم المزيد من الألعاب..</span>
-            <span class="ticker-item">🔹 تنبيه: تأكد من تفعيل المروحة قبل تشغيل المود منيو لتجنب الحرارة..</span>
-            <span class="ticker-item">🔹 روابط PS3Xploit تم تحديثها لتعمل بشكل أسرع الآن..</span>
-            <span class="ticker-item">🔹 ترقبوا إضافة مكتبة ألعاب PS2 قريباً في GameHub..</span>
-        </div>
+    <div class="ticker">
+        🔹 مرحباً بك في GameHub.. 🔹 تم إضافة ميزة التحكم عن بعد.. 🔹 فحص الذاكرة متاح الآن لضمان الاستقرار.. 🔹 ترقبوا تحديثات المود منيو..
     </div>
 </div>
 
-<style>
-    .news-ticker-container {
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        background: rgba(0, 0, 0, 0.9);
-        border-top: 1px solid var(--main-blue);
-        display: flex;
-        align-items: center;
-        z-index: 1000;
-        height: 35px;
-    }
-
-    .news-label {
-        background: var(--main-blue);
-        color: white;
-        padding: 0 15px;
-        height: 100%;
-        display: flex;
-        align-items: center;
-        font-weight: bold;
-        font-size: 0.8rem;
-        white-space: nowrap;
-        z-index: 1001;
-    }
-
-    .ticker-wrap {
-        width: 100%;
-        overflow: hidden;
-    }
-
-    .ticker {
-        display: inline-block;
-        white-space: nowrap;
-        animation: ticker-animation 30s linear infinite;
-    }
-
-    .ticker-item {
-        display: inline-block;
-        padding: 0 50px;
-        color: #ccc;
-        font-size: 0.85rem;
-    }
-
-    @keyframes ticker-animation {
-        0% { transform: translateX(100%); }
-        100% { transform: translateX(-100%); }
-    }
-</style>
-    
 <script>
-    function toggleTheme() {
-        const root = document.querySelector(':root');
-        const current = getComputedStyle(root).getPropertyValue('--main-blue').trim();
-        if (current === '#1e90ff') {
-            root.style.setProperty('--main-blue', '#ff4444');
-            logActivity("Theme switched to: Crimson Red");
-        } else {
-            root.style.setProperty('--main-blue', '#1e90ff');
-            logActivity("Theme switched to: Ocean Blue");
+    // 1. إعدادات البداية والوقت
+    setInterval(() => { document.getElementById('live-clock').innerHTML = new Date().toLocaleTimeString(); }, 1000);
+    function saveName(n) { localStorage.setItem("gh_user", n); logActivity("Welcome, " + n); }
+    function logActivity(t) { document.getElementById("activity").innerHTML = "> " + t; }
+
+    // 2. فحص الذاكرة والنظام (خيار ج و 2 و 3)
+    let startTime;
+    function updateMemoryMeter() {
+        if (window.performance.memory) {
+            let used = (window.performance.memory.usedJSHeapSize / 1048576).toFixed(1);
+            logActivity("ذاكرة المتصفح الحالية: " + used + "MB");
         }
     }
 
-    function saveName(name) {
-        localStorage.setItem("gh_user", name);
-        document.getElementById("greeting").innerHTML = "مرحباً، " + name;
-    }
-
-    function logActivity(text) {
-        document.getElementById("activity").innerHTML = "> " + text;
-    }
-
-    function showToast(msg) {
-        let t = document.getElementById("toast");
-        document.getElementById("toast-msg").innerHTML = msg;
-        t.style.visibility = "visible"; t.style.opacity = "1";
-        setTimeout(() => { t.style.opacity = "0"; t.style.visibility = "hidden"; }, 3000);
-    }
-
+    // 3. وظيفة الحقن المطور مع حساب السرعة
     function loadPayload(file) {
-        logActivity("Injecting: " + file);
-        showToast("جاري المعالجة... 🚀");
+        startTime = performance.now();
+        logActivity("Injecting: " + file + "...");
         var xhr = new XMLHttpRequest();
         xhr.open('GET', './payloads/' + file, true);
         xhr.responseType = 'arraybuffer';
         xhr.onload = function() {
             if (this.status == 200) {
                 window.payload_buffer = this.response;
-                setTimeout(() => { run_scripts(); }, 500);
-                showToast("تم الحقن بنجاح! ✅");
-                logActivity("Payload " + file + " active.");
-            } else {
-                showToast("الملف مفقود! ❌");
+                setTimeout(() => { 
+                    run_scripts(); 
+                    let time = ((performance.now() - startTime) / 1000).toFixed(3);
+                    logActivity("تم الحقن بنجاح خلال " + time + " ثانية.");
+                }, 500);
             }
         };
         xhr.send();
     }
 
-    window.onload = function() {
-        let name = localStorage.getItem("gh_user");
-        if(name) document.getElementById("greeting").innerHTML = "مرحباً، " + name;
+    // 4. خيار د و هـ (الروابط الخارجية والسحابية)
+    function injectExternalPayload() {
+        let url = prompt("أدخل رابط الـ .bin المباشر:");
+        if(url) fetch(url).then(r => r.arraybuffer()).then(d => { window.payload_buffer = d; run_scripts(); });
+    }
+
+    function addPersonalPayload() {
+        let n = prompt("اسم الملف:"); let u = prompt("الرابط:");
+        if(n && u) {
+            let list = JSON.parse(localStorage.getItem("myPayloads") || "[]");
+            list.push({name:n, url:u});
+            localStorage.setItem("myPayloads", JSON.stringify(list));
+            location.reload();
+        }
+    }
+
+    // 5. التحكم بالريموت (خيار ي)
+    function toggleRemote() {
+        let b = document.getElementById("mobile-remote-box");
+        b.style.display = (b.style.display === "none") ? "block" : "none";
+        if(b.style.display === "block") {
+            document.getElementById("qrcode").innerHTML = "";
+            new QRCode(document.getElementById("qrcode"), { text: window.location.href, width: 100, height: 100 });
+        }
+    }
+
+    // 6. تدمير الكاش (خيار أ)
+    function nukeCache() { if(confirm("حذف الكاش؟")) { localStorage.clear(); location.reload(true); } }
+
+    // 7. الخلفية المتحركة
+    particlesJS('particles-js', {
+        "particles": {
+            "number": { "value": 50 },
+            "color": { "value": "#1e90ff" },
+            "shape": { "type": "circle" },
+            "opacity": { "value": 0.3 },
+            "size": { "value": 2 },
+            "line_linked": { "enable": true, "distance": 150, "color": "#1e90ff", "opacity": 0.2, "width": 1 },
+            "move": { "enable": true, "speed": 1.5 }
+        },
+        "interactivity": { "events": { "onhover": { "enable": true, "mode": "grab" } } }
+    });
+
+    window.onload = () => {
+        let n = localStorage.getItem("gh_user"); if(n) document.getElementById("userName").value = n;
+        updateMemoryMeter();
+        // رندر القائمة السحابية
+        let list = JSON.parse(localStorage.getItem("myPayloads") || "[]");
+        list.forEach(i => {
+            document.getElementById("personal-list").innerHTML += `<button class="btn" style="border-color:green" onclick="fetch('${i.url}').then(r=>r.arraybuffer()).then(d=>{window.payload_buffer=d;run_scripts();})">⭐ ${i.name}</button>`;
+        });
     };
 </script>
-
 </body>
 </html>
