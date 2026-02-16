@@ -83,30 +83,26 @@
         <h1>GAMEHUB</h1>
         <div class="tagline">نظام الاختراق المتكامل لجهاز PS4</div>
         
-        <div class="grid-menu">
-            <div class="btn gold-btn" onclick="loadPayload('goldhen.bin')">
-                <span>🌟</span> تشغيل GOLDHEN
-            </div>
+      <div class="grid-menu">
+    <div class="btn gold-btn" onclick="loadPayload('goldhen.bin')"><span>🌟</span> تشغيل GOLDHEN</div>
+    <div class="btn" onclick="loadPayload('ftp.bin')"><span>📁</span> تفعيل FTP</div>
+    <div class="btn" onclick="loadPayload('LinuxLoader.bin')"><span>🐧</span> تشغيل Linux</div>
 
-            <a href="tools.html" class="btn">
-                <span>🛠️</span> أدوات النظام
-            </a>
+    <div class="btn" onclick="loadPayload('dbbackup.bin')"><span>💾</span> نسخة قاعدة البيانات</div>
 
-            <a href="pkgs.html" class="btn">
-                <span>📦</span> مكتبة البرامج
-            </a>
-
-            <div class="btn" onclick="loadPayload('ftp.bin')">
-                <span>📁</span> تفعيل FTP
-            </div>
-
-            <div class="btn" onclick="loadPayload('LinuxLoader.bin')">
-                <span>🐧</span> تشغيل Linux
-            </div>
+    <div style="grid-column: span 2; margin-top: 10px;">
+        <p style="color: #888; font-size: 0.9rem; margin-bottom: 10px;">التحكم السريع بالمروحة:</p>
+        <div style="display: flex; gap: 5px; justify-content: center; flex-wrap: wrap;">
+            <button class="fan-small-btn" onclick="loadPayload('fan50.bin')">50°</button>
+            <button class="fan-small-btn" onclick="loadPayload('fan60.bin')">60°</button>
+            <button class="fan-small-btn" onclick="loadPayload('fan70.bin')">70°</button>
+            <button class="fan-small-btn" onclick="loadPayload('fan80.bin')">80°</button>
         </div>
-
-        <div id="status-display" class="status-box">الحالة: جاهز... بانتظار اختيارك</div>
     </div>
+
+    <a href="tools.html" class="btn"><span>🛠️</span> كل الأدوات</a>
+    <a href="pkgs.html" class="btn"><span>📦</span> مكتبة البرامج</a>
+</div>
 
     <script>
         function loadPayload(fileName) {
