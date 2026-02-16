@@ -3,138 +3,91 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GameHub - الأدوات</title>
-    
+    <title>GameHub - الأدوات الاحترافية</title>
     <script src="int64.js"></script>
     <script src="rop.js"></script>
     <script src="kexploit.js"></script>
     <script src="exploit.js"></script>
-
     <style>
-        body {
-            margin: 0; padding: 20px;
-            font-family: 'Segoe UI', Tahoma, sans-serif;
-            background: #0a0a0a;
-            color: white;
-            text-align: center;
-        }
-        .header { margin-bottom: 30px; }
-        h1 { color: #1e90ff; font-size: 2.2rem; margin-bottom: 10px; }
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            max-width: 1200px;
-            margin: auto;
-        }
-        .tool-card {
-            background: #161616;
-            padding: 20px;
-            border-radius: 15px;
-            border: 1px solid #333;
-            cursor: pointer;
-            transition: 0.3s ease-in-out;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        .tool-card:hover {
-            border-color: #1e90ff;
-            background: #1f1f1f;
-            transform: translateY(-5px);
-            box-shadow: 0 5px 15px rgba(30, 144, 255, 0.3);
-        }
-        .icon { font-size: 2.5rem; margin-bottom: 10px; }
-        .name { font-weight: bold; font-size: 1.1rem; color: #1e90ff; margin-bottom: 5px; }
-        .desc { font-size: 0.85rem; color: #bbb; line-height: 1.5; }
-        .back-btn {
-            display: inline-block;
-            margin-top: 40px;
-            padding: 10px 30px;
-            border: 1px solid #ff4444;
-            color: #ff4444;
-            text-decoration: none;
-            border-radius: 8px;
-            font-weight: bold;
-        }
-        .back-btn:hover { background: #ff4444; color: white; }
+        body { margin: 0; padding: 20px; font-family: 'Segoe UI', sans-serif; background: #0a0a0a; color: white; text-align: center; }
+        h1 { color: #1e90ff; text-shadow: 0 0 10px rgba(30,144,255,0.5); }
+        .section-title { margin: 30px 0 15px; color: #888; border-bottom: 1px solid #333; padding-bottom: 5px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; max-width: 1100px; margin: auto; }
+        .card { background: #161616; padding: 15px; border-radius: 15px; border: 1px solid #333; cursor: pointer; transition: 0.3s; }
+        .card:hover { border-color: #1e90ff; background: #222; transform: translateY(-5px); }
+        .name { font-weight: bold; color: #1e90ff; display: block; margin-bottom: 5px; }
+        .desc { font-size: 0.8rem; color: #777; }
+        
+        /* تنسيق خاص لأزرار الحرارة */
+        .fan-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); gap: 10px; max-width: 800px; margin: auto; }
+        .fan-btn { background: #222; border: 1px solid #444; color: white; padding: 10px; border-radius: 8px; cursor: pointer; transition: 0.2s; }
+        .fan-btn:hover { background: #ff4500; border-color: white; }
+
+        .back-link { display: inline-block; margin-top: 40px; color: #ff4444; text-decoration: none; border: 1px solid #ff4444; padding: 10px 25px; border-radius: 10px; }
     </style>
 </head>
 <body>
 
-    <div class="header">
-        <h1>أدوات نظام GAMEHUB 🛠️</h1>
-        <p>اختر الأداة المناسبة لحقنها في النظام</p>
-    </div>
+    <h1>GAMEHUB TOOLS 🛠️</h1>
 
+    <div class="section-title">أدوات الشبكة والنظام</div>
     <div class="grid">
-        <div class="tool-card" onclick="inject('ps4debug.bin')">
-            <span class="icon">🐞</span>
-            <div class="name">مصحح الأخطاء (Debug)</div>
-            <div class="desc">يسمح بالتحكم الكامل في الذاكرة وتعديل قيم الألعاب عبر الكمبيوتر.</div>
-        </div>
-
-        <div class="tool-card" onclick="inject('WebRTE.bin')">
-            <span class="icon">🎮</span>
-            <div class="name">محرك الغش (WebRTE)</div>
-            <div class="desc">تفعيل ميزة الغش والرموز السرية داخل الألعاب مباشرة.</div>
-        </div>
-
-        <div class="tool-card" onclick="inject('ToDex.bin')">
-            <span class="icon">🔓</span>
-            <div class="name">وضع المطور (ToDex)</div>
-            <div class="desc">يفتح خيارات التطوير المخفية في النظام لتحكم أوسع بالملفات.</div>
-        </div>
-
-        <div class="tool-card" onclick="inject('historyblocker.bin')">
-            <span class="icon">🚫</span>
-            <div class="name">مانع السجل</div>
-            <div class="desc">يمنع المتصفح من حفظ تاريخ المواقع التي تزورها للحفاظ على الخصوصية.</div>
-        </div>
-
-        <div class="tool-card" onclick="inject('disableupdates.bin')">
-            <span class="icon">🛑</span>
-            <div class="name">إيقاف التحديثات</div>
-            <div class="desc">منع الجهاز نهائياً من محاولة تحميل تحديثات النظام الرسمية.</div>
-        </div>
-
-        <div class="tool-card" onclick="inject('appdumper.bin')">
-            <span class="icon">📦</span>
-            <div class="name">سحب الألعاب (Dumper)</div>
-            <div class="desc">لتحويل الألعاب المثبتة أو الأقراص إلى ملفات PKG قابلة للتثبيت.</div>
-        </div>
-
-        <div class="tool-card" onclick="inject('kerneldumper.bin')">
-            <span class="icon">🧠</span>
-            <div class="name">سحب النواة (Kernel)</div>
-            <div class="desc">نسخ ملفات النظام الأساسية والعميقة لأغراض التحليل والتطوير.</div>
-        </div>
-
-        <div class="tool-card" onclick="inject('rifrenamer.bin')">
-            <span class="icon">🔑</span>
-            <div class="name">معدل التراخيص (RIF)</div>
-            <div class="desc">تعديل تراخيص الألعاب لتتمكن من تشغيلها على أي حساب بالجهاز.</div>
-        </div>
+        <div class="card" onclick="inject('ftp.bin')"><span class="name">📁 خادم FTP</span><span class="desc">نقل الملفات لاسلكياً من الكمبيوتر.</span></div>
+        <div class="card" onclick="inject('LinuxLoader.bin')"><span class="name">🐧 تشغيل Linux</span><span class="desc">تحميل نظام لينكس على الجهاز.</span></div>
+        <div class="card" onclick="inject('dbbackup.bin')"><span class="name">💾 نسخة احتياطية</span><span class="desc">حفظ نسخة من قاعدة بيانات الألعاب.</span></div>
+        <div class="card" onclick="inject('ps4debug.bin')"><span class="name">🐞 PS4 Debug</span><span class="desc">تصحيح الأخطاء والتعديل المتقدم.</span></div>
     </div>
 
-    <a href="index.html" class="back-btn">العودة للرئيسية</a>
+    <div class="section-title">التحكم بحرارة المروحة (Fan Control)</div>
+    <div class="fan-grid">
+        <button class="fan-btn" onclick="inject('fan50.bin')">50°C</button>
+        <button class="fan-btn" onclick="inject('fan55.bin')">55°C</button>
+        <button class="fan-btn" onclick="inject('fan60.bin')">60°C</button>
+        <button class="fan-btn" onclick="inject('fan65.bin')">65°C</button>
+        <button class="fan-btn" onclick="inject('fan70.bin')">70°C</button>
+        <button class="fan-btn" onclick="inject('fan75.bin')">75°C</button>
+        <button class="fan-btn" onclick="inject('fan80.bin')">80°C</button>
+    </div>
+
+    <div class="section-title">إدارة الألعاب</div>
+    <div class="grid">
+        <div class="card" onclick="inject('appdumper.bin')"><span class="name">📦 سحب الألعاب</span><span class="desc">تحويل الألعاب المثبتة إلى PKG.</span></div>
+        <div class="card" onclick="inject('rifrenamer.bin')"><span class="name">🔑 تعديل التراخيص</span><span class="desc">تشغيل الألعاب على كل الحسابات.</span></div>
+        <div class="card" onclick="inject('kerneldumper.bin')"><span class="name">🧠 Kernel Dumper</span><span class="desc">سحب نواة النظام للمطورين.</span></div>
+    </div>
+
+    <a href="index.html" class="back-link">العودة للرئيسية</a>
 
     <script>
         function inject(file) {
-            console.log("محاولة حقن ملف: " + file);
+            // رسالة تنبيه للمستخدم
+            console.log("جاري محاولة حقن الأداة: " + file);
+            
             var xhr = new XMLHttpRequest();
-            // المسار لمجلد payloads الذي أنشأته
+            // المسار المباشر لمجلد payloads
             xhr.open('GET', './payloads/' + file, true);
             xhr.responseType = 'arraybuffer';
+            
             xhr.onload = function() {
                 if (this.status == 200) {
+                    // تخزين البيانات في الـ Buffer الخاص بالمحرك
                     window.payload_buffer = this.response;
-                    // تشغيل المحرك من ملف exploit.js
-                    setTimeout(run_scripts, 500);
+                    
+                    // تشغيل سكريبت الثغرة (من ملف exploit.js)
+                    setTimeout(function(){
+                        run_scripts(); 
+                    }, 500);
+                    
+                    alert("تم إرسال " + file + " بنجاح! انتظر إشعار النظام.");
                 } else {
-                    alert("خطأ: تعذر العثور على ملف " + file + " في مجلد payloads.");
+                    alert("خطأ: لم يتم العثور على الملف " + file + " في مجلد payloads.");
                 }
             };
+            
+            xhr.onerror = function() {
+                alert("حدث خطأ في الاتصال أثناء جلب الملف.");
+            };
+            
             xhr.send();
         }
     </script>
