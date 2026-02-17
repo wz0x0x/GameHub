@@ -4,75 +4,70 @@
     <meta charset="UTF-8">
     <title>GAME HUB MASTER OS</title>
     <style>
-        /* استخدام ألوان مباشرة بدلاً من المتغيرات لضمان القراءة */
         body { 
             background-color: #050505; 
             color: #ffffff; 
-            font-family: "Arial", "Courier New", sans-serif; 
+            /* الترتيب هنا هو السر: خطوط النظام الأساسية أولاً */
+            font-family: "Geeza Pro", "Simplified Arabic", "Tahoma", sans-serif; 
             margin: 0; 
             padding: 0; 
             text-align: center; 
             direction: rtl; 
+            /* منع المتصفح من تقطيع الحروف */
+            -webkit-font-smoothing: antialiased;
         }
 
-        /* كود النجوم الخلفية */
         #canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; }
 
-        /* العنوان - حجم ثابت لمتصفح السوني */
         .header { 
-            font-size: 40px; 
+            font-size: 35px; 
             color: #007bff; 
-            padding: 30px 0; 
+            padding: 25px 0; 
             font-weight: bold;
             text-shadow: 0 0 10px #007bff;
+            /* لضمان عدم تداخل الإنجليزي مع العربي */
+            line-height: 1.2;
         }
 
-        /* مربع الترحيب - تصميم كلاسيكي */
         .helper-box { 
-            background: #111; 
+            background: rgba(20, 20, 20, 0.8); 
             border: 2px dashed #007bff; 
             margin: 10px auto; 
             width: 85%; 
             padding: 15px; 
             color: #00ffcc;
-            font-size: 18px;
+            font-size: 20px;
+            /* المسافة بين السطور تمنع تقطع الحروف */
+            line-height: 1.8; 
         }
 
-        /* تصنيفات الأقسام */
         .section-box {
             border: 2px solid #ffd700;
-            background: #1a1a1a;
+            background: #111;
             margin: 20px auto;
             width: 90%;
             padding: 15px;
+            border-radius: 10px;
         }
         .ps3-style { border-color: #007bff; }
 
-        /* الأزرار - تصميم بسيط جداً ليعمل اللمس والضغط */
         .btn {
             background: #222;
             color: #fff;
             border: 2px solid #ffd700;
-            padding: 15px;
-            margin: 10px auto;
-            width: 95%;
+            padding: 18px;
+            margin: 12px auto;
+            width: 92%;
             display: block;
-            font-size: 20px;
-            text-decoration: none;
+            font-size: 22px;
+            font-weight: bold;
             cursor: pointer;
         }
         .ps3-btn { border-color: #007bff; }
 
-        /* القائمة الفرعية */
-        .sub-container {
-            display: none;
-            background: #000;
-            padding: 10px;
-            border: 1px solid #444;
-        }
+        .sub-container { display: none; background: #000; padding: 10px; }
 
-        .footer { margin: 40px 0; color: #888; font-size: 16px; }
-        .blue-text { color: #007bff; font-weight: bold; }
+        .footer { margin: 40px 0; color: #888; font-size: 18px; }
     </style>
 </head>
 <body>
@@ -80,37 +75,35 @@
 
     <div class="header">WELCOME GAME HUB HOST</div>
     
-    <div class="helper-box" id="msg">اهلا قبل كل شيء لازم تفعل زر الGoldHen</div>
+    <div class="helper-box" id="msg">
+        أهلاً بك.. يرجى تفعيل زر GoldHen أولاً
+    </div>
 
     <div class="section-box">
-        <h2 style="color:#ffd700;">PS4 POWER STATION</h2>
-        <button class="btn" onclick="run('GoldHen 2.4')" onmouseover="sh('تفعيل تهكير PS4 الإصدار الأخير')">تشغيل GoldHEN 2.4 ✨</button>
-        
-        <button class="btn" onclick="shw('ps4_sub')">🛠️ مكتبة الأدوات النظامية (Bins)</button>
+        <h2 style="color:#ffd700; font-size: 24px;">قسم بلايستيشن 4</h2>
+        <button class="btn" onclick="run('GoldHen')" onmouseover="sh('جاري تفعيل نظام GoldHen 2.4')">تشغيل GoldHEN 2.4 ✨</button>
+        <button class="btn" onclick="shw('ps4_sub')">🛠️ مكتبة الأدوات</button>
         <div id="ps4_sub" class="sub-container">
             <button class="btn" onclick="run('Linux')">Linux Loader</button>
-            <button class="btn" onclick="run('ToDex')">ToDex</button>
             <button class="btn" onclick="run('WebRTE')">WebRTE</button>
         </div>
     </div>
 
     <div class="section-box ps3-style">
-        <h2 style="color:#007bff;">PS3 COMMAND CENTER</h2>
-        <button class="btn ps3-btn" onclick="location.href='https://ps3xploit.me/hen/installer/auto/index.html'">إطلاق تفعيل الـ HEN 🚀</button>
-        
-        <button class="btn ps3-btn" onclick="shw('ps3_sub')">📦 متجر تطبيقات PS3</button>
+        <h2 style="color:#007bff; font-size: 24px;">قسم بلايستيشن 3</h2>
+        <button class="btn ps3-btn" onclick="location.href='https://ps3xploit.me/hen/installer/auto/index.html'">تفعيل الـ HEN 🚀</button>
+        <button class="btn ps3-btn" onclick="shw('ps3_sub')">📦 متجر التطبيقات</button>
         <div id="ps3_sub" class="sub-container">
-            <button class="btn ps3-btn" onclick="location.href='#'">Apollo Tool</button>
-            <button class="btn ps3-btn" onclick="location.href='#'">IRISMAN 4.91</button>
+            <button class="btn ps3-btn">Apollo Tool</button>
+            <button class="btn ps3-btn">IRISMAN 4.91</button>
         </div>
     </div>
 
     <div class="footer">
-        قدم هذا العمل من قبل <span class="blue-text">Lev</span>
+        تصميم وتطوير بواسطة <span style="color:#007bff;">Lev</span>
     </div>
 
     <script>
-        // سكريبت النجوم مبسط جداً للسوني 3
         var c = document.getElementById('canvas'), x = c.getContext('2d');
         c.width = window.innerWidth; c.height = window.innerHeight;
         var s = [];
@@ -121,11 +114,10 @@
                 x.beginPath(); x.arc(s[i].x, s[i].y, s[i].r, 0, 7); x.fill();
                 s[i].y += 0.5; if(s[i].y > c.height) s[i].y = 0;
             }
-            setTimeout(d, 30);
+            setTimeout(d, 40);
         }
         d();
 
-        // وظائف إظهار النصوص والأدوات
         function sh(t) { document.getElementById('msg').innerHTML = t; }
         function run(f) { sh("جاري تشغيل: " + f); }
         function shw(id) {
