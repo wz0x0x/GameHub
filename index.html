@@ -1,95 +1,58 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar">
 <head>
     <meta charset="UTF-8">
-    <title>GAME HUB MASTER OS</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <title>GAME HUB MASTER - PS3 FIXED</title>
     <style>
-        body { background-color: #050505; color: #ffffff; font-family: Arial, sans-serif; margin: 0; text-align: center; }
-        #canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; }
-        .header { font-size: 30px; color: #007bff; padding: 25px; font-weight: bold; }
-        .helper { color: #00ffcc; background: #111; padding: 15px; width: 85%; margin: 10px auto; border: 1px dashed #007bff; border-radius: 8px; }
-        .box { margin: 15px auto; width: 90%; padding: 15px; background: #161616; border-radius: 10px; }
-        .gold-brd { border-top: 5px solid #ffd700; }
-        .blue-brd { border-top: 5px solid #007bff; }
-        .btn { width: 95%; padding: 18px 0; margin: 10px auto; font-size: 20px; background: #252525; color: white; border: 2px solid #444; display: block; font-weight: bold; text-decoration: none; }
-        .ps4-btn { border-color: #ffd700; }
-        .ps3-btn { border-color: #007bff; }
-        .menu { display: none; background: #000; padding: 10px 0; border: 1px solid #333; }
-        .sub-btn { padding: 15px; margin: 8px auto; background: #222; color: white; border: 1px solid #555; display: block; width: 85%; font-weight: bold; text-decoration: none; }
-        .footer { margin: 30px 0; font-size: 18px; }
+        body { background: #000; color: #fff; font-family: sans-serif; text-align: center; direction: rtl; }
+        .header { color: #007bff; font-size: 28px; padding: 20px; border-bottom: 2px solid #333; }
+        .helper { color: #00ffcc; padding: 10px; border: 1px dashed #444; margin: 10px; font-size: 16px; }
+        
+        /* تصميم الأزرار كروابط مباشرة */
+        .btn { 
+            display: block; width: 85%; padding: 15px; margin: 10px auto; 
+            background: #1a1a1a; color: #fff; border: 2px solid #007bff; 
+            text-decoration: none; font-weight: bold; font-size: 18px;
+        }
+        .btn-gold { border-color: #ffd700; }
+        
+        /* القوائم الفرعية تظهر دائماً في PS3 لضمان عملها */
+        .sub-container { background: #111; padding: 5px; border-radius: 5px; }
+        .sub-link { 
+            display: block; width: 80%; padding: 12px; margin: 5px auto; 
+            background: #222; color: #00ffcc; border: 1px solid #444; 
+            text-decoration: none; font-size: 14px;
+        }
+        
+        .footer { margin-top: 30px; font-size: 14px; color: #888; }
     </style>
 </head>
 <body>
-    <canvas id="canvas"></canvas>
+
     <div class="header">WELCOME GAME HUB HOST</div>
-    <div class="helper" id="msg">اهلا قبل كل شيء لازم تفعل زر الGoldHen</div>
+    
+    <div class="helper" id="status">يجب تفعيل HEN قبل تثبيت التطبيقات</div>
 
-    <div class="box gold-brd">
-        <h2 style="color:#ffd700">PS4 POWER STATION</h2>
-        <a href="javascript:void(0)" class="btn ps4-btn" onclick="r('goldhen.bin')">LAUNCH GOLDHEN 2.4 ✨</a>
-        <a href="javascript:void(0)" class="btn ps4-btn" onclick="shw('m1')">SYSTEM TOOLS (BINS)</a>
-        <div id="m1" class="menu">
-            <a href="javascript:void(0)" class="sub-btn" onclick="r('LinuxLoader.bin')">LINUX LOADER</a>
-            <a href="javascript:void(0)" class="sub-btn" onclick="r('WebRTE.bin')">WEBRTE</a>
-            <a href="javascript:void(0)" class="sub-btn" onclick="r('appdumper.bin')">APP DUMPER</a>
-            <a href="javascript:void(0)" class="sub-btn" onclick="r('dbbackup.bin')">DB BACKUP</a>
+    <div style="border: 1px solid #ffd700; margin: 10px; padding-bottom: 10px;">
+        <h3 style="color:#ffd700">PS4 SECTION</h3>
+        <a href="javascript:alert('Use PS4 Browser for this')" class="btn btn-gold">LAUNCH GOLDHEN 2.4</a>
+    </div>
+
+    <div style="border: 1px solid #007bff; margin: 10px; padding-bottom: 10px;">
+        <h3 style="color:#007bff">PS3 APPS STORE</h3>
+        <div class="sub-container">
+            <a href="http://127.0.0.1:80/install.ps3?url=https://raw.githubusercontent.com/wz0x0x/GameHub/main/pkg/apollo-ps3.pkg" class="sub-link">DOWNLOAD APOLLO TOOL</a>
+            <a href="http://127.0.0.1:80/install.ps3?url=https://raw.githubusercontent.com/wz0x0x/GameHub/main/pkg/IRISMAN_4.91.pkg" class="sub-link">DOWNLOAD IRISMAN 4.91</a>
+            <a href="http://127.0.0.1:80/install.ps3?url=https://raw.githubusercontent.com/wz0x0x/GameHub/main/pkg/cheat.webman-pkg" class="sub-link">DOWNLOAD WEBMAN CHEATS</a>
         </div>
     </div>
 
-    <div class="box blue-brd">
-        <h2 style="color:#007bff">PS3 COMMAND CENTER</h2>
-        <a href="https://ps3xploit.me/hen/installer/auto/index.html" class="btn ps3-btn">ENABLE PS3 HEN 🚀</a>
-        <a href="javascript:void(0)" class="btn ps3-btn" onclick="shw('m3')">PS3 APPS</a>
-        <div id="m3" class="menu">
-            <a href="javascript:void(0)" class="sub-btn" onclick="p('apollo-ps3.pkg')">APOLLO SAVE TOOL</a>
-            <a href="javascript:void(0)" class="sub-btn" onclick="p('IRISMAN_4.91.pkg')">IRISMAN 4.91</a>
-            <a href="javascript:void(0)" class="sub-btn" onclick="p('cheat.webman-pkg')">WEBMAN CHEATS</a>
-        </div>
+    <div style="margin-top: 20px;">
+        <a href="https://t.me/WZ0X0X" class="btn" style="width: 40%; display: inline-block; font-size: 12px;">Lev Account</a>
+        <a href="https://discord.gg/xdZ8zqS9G" class="btn" style="width: 40%; display: inline-block; font-size: 12px;">Discord</a>
     </div>
 
-    <div style="padding: 20px;">
-        <a href="javascript:void(0)" class="sub-btn" style="background:#333; border:1px solid #007bff; display:inline-block; width:auto; padding:10px 20px;" onclick="q('https://t.me/WZ0X0X')">Lev Account</a>
-        <a href="javascript:void(0)" class="sub-btn" style="background:#5865F2; display:inline-block; width:auto; padding:10px 20px;" onclick="q('https://discord.gg/xdZ8zqS9G')">Discord</a>
-    </div>
+    <div class="footer">Developed by Lev</div>
 
-    <div class="footer">DEVELOPED BY <span style="color:#007bff; font-weight:bold;">LEV</span></div>
-    <div id="qr" style="display:none; position:fixed; top:50%; left:50%; transform:translate(-50%,-50%); background:white; padding:20px; z-index:1000;" onclick="this.style.display='none'"><div id="q"></div></div>
-
-    <script>
-        var c = document.getElementById('canvas'), ctx = c.getContext('2d');
-        c.width = window.innerWidth; c.height = window.innerHeight;
-        var stars = [];
-        for(var i=0; i<40; i++) stars.push({x:Math.random()*c.width, y:Math.random()*c.height, r:Math.random()*2});
-        function draw() {
-            ctx.clearRect(0,0,c.width,c.height); ctx.fillStyle="#fff";
-            for(var i=0; i<stars.length; i++) {
-                ctx.beginPath(); ctx.arc(stars[i].x, stars[i].y, stars[i].r, 0, 7); ctx.fill();
-                stars[i].y += 0.5; if(stars[i].y > c.height) stars[i].y = 0;
-            }
-            setTimeout(draw, 50);
-        }
-        draw();
-
-        function shw(id) {
-            var e = document.getElementById(id);
-            var menus = document.getElementsByClassName('menu');
-            for(var i=0; i<menus.length; i++) { if(menus[i].id !== id) menus[i].style.display = 'none'; }
-            e.style.display = (e.style.display == 'block') ? 'none' : 'block';
-        }
-
-        function s(t) { document.getElementById('msg').innerHTML = t; }
-        function r(f) { s("RUNNING PAYLOAD: " + f); }
-
-        // الوظيفة المصلحة للتحميل المباشر
-        function p(f) { 
-            var url = "https://raw.githubusercontent.com/wz0x0x/GameHub/main/pkg/" + f;
-            s("جاري إرسال طلب التثبيت... تأكد من تفعيل HEN");
-            // استخدام الرابط المباشر لـ Webman مع تأمين المسار
-            window.location.href = "http://localhost/install.ps3?url=" + url;
-        }
-
-        function q(l) { document.getElementById('q').innerHTML=""; new QRCode(document.getElementById("q"),l); document.getElementById('qr').style.display='block'; }
-    </script>
 </body>
 </html>
