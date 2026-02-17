@@ -119,6 +119,27 @@
         }
 
         function q(l) { document.getElementById('q').innerHTML=""; new QRCode(document.getElementById("q"),l); document.getElementById('qr').style.display='block'; }
+   // أضف هذا الكود داخل وسم <script> في ملفك
+function load_goldhen() {
+    var payload_path = "payloads/goldhen.bin";
+    s("جاري تحضير الثغرة... يرجى الانتظار");
+
+    // استدعاء ملف المشغل العالمي (المحرك)
+    var script = document.createElement('script');
+    script.src = "payloads/loader.js"; // هذا هو الملف الذي سننشئه في الخطوة الثانية
+    document.head.appendChild(script);
+
+    // إرسال المسار للمشغل
+    setTimeout(function(){
+        if(window.loadPayload) {
+            window.loadPayload(payload_path);
+            s("تم إرسال GoldHEN بنجاح! راجع التنبيهات.");
+        } else {
+            s("خطأ: ملف loader.js غير موجود أو لم يتم تحميله.");
+        }
+    }, 1000);
+}
+
     </script>
 </body>
 </html>
