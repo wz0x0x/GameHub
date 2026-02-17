@@ -4,90 +4,49 @@
     <meta charset="UTF-8">
     <title>GAME HUB MASTER OS - THE ULTIMATE</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-    <style>
-        :root {
-            --blue: #007bff; --blue-glow: 0 0 20px #007bff;
-            --gold: #ffd700; --gold-glow: 0 0 20px #ffd700;
-            --bg: #050505; --card: rgba(255, 255, 255, 0.05);
-        }
-   <canvas id="canvas" style="position:fixed; top:0; left:0; width:100%; height:100%; z-index:-1;"></canvas>
+  /* هذا الكود يوضع بين <style> و </style> */
+body {
+    text-align: center; /* يضمن توسيط كل شيء في الصفحة */
+    direction: rtl; 
+    margin: 0; 
+    padding: 0;
+}
+
+/* إصلاح العنوان الرئيسي ليكون في المنتصف تماماً */
+.header {
+    display: block;
+    width: 100%;
+    text-align: center;
+    margin: 40px auto 10px auto;
+}
+
+/* إصلاح مربع الترحيب الذكي */
+#smart-panel {
+    margin: 20px auto; /* auto تضمن التوسط */
+    width: 85%;
+    text-align: center;
+}
+
+/* إصلاح الأزرار لكي لا تخرج من المربع الذهبي */
+.sub-menu {
+    display: none;
+    flex-wrap: wrap; /* هذا يمنع خروج الأزرار برا المربع */
+    justify-content: center; /* يوزع الأزرار في المنتصف */
+    gap: 10px;
+    padding: 15px;
+    width: 90%;
+    margin: 10px auto;
+}
+
+/* إصلاح شريط الأخبار ليكون سطر واحد وليس عمودي */
 .news-ticker-container {
     position: fixed;
-    bottom: 40px; /* فوق الحقوق قليلاً */
-    left: 0;
+    bottom: 50px;
     width: 100%;
-    background: rgba(0, 0, 0, 0.5); /* شفافية */
-    border-top: 1px solid var(--blue);
-    border-bottom: 1px solid var(--blue);
-    display: flex;
-    align-items: center;
-    z-index: 999;
-    height: 40px;
+    white-space: nowrap; /* يمنع نزول الكلام سطر جديد */
     overflow: hidden;
-    white-space: nowrap;
 }
 
-.news-label {
-    background: var(--blue);
-    color: white;
-    padding: 0 15px;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    font-weight: bold;
-    z-index: 1001;
-    box-shadow: 5px 0 15px rgba(0,0,0,0.5);
-}
-
-.news-scroll {
-    display: inline-block;
-    padding-left: 100%;
-    animation: marquee 20s linear infinite;
-    color: #00ffcc;
-    font-size: 1.1rem;
-}
-
-@keyframes marquee {
-    0% { transform: translateX(0); }
-    100% { transform: translateX(-100%); }
-}
-        <script>
-const canvas = document.getElementById('canvas');
-const ctx = canvas.getContext('2d');
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
-let particles = [];
-class Particle {
-    constructor() {
-        this.x = Math.random() * canvas.width;
-        this.y = Math.random() * canvas.height;
-        this.size = Math.random() * 2 + 1;
-        this.speedX = Math.random() * 1 - 0.5;
-        this.speedY = Math.random() * 1 - 0.5;
-    }
-    update() {
-        this.x += this.speedX;
-        this.y += this.speedY;
-        if (this.size > 0.2) this.size -= 0.01;
-    }
-    draw() {
-        ctx.fillStyle = '#007bff';
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-        ctx.fill();
-    }
-}
-function animate() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    if (particles.length < 100) particles.push(new Particle());
-    for (let i = 0; i < particles.length; i++) {
-        particles[i].update();
-        particles[i].draw();
-        if (particles[i].size <= 0.2) { particles.splice(i, 1); i--; }
-    }
-    requestAnimationFrame(animate);
-}
-animate();
 </script>
         body { background: var(--bg); color: white; font-family: 'Arial Black', sans-serif; margin: 0; text-align: center; overflow-x: hidden; }
         
@@ -151,6 +110,11 @@ fetchNews();
         </style>
 </head>
 <body>
+
+    <div style="text-align: left; padding: 10px;">
+    <button onclick="document.body.style.background='#fff';document.body.style.color='#000'" style="border-radius:15px; padding:5px 15px;">🌞 نهاري</button>
+    <button onclick="document.body.style.background='#050505';document.body.style.color='#fff'" style="border-radius:15px; padding:5px 15px;">🌙 ليلي</button>
+</div>
 
     <div style="position:fixed; top:10px; left:10px; z-index:1000; display:flex; gap:10px;">
     <button onclick="document.body.style.backgroundColor='#fff'; document.body.style.color='#000';" style="padding:10px; border-radius:5px; cursor:pointer;">🌞 نهاري</button>
@@ -231,9 +195,10 @@ fetchNews();
         <button class="soc-btn btn-remote" onclick="q(window.location.href)">Remote Phone Control 📱</button>
     </div>
 
-    <div class="credits">
-        قدم هذا العمل من قبل <span class="lev-name">Lev</span>
-    </div>
+  <div style="text-align: center; width: 100%; margin: 50px 0; color: white;">
+    قدم هذا العمل من قبل <span style="color: #007bff; text-shadow: 0 0 10px #007bff;">Lev</span>
+</div>
+
 
     <div id="qr" class="qr-overlay" onclick="this.style.display='none'"><div id="q"></div><p style="color:black; font-weight:bold; margin-top:10px;">إغلاق الكود</p></div>
 <div class="news-ticker-container">
@@ -269,6 +234,9 @@ function s(text) {
 }
 setInterval(updateClock, 1000); // تحديث كل ثانية
 updateClock(); // تشغيل فوري عند الفتح
+   // أضف هذا السطر لضمان أن الكلام يمشي بالعرض
+document.getElementById('news-scroll').style.whiteSpace = "nowrap";
+
     </script>
 </body>
 </html>
