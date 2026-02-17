@@ -5,7 +5,6 @@
     <title>GAME HUB MASTER OS</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     <style>
-        /* تصميم كلاسيكي متوافق مع جميع الأجهزة */
         body { 
             background-color: #050505; color: #ffffff; 
             font-family: Arial, sans-serif; margin: 0; padding: 0; 
@@ -24,32 +23,31 @@
         .box { 
             margin: 15px auto; width: 90%; padding: 15px; 
             background: #161616; border-radius: 10px;
+            overflow: hidden; /* لضمان ثبات المحتوى الداخلي */
         }
         .gold-brd { border-top: 5px solid #ffd700; }
         .blue-brd { border-top: 5px solid #007bff; }
 
-        /* الأزرار بنظام التوافق العالي */
         .btn { 
             width: 95%; padding: 18px 0; margin: 10px auto; font-size: 20px; 
             background: #252525; color: white; border: 2px solid #444; 
             display: block; font-weight: bold; text-decoration: none;
-            cursor: pointer;
         }
         .ps4-btn { border-color: #ffd700; }
         .ps3-btn { border-color: #007bff; }
 
-        /* القوائم الفرعية بتصميم بسيط */
-        .menu { display: none; background: #000; padding: 10px; width: 95%; margin: 0 auto; }
+        /* تعديل القائمة لتثبت على PS3 */
+        .menu { 
+            display: none; background: #000; padding: 10px 0; 
+            width: 100%; margin: 5px 0; border: 1px solid #333;
+        }
+        
         .sub-btn { 
-            padding: 12px; margin: 5px; background: #333; color: white; 
-            border: 1px solid #555; display: inline-block; min-width: 120px; 
-            font-size: 14px; text-decoration: none;
+            padding: 15px; margin: 8px auto; background: #222; color: white; 
+            border: 1px solid #555; display: block; width: 85%;
+            font-size: 16px; text-decoration: none; font-weight: bold;
         }
-
-        .soc-btn { 
-            padding: 12px 20px; border-radius: 25px; border: none; 
-            color: white; margin: 5px; display: inline-block; font-weight: bold;
-        }
+        
         .footer { margin: 30px 0; font-size: 18px; }
     </style>
 </head>
@@ -69,7 +67,6 @@
             <a href="javascript:void(0)" class="sub-btn" onclick="r('ToDex.bin')">TODEX</a>
             <a href="javascript:void(0)" class="sub-btn" onclick="r('WebRTE.bin')">WEBRTE</a>
             <a href="javascript:void(0)" class="sub-btn" onclick="r('appdumper.bin')">APP DUMPER</a>
-            <a href="javascript:void(0)" class="sub-btn" onclick="r('dbbackup.bin')">DB BACKUP</a>
         </div>
 
         <a href="javascript:void(0)" class="btn ps4-btn" onclick="shw('m2')">FAN CONTROL</a>
@@ -87,19 +84,14 @@
         <div id="m3" class="menu">
             <a href="javascript:void(0)" class="sub-btn" onclick="p('apollo-ps3.pkg')">APOLLO TOOL</a>
             <a href="javascript:void(0)" class="sub-btn" onclick="p('IRISMAN_4.91.pkg')">IRISMAN 4.91</a>
+            <a href="javascript:void(0)" class="sub-btn" onclick="p('cheat.webman-pkg')">WEBMAN CHEATS</a>
         </div>
     </div>
 
-    <div style="padding: 20px;">
-        <a href="javascript:void(0)" class="soc-btn" style="background:#333;" onclick="q('https://t.me/WZ0X0X')">Lev Account</a>
-        <a href="javascript:void(0)" class="soc-btn" style="background:#5865F2;" onclick="q('https://discord.gg/xdZ8zqS9G')">Discord</a>
-    </div>
-
     <div class="footer">DEVELOPED BY <span style="color:#007bff;">LEV</span></div>
-    <div id="qr" style="display:none; position:fixed; top:50%; left:50%; transform:translate(-50%,-50%); background:white; padding:20px; z-index:1000;" onclick="this.style.display='none'"><div id="q"></div></div>
 
     <script>
-        // سكريبت النجوم - نسخة PS3 المستقرة
+        // النجوم (نسخة ثابتة)
         var c = document.getElementById('canvas'), ctx = c.getContext('2d');
         c.width = window.innerWidth; c.height = window.innerHeight;
         var s = [];
@@ -114,14 +106,18 @@
         }
         draw();
 
-        // وظيفة إظهار القوائم - نسخة PS3 المضمونة
+        // وظيفة الإظهار المعدلة للثبات على PS3
         function shw(id) {
             var e = document.getElementById(id);
-            if(e.style.display == 'block') { e.style.display = 'none'; }
-            else {
-                // إغلاق البقية أولاً
-                var menus = document.getElementsByClassName('menu');
-                for(var i=0; i<menus.length; i++) { menus[i].style.display = 'none'; }
+            // إغلاق كل القوائم المفتوحة أولاً لضمان عدم حدوث تداخل
+            var allMenus = document.getElementsByClassName('menu');
+            for(var i=0; i<allMenus.length; i++) {
+                if(allMenus[i].id !== id) allMenus[i].style.display = 'none';
+            }
+            // تبديل الحالة
+            if(e.style.display == 'block') {
+                e.style.display = 'none';
+            } else {
                 e.style.display = 'block';
             }
         }
@@ -129,7 +125,6 @@
         function s(t) { document.getElementById('msg').innerHTML = t; }
         function r(f) { s("RUNNING: " + f); }
         function p(f) { window.location.href = "http://127.0.0.1/install.ps3?url=.../" + f; }
-        function q(l) { document.getElementById('q').innerHTML=""; new QRCode(document.getElementById("q"),l); document.getElementById('qr').style.display='block'; }
     </script>
 </body>
 </html>
