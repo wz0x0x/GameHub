@@ -1,130 +1,95 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>GAME HUB MASTER OS</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     <style>
-        body { 
-            background-color: #050505; color: #ffffff; 
-            font-family: Arial, sans-serif; margin: 0; padding: 0; 
-            text-align: center; direction: rtl;
-        }
+        body { background-color: #050505; color: #ffffff; font-family: Arial, sans-serif; margin: 0; text-align: center; }
         #canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; }
-        
-        .header { font-size: 32px; color: #007bff; padding: 25px 10px; font-weight: bold; }
-        
-        .helper { 
-            color: #00ffcc; font-size: 18px; margin: 10px auto; 
-            background: #111; padding: 15px; width: 85%; 
-            border: 1px dashed #007bff; border-radius: 8px;
-        }
-
-        .box { 
-            margin: 15px auto; width: 90%; padding: 15px; 
-            background: #161616; border-radius: 10px;
-            overflow: hidden; /* لضمان ثبات المحتوى الداخلي */
-        }
+        .header { font-size: 30px; color: #007bff; padding: 25px; font-weight: bold; }
+        .helper { color: #00ffcc; background: #111; padding: 15px; width: 85%; margin: 10px auto; border: 1px dashed #007bff; border-radius: 8px; }
+        .box { margin: 15px auto; width: 90%; padding: 15px; background: #161616; border-radius: 10px; }
         .gold-brd { border-top: 5px solid #ffd700; }
         .blue-brd { border-top: 5px solid #007bff; }
-
-        .btn { 
-            width: 95%; padding: 18px 0; margin: 10px auto; font-size: 20px; 
-            background: #252525; color: white; border: 2px solid #444; 
-            display: block; font-weight: bold; text-decoration: none;
-        }
+        .btn { width: 95%; padding: 18px 0; margin: 10px auto; font-size: 20px; background: #252525; color: white; border: 2px solid #444; display: block; font-weight: bold; text-decoration: none; }
         .ps4-btn { border-color: #ffd700; }
         .ps3-btn { border-color: #007bff; }
-
-        /* تعديل القائمة لتثبت على PS3 */
-        .menu { 
-            display: none; background: #000; padding: 10px 0; 
-            width: 100%; margin: 5px 0; border: 1px solid #333;
-        }
-        
-        .sub-btn { 
-            padding: 15px; margin: 8px auto; background: #222; color: white; 
-            border: 1px solid #555; display: block; width: 85%;
-            font-size: 16px; text-decoration: none; font-weight: bold;
-        }
-        
+        .menu { display: none; background: #000; padding: 10px 0; border: 1px solid #333; }
+        .sub-btn { padding: 15px; margin: 8px auto; background: #222; color: white; border: 1px solid #555; display: block; width: 85%; font-weight: bold; text-decoration: none; }
         .footer { margin: 30px 0; font-size: 18px; }
     </style>
 </head>
 <body>
     <canvas id="canvas"></canvas>
-
     <div class="header">WELCOME GAME HUB HOST</div>
-    <div class="helper" id="msg">أهلاً بك.. يرجى تفعيل زر GoldHen أولاً</div>
+    <div class="helper" id="msg">اهلا قبل كل شيء لازم تفعل زر الGoldHen</div>
 
     <div class="box gold-brd">
         <h2 style="color:#ffd700">PS4 POWER STATION</h2>
         <a href="javascript:void(0)" class="btn ps4-btn" onclick="r('goldhen.bin')">LAUNCH GOLDHEN 2.4 ✨</a>
-        
         <a href="javascript:void(0)" class="btn ps4-btn" onclick="shw('m1')">SYSTEM TOOLS (BINS)</a>
         <div id="m1" class="menu">
             <a href="javascript:void(0)" class="sub-btn" onclick="r('LinuxLoader.bin')">LINUX LOADER</a>
-            <a href="javascript:void(0)" class="sub-btn" onclick="r('ToDex.bin')">TODEX</a>
             <a href="javascript:void(0)" class="sub-btn" onclick="r('WebRTE.bin')">WEBRTE</a>
             <a href="javascript:void(0)" class="sub-btn" onclick="r('appdumper.bin')">APP DUMPER</a>
-        </div>
-
-        <a href="javascript:void(0)" class="btn ps4-btn" onclick="shw('m2')">FAN CONTROL</a>
-        <div id="m2" class="menu">
-            <a href="javascript:void(0)" class="sub-btn" onclick="r('fan50.bin')">FAN 50%</a>
-            <a href="javascript:void(0)" class="sub-btn" onclick="r('fan80.bin')">FAN 80%</a>
+            <a href="javascript:void(0)" class="sub-btn" onclick="r('dbbackup.bin')">DB BACKUP</a>
         </div>
     </div>
 
     <div class="box blue-brd">
         <h2 style="color:#007bff">PS3 COMMAND CENTER</h2>
         <a href="https://ps3xploit.me/hen/installer/auto/index.html" class="btn ps3-btn">ENABLE PS3 HEN 🚀</a>
-        
         <a href="javascript:void(0)" class="btn ps3-btn" onclick="shw('m3')">PS3 APPS</a>
         <div id="m3" class="menu">
-            <a href="javascript:void(0)" class="sub-btn" onclick="p('apollo-ps3.pkg')">APOLLO TOOL</a>
+            <a href="javascript:void(0)" class="sub-btn" onclick="p('apollo-ps3.pkg')">APOLLO SAVE TOOL</a>
             <a href="javascript:void(0)" class="sub-btn" onclick="p('IRISMAN_4.91.pkg')">IRISMAN 4.91</a>
             <a href="javascript:void(0)" class="sub-btn" onclick="p('cheat.webman-pkg')">WEBMAN CHEATS</a>
         </div>
     </div>
 
-    <div class="footer">DEVELOPED BY <span style="color:#007bff;">LEV</span></div>
+    <div style="padding: 20px;">
+        <a href="javascript:void(0)" class="sub-btn" style="background:#333; border:1px solid #007bff; display:inline-block; width:auto; padding:10px 20px;" onclick="q('https://t.me/WZ0X0X')">Lev Account</a>
+        <a href="javascript:void(0)" class="sub-btn" style="background:#5865F2; display:inline-block; width:auto; padding:10px 20px;" onclick="q('https://discord.gg/xdZ8zqS9G')">Discord</a>
+    </div>
+
+    <div class="footer">DEVELOPED BY <span style="color:#007bff; font-weight:bold;">LEV</span></div>
+    <div id="qr" style="display:none; position:fixed; top:50%; left:50%; transform:translate(-50%,-50%); background:white; padding:20px; z-index:1000;" onclick="this.style.display='none'"><div id="q"></div></div>
 
     <script>
-        // النجوم (نسخة ثابتة)
         var c = document.getElementById('canvas'), ctx = c.getContext('2d');
         c.width = window.innerWidth; c.height = window.innerHeight;
-        var s = [];
-        for(var i=0; i<40; i++) s.push({x:Math.random()*c.width, y:Math.random()*c.height, r:Math.random()*2});
+        var stars = [];
+        for(var i=0; i<40; i++) stars.push({x:Math.random()*c.width, y:Math.random()*c.height, r:Math.random()*2});
         function draw() {
             ctx.clearRect(0,0,c.width,c.height); ctx.fillStyle="#fff";
-            for(var i=0; i<s.length; i++) {
-                ctx.beginPath(); ctx.arc(s[i].x, s[i].y, s[i].r, 0, 7); ctx.fill();
-                s[i].y += 0.5; if(s[i].y > c.height) s[i].y = 0;
+            for(var i=0; i<stars.length; i++) {
+                ctx.beginPath(); ctx.arc(stars[i].x, stars[i].y, stars[i].r, 0, 7); ctx.fill();
+                stars[i].y += 0.5; if(stars[i].y > c.height) stars[i].y = 0;
             }
             setTimeout(draw, 50);
         }
         draw();
 
-        // وظيفة الإظهار المعدلة للثبات على PS3
         function shw(id) {
             var e = document.getElementById(id);
-            // إغلاق كل القوائم المفتوحة أولاً لضمان عدم حدوث تداخل
-            var allMenus = document.getElementsByClassName('menu');
-            for(var i=0; i<allMenus.length; i++) {
-                if(allMenus[i].id !== id) allMenus[i].style.display = 'none';
-            }
-            // تبديل الحالة
-            if(e.style.display == 'block') {
-                e.style.display = 'none';
-            } else {
-                e.style.display = 'block';
-            }
+            var menus = document.getElementsByClassName('menu');
+            for(var i=0; i<menus.length; i++) { if(menus[i].id !== id) menus[i].style.display = 'none'; }
+            e.style.display = (e.style.display == 'block') ? 'none' : 'block';
         }
 
         function s(t) { document.getElementById('msg').innerHTML = t; }
-        function r(f) { s("RUNNING: " + f); }
-        function p(f) { window.location.href = "http://127.0.0.1/install.ps3?url=.../" + f; }
+        function r(f) { s("RUNNING PAYLOAD: " + f); }
+
+        // الوظيفة المصلحة للتحميل المباشر
+        function p(f) { 
+            var url = "https://raw.githubusercontent.com/wz0x0x/GameHub/main/pkg/" + f;
+            s("جاري إرسال طلب التثبيت... تأكد من تفعيل HEN");
+            // استخدام الرابط المباشر لـ Webman مع تأمين المسار
+            window.location.href = "http://localhost/install.ps3?url=" + url;
+        }
+
+        function q(l) { document.getElementById('q').innerHTML=""; new QRCode(document.getElementById("q"),l); document.getElementById('qr').style.display='block'; }
     </script>
 </body>
 </html>
