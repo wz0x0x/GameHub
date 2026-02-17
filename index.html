@@ -2,110 +2,119 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <title>GAME HUB MASTER OS - MEGA EDITION</title>
+    <title>GAME HUB MASTER OS - ORGANIZED EDITION</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     <style>
         :root {
             --primary-blue: #007bff;
-            --neon-glow: 0 0 15px #007bff, 0 0 30px #007bff;
             --gold: #ffd700;
-            --gold-glow: 0 0 15px #ffd700, 0 0 30px #ffd700;
-            --bg: #000; --text: #fff;
+            --bg: #0b0e14;
+            --card: rgba(255, 255, 255, 0.08);
         }
-        body.light { --bg: #f0f2f5; --text: #333; }
-        body { background: var(--bg); color: var(--text); font-family: 'Arial Black', sans-serif; margin: 0; transition: 0.3s; }
-        .header { padding: 30px; text-shadow: var(--neon-glow); color: var(--primary-blue); font-size: 2.5rem; animation: pulse 2s infinite; }
-        .section { margin: 20px; padding: 20px; border-radius: 20px; background: rgba(255,255,255,0.05); backdrop-filter: blur(10px); }
-        .ps4-sec { border: 3px solid var(--gold); box-shadow: var(--gold-glow); }
-        .ps3-sec { border: 3px solid var(--primary-blue); box-shadow: var(--neon-glow); }
-        .title { font-size: 1.8rem; margin-bottom: 20px; text-decoration: underline; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 12px; }
-        button { padding: 15px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.2); background: rgba(255,255,255,0.1); color: white; cursor: pointer; transition: 0.2s; font-weight: bold; }
-        button:hover { transform: scale(1.05); background: var(--primary-blue); box-shadow: var(--neon-glow); }
-        .gold-btn { background: var(--gold) !important; color: #000 !important; font-size: 1.2rem; }
-        .info-box { background: rgba(0,0,0,0.8); color: #00ffcc; padding: 15px; margin: 10px auto; width: 90%; border: 1px solid var(--primary-blue); border-radius: 10px; }
-        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.7; } }
-        .qr-pop { display:none; position:fixed; top:50%; left:50%; transform:translate(-50%,-50%); background:white; padding:20px; border-radius:15px; z-index:1000; color:black; }
+        body { background: var(--bg); color: white; font-family: 'Arial Black', sans-serif; text-align: center; margin: 0; padding-bottom: 50px; }
+        .header { padding: 40px; color: var(--primary-blue); text-shadow: 0 0 20px var(--primary-blue); font-size: 2.5rem; }
+        
+        /* تصميم الأزرار الرئيسية */
+        .main-btn {
+            width: 85%; max-width: 500px; padding: 20px; margin: 10px;
+            font-size: 1.4rem; border-radius: 15px; border: 2px solid var(--primary-blue);
+            background: var(--card); color: white; cursor: pointer; transition: 0.3s;
+        }
+        .main-btn:hover { background: var(--primary-blue); transform: scale(1.02); }
+        .gold-border { border-color: var(--gold); }
+        .gold-border:hover { background: var(--gold); color: black; }
+
+        /* حاويات الأزرار الفرعية (مخفية افتراضياً) */
+        .sub-container {
+            display: none; width: 80%; max-width: 480px; margin: 0 auto 15px;
+            background: rgba(0,0,0,0.5); padding: 15px; border-radius: 0 0 15px 15px;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 10px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .sub-btn {
+            padding: 12px; font-size: 0.9rem; border-radius: 8px; border: none;
+            background: rgba(255,255,255,0.15); color: white; cursor: pointer;
+        }
+        .sub-btn:hover { background: #444; }
+
+        .info-box { color: #00ffcc; margin: 15px; height: 20px; font-size: 1.1rem; }
     </style>
 </head>
-<body id="b">
+<body>
 
-<div style="position:fixed; top:10px; left:10px; z-index:100;">
-    <button onclick="document.body.classList.toggle('light')">🌓 ثيم</button>
-    <input type="color" onchange="document.documentElement.style.setProperty('--primary-blue', this.value)">
-</div>
+    <h1 class="header">WELCOME GAME HUB HOST</h1>
+    <div class="info-box" id="helper">اختر قسماً للبدء..</div>
 
-<h1 class="header">WELCOME GAME HUB HOST</h1>
-<div class="info-box" id="h">مرحباً Lev.. الهوست جاهز بكل الأدوات!</div>
+    <div class="section">
+        <button class="main-btn gold-border" onclick="run('goldhen.bin')">تشغيل GoldHEN 2.4 ✨</button>
+        
+        <button class="main-btn gold-border" onclick="toggle('ps4-tools')">🛠️ زر الأدوات</button>
+        <div id="ps4-tools" class="sub-container">
+            <button class="sub-btn" onclick="run('LinuxLoader.bin')">Linux Loader</button>
+            <button class="sub-btn" onclick="run('ToDex.bin')">ToDex</button>
+            <button class="sub-btn" onclick="run('WebRTE.bin')">WebRTE</button>
+            <button class="sub-btn" onclick="run('dumper.bin')">Dumper Tool</button>
+            <button class="sub-btn" onclick="run('app2usb.bin')">App2USB</button>
+            <button class="sub-btn" onclick="run('dbbackup.bin')">DB Backup</button>
+            <button class="sub-btn" onclick="run('disableupdates.bin')">إيقاف التحديثات</button>
+            <button class="sub-btn" onclick="run('historyblocker.bin')">مسح التاريخ</button>
+            <button class="sub-btn" onclick="run('ps4debug.bin')">PS4 Debug</button>
+            <button class="sub-btn" onclick="run('kerneldumper.bin')">Kernel Dumper</button>
+        </div>
 
-<div class="section ps4-sec">
-    <h2 class="title" style="color:var(--gold)">🎮 قسم بلايستيشن 4 (القائمة الكاملة)</h2>
-    <div class="grid">
-        <button class="gold-btn" onmouseover="s('أداة تفعيل الجيلبريك الأساسية')" onclick="r('goldhen.bin')">تشغيل GoldHEN 2.4</button>
-        <button onmouseover="s('تفعيل وضع المطورين')" onclick="r('ToDex.bin')">ToDex</button>
-        <button onmouseover="s('محرك الغش عبر الشبكة')" onclick="r('WebRTE.bin')">WebRTE</button>
-        <button onmouseover="s('تشغيل نظام لينكس')" onclick="r('LinuxLoader.bin')">Linux Loader</button>
-        <button onmouseover="s('أداة سحب الألعاب')" onclick="r('dumper.bin')">Dumper Tool</button>
-        <button onmouseover="s('نقل الألعاب للفلاش')" onclick="r('app2usb.bin')">App2USB</button>
-        <button onmouseover="s('نسخ قاعدة البيانات')" onclick="r('dbbackup.bin')">DB Backup</button>
-        <button onmouseover="s('إيقاف التحديثات')" onclick="r('disableupdates.bin')">Disable Updates</button>
-        <button onmouseover="s('مسح التاريخ')" onclick="r('historyblocker.bin')">History Blocker</button>
-        <button onmouseover="s('تصحيح الأخطاء')" onclick="r('ps4debug.bin')">PS4 Debug</button>
-        <button onmouseover="s('سحب الكيرنل')" onclick="r('kerneldumper.bin')">Kernel Dumper</button>
+        <button class="main-btn gold-border" onclick="toggle('fan-system')">❄️ نظام تبريد المروحة</button>
+        <div id="fan-system" class="sub-container">
+            <button class="sub-btn" onclick="run('fan50.bin')">50%</button>
+            <button class="sub-btn" onclick="run('fan60.bin')">60%</button>
+            <button class="sub-btn" onclick="run('fan70.bin')">70%</button>
+            <button class="sub-btn" onclick="run('fan80.bin')">80%</button>
+        </div>
+
+        <button class="main-btn gold-border" onclick="toggle('ps4-mods')">🔫 زر المودات</button>
+        <div id="ps4-mods" class="sub-container">
+            <button class="sub-btn" onclick="run('gtavmb127.bin')">GTA V 1.27</button>
+            <button class="sub-btn" onclick="run('gtava1.bin')">GTA ArabicGuy</button>
+            <button class="sub-btn" onclick="run('oystersmenu129.bin')">RDR2 1.29</button>
+        </div>
     </div>
-    
-    <h3 style="color:var(--gold)">❄️ نظام تبريد المروحة المخصص</h3>
-    <div class="grid">
-        <button onclick="r('fan50.bin')">Fan 50%</button><button onclick="r('fan55.bin')">Fan 55%</button>
-        <button onclick="r('fan60.bin')">Fan 60%</button><button onclick="r('fan65.bin')">Fan 65%</button>
-        <button onclick="r('fan70.bin')">Fan 70%</button><button onclick="r('fan75.bin')">Fan 75%</button>
-        <button onclick="r('fan80.bin')">Fan 80%</button>
+
+    <hr style="width: 50%; opacity: 0.2; margin: 30px auto;">
+
+    <div class="section">
+        <button class="main-btn" onclick="location.href='https://ps3xploit.me/hen/installer/auto/index.html'">تفعيل الـ HEN 🚀</button>
+
+        <button class="main-btn" onclick="toggle('ps3-apps')">📱 زر التطبيقات</button>
+        <div id="ps3-apps" class="sub-container">
+            <button class="sub-btn" onclick="pkg('apollo-ps3.pkg')">Apollo</button>
+            <button class="sub-btn" onclick="pkg('IRISMAN_4.91.pkg')">iRisman</button>
+            <button class="sub-btn" onclick="pkg('cheat.webman-pkg')">Cheats</button>
+        </div>
+
+        <button class="main-btn" onclick="toggle('ps3-mods')">🎮 زر المودات</button>
+        <div id="ps3-mods" class="sub-container">
+            <button class="sub-btn" onclick="alert('تفعيل مود GTA V...')">GTA V Mod</button>
+            <button class="sub-btn" onclick="alert('تفعيل مود BO2...')">BO2 Mod</button>
+        </div>
     </div>
 
-    <h3 style="color:var(--gold)">🔫 مودات GTA V & RDR2</h3>
-    <div class="grid">
-        <button onclick="r('gtavmb127.bin')">GTA V MB 1.27</button>
-        <button onclick="r('gtava0.bin')">GTA A0</button><button onclick="r('gtava1.bin')">GTA A1</button>
-        <button onclick="r('gtava2.bin')">GTA A2</button><button onclick="r('gtava3.bin')">GTA A3</button>
-        <button onclick="r('oystersmenu100.bin')">RDR2 1.00</button>
-        <button onclick="r('oystersmenu124.bin')">RDR2 1.24</button>
-        <button onclick="r('oystersmenu129.bin')">RDR2 1.29</button>
+    <div style="margin-top: 40px;">
+        <button onclick="showQR('https://t.me/WZ0X0X')">Lev Account</button>
+        <button onclick="showQR(window.location.href)" style="background:#ff4757">Remote Control 📱</button>
     </div>
-</div>
 
-<div class="section ps3-sec">
-    <h2 class="title" style="color:var(--primary-blue)">🕹️ قسم بلايستيشن 3 (المتجر المطور)</h2>
-    <div class="grid">
-        <button class="gold-btn" onclick="location.href='https://ps3xploit.me/hen/installer/auto/index.html'">تفعيل HEN التلقائي</button>
-        <button onmouseover="s('تثبيت أداة Apollo')" onclick="p('apollo-ps3.pkg')">تثبيت Apollo</button>
-        <button onmouseover="s('تثبيت IRISMAN')" onclick="p('IRISMAN_4.91.pkg')">تثبيت IRISMAN</button>
-        <button onmouseover="s('تثبيت غش ويب مان')" onclick="p('cheat.webman-pkg')">تثبيت Cheats</button>
-        <button onclick="alert('تفعيل مود GTA V...')">مود GTA V</button>
-        <button onclick="alert('تفعيل مود BO2...')">مود BO2</button>
+    <div id="qr" style="display:none; position:fixed; top:50%; left:50%; transform:translate(-50%,-50%); background:white; padding:20px; border-radius:15px;" onclick="this.style.display='none'">
+        <div id="q"></div>
     </div>
-</div>
 
-<div class="grid" style="max-width: 800px; margin: 20px auto;">
-    <button onclick="q('https://t.me/WZ0X0X')">Lev Account</button>
-    <button onclick="q('https://discord.gg/xdZ8zqS9G')">Game Hub Discord</button>
-    <button style="background:#ff4757" onclick="q(window.location.href)">التحكم بالهاتف 📱</button>
-</div>
-
-<div id="qr" class="qr-pop" onclick="this.style.display='none'"><div id="q"></div><p>اضغط للإغلاق</p></div>
-
-<script>
-    function s(t){document.getElementById('h').innerText=t;}
-    function r(f){s("جاري حقن "+f+"...");}
-    function p(f){
-        var u="wz0x0x"; // اسم المستخدم الخاص بك
-        var l="https://raw.githubusercontent.com/"+u+"/GameHub/main/pkg/"+f;
-        window.location.href="http://127.0.0.1/install.ps3?url="+l;
-    }
-    function q(l){
-        document.getElementById('q').innerHTML="";
-        new QRCode(document.getElementById("q"),l);
-        document.getElementById('qr').style.display='block';
-    }
-</script>
+    <script>
+        function toggle(id) {
+            var el = document.getElementById(id);
+            el.style.display = (el.style.display === 'grid') ? 'none' : 'grid';
+        }
+        function run(f) { document.getElementById('helper').innerText = "جاري حقن: " + f; }
+        function pkg(f) { window.location.href = "http://127.0.0.1/install.ps3?url=https://raw.githubusercontent.com/wz0x0x/GameHub/main/pkg/" + f; }
+        function showQR(l) { document.getElementById('q').innerHTML=""; new QRCode(document.getElementById("q"),l); document.getElementById('qr').style.display='block'; }
+    </script>
 </body>
 </html>
