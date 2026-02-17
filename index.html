@@ -1,170 +1,192 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <title>GAME HUB MASTER OS</title>
+    <title>GAME HUB MASTER OS - THE ULTIMATE</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     <style>
-        /* تعريف الألوان الأساسية */
-        :root { --blue: #007bff; --gold: #ffd700; }
-        
+        :root {
+            --blue: #007bff; --blue-glow: 0 0 20px #007bff;
+            --gold: #ffd700; --gold-glow: 0 0 20px #ffd700;
+            --bg: #050505; --card: rgba(255, 255, 255, 0.05);
+        }
         body { 
-            background-color: #050505; color: white; 
-            font-family: sans-serif; text-align: center; 
-            margin: 0; padding: 0; direction: rtl; 
+            background: var(--bg); color: white; 
+            font-family: "Segoe UI", Tahoma, sans-serif, Arial; /* دعم متصفحات السوني */
+            margin: 0; text-align: center; overflow-x: hidden; 
         }
+        
+        /* كود الخلفية المتحركة */
+        #canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; }
 
-        /* تنسيق الأزرار العلوية (ليل/نهار) */
-        .theme-box { position: absolute; top: 10px; right: 10px; z-index: 100; }
-        .theme-btn { padding: 5px 10px; border-radius: 5px; cursor: pointer; background: #333; color: white; border: 1px solid #555; }
+        /* العنوان المضيء */
+        .header { font-size: 3.5rem; color: var(--blue); text-shadow: var(--blue-glow); padding: 40px 20px 10px; animation: glowPulse 2s infinite; text-align: center; margin: auto; }
+        @keyframes glowPulse { 0%, 100% { opacity: 1; text-shadow: var(--blue-glow); } 50% { opacity: 0.7; text-shadow: 0 0 40px var(--blue); } }
 
-        /* تنسيق العنوان الرئيسي - ضمان التوسط */
-        .header { 
-            font-size: 30px; color: var(--blue); 
-            text-shadow: 0 0 15px var(--blue); 
-            margin: 40px auto 10px auto; 
-            display: block; width: 100%;
-        }
-
-        /* مربع الترحيب الذكي - إصلاح التداخل */
-        #smart-panel {
-            background: rgba(40, 40, 40, 0.9);
-            border: 2px solid var(--blue);
+        /* مربع الترحيب الذكي المعدل */
+        .smart-panel {
+            background: rgba(0, 0, 0, 0.7);
+            border: 1px solid var(--blue);
             border-radius: 15px;
-            padding: 15px;
-            margin: 20px auto;
-            width: 80%;
-            max-width: 600px;
-        }
-
-        /* تنسيق حاويات الأقسام (PS4 / PS3) */
-        .category-box {
-            border: 2px solid var(--gold);
-            border-radius: 15px;
-            margin: 20px auto;
-            width: 90%;
-            padding: 15px;
-            background: rgba(20, 20, 20, 0.8);
-        }
-        .ps3-border { border-color: var(--blue); }
-
-        /* تنسيق الأزرار الرئيسية */
-        .main-btn {
-            width: 95%; padding: 15px; margin: 10px auto;
-            font-size: 18px; border-radius: 10px;
-            background: #222; color: white; border: 1px solid var(--gold);
-            cursor: pointer; display: block;
-        }
-
-        /* إصلاح القوائم المنسدلة - لكي لا تخرج عن الإطار */
-        .sub-menu {
-            display: none; 
+            padding: 20px;
+            margin: 10px auto 30px auto;
+            width: 85%;
+            max-width: 700px;
             text-align: center;
-            padding: 10px;
-            background: #111;
-            border-radius: 10px;
-            margin: 5px auto;
-            width: 100%;
-        }
-        .sub-btn {
-            display: inline-block; /* لضمان ترتيبها بجانب بعض */
-            padding: 10px; margin: 5px;
-            background: #333; color: white;
-            border: 1px solid #555; border-radius: 5px;
-            min-width: 100px; font-size: 14px;
         }
 
-        /* إصلاح شريط الأخبار - السطر الواحد */
+        .helper { color: #00ffcc; font-size: 1.2rem; min-height: 25px; margin-top: 10px; }
+
+        /* أزرار الثيم المرتية */
+        .theme-box { position: absolute; top: 20px; left: 20px; display: flex; gap: 8px; z-index: 1000; }
+        .t-btn { background: rgba(255,255,255,0.1); border: 1px solid var(--blue); color: white; border-radius: 20px; padding: 5px 15px; cursor: pointer; }
+
+        /* الأقسام والأزرار */
+        .category-box { margin: 25px auto; width: 90%; max-width: 1000px; padding: 20px; border-radius: 20px; background: var(--card); border: 1px solid rgba(255,255,255,0.1); backdrop-filter: blur(15px); text-align: center; }
+        .ps4-border { border-top: 4px solid var(--gold); box-shadow: 0 -10px 20px rgba(255, 215, 0, 0.1); }
+        .ps3-border { border-top: 4px solid var(--blue); box-shadow: 0 -10px 20px rgba(0, 123, 255, 0.1); }
+
+        .main-btn { 
+            width: 100%; padding: 25px; margin: 10px 0; font-size: 1.5rem; border-radius: 12px; border: 2px solid transparent;
+            cursor: pointer; transition: 0.4s; background: rgba(255,255,255,0.03); color: white; text-align: center;
+        }
+        .ps4-btn { border-color: var(--gold); }
+        .ps3-btn { border-color: var(--blue); }
+
+        .sub-menu { 
+            display: none; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 12px; 
+            padding: 20px; background: rgba(0,0,0,0.4); border-radius: 12px; margin: 10px auto; width: 95%;
+        }
+        .sub-btn { padding: 15px; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.05); color: white; border-radius: 8px; cursor: pointer; }
+
+        /* شريط الأخبار الشفاف */
         .ticker-wrap {
-            position: fixed; bottom: 60px; left: 0;
-            width: 100%; background: rgba(0, 123, 255, 0.3);
-            overflow: hidden; height: 35px; line-height: 35px;
-            border-top: 1px solid var(--blue);
+            position: fixed; bottom: 80px; left: 0; width: 100%;
+            background: rgba(0, 0, 0, 0.5); border-top: 1px solid var(--blue);
+            height: 35px; line-height: 35px; overflow: hidden; white-space: nowrap;
         }
-        .ticker-move {
-            display: inline-block;
-            white-space: nowrap;
-            padding-right: 100%;
-            animation: marquee 20s linear infinite;
-        }
-        @keyframes marquee {
-            0% { transform: translateX(100%); }
-            100% { transform: translateX(-100%); }
-        }
+        .ticker-move { display: inline-block; padding-left: 100%; animation: ticker 25s linear infinite; color: #00ffcc; }
+        @keyframes ticker { 0% { transform: translateX(0); } 100% { transform: translateX(-100%); } }
 
-        /* الحقوق في المنتصف */
-        .footer { margin: 100px auto 20px auto; font-size: 18px; }
+        /* الحقوق والتواصل */
+        .footer-btns { display: flex; justify-content: center; gap: 20px; margin: 40px 0; flex-wrap: wrap; }
+        .soc-btn { padding: 15px 30px; border-radius: 50px; border: none; font-weight: bold; cursor: pointer; }
+        .credits { margin: 120px 0 40px 0; color: white; font-size: 1.3rem; text-shadow: 0 0 10px white; text-align: center; width: 100%; }
+        .lev-name { color: var(--blue); font-weight: bold; text-shadow: var(--blue-glow); }
+        .qr-overlay { display:none; position:fixed; top:50%; left:50%; transform:translate(-50%,-50%); background:white; padding:25px; border-radius:20px; z-index:1000; }
     </style>
 </head>
 <body>
 
+    <canvas id="canvas"></canvas>
+
     <div class="theme-box">
-        <button class="theme-btn" onclick="document.body.style.background='#fff';document.body.style.color='#000'">🌞</button>
-        <button class="theme-btn" onclick="document.body.style.background='#050505';document.body.style.color='#fff'">🌙</button>
+        <button class="t-btn" onclick="document.body.style.background='#fff';document.body.style.color='#000'">🌞</button>
+        <button class="t-btn" onclick="document.body.style.background='#050505';document.body.style.color='#fff'">🌙</button>
     </div>
 
     <h1 class="header">WELCOME GAME HUB HOST</h1>
 
-    <div id="smart-panel">
-        <div style="font-weight:bold; font-size:20px;">أهلاً.. قبل كل شيء لازم تفعل زر GOLDHEN</div>
-        <div id="live-clock" style="color:var(--blue); margin:5px 0;"></div>
-        <div id="helper" style="color:#ffeb3b;">حرك المؤشر فوق أي أداة لمعرفة وظيفتها</div>
+    <div class="smart-panel">
+        <div style="font-weight: bold; font-size: 1.4rem; color: #fff;">أهلاً.. قبل كل شيء لازم تفعل زر GOLDHEN</div>
+        <div id="live-clock" style="color: var(--blue); margin: 5px 0; font-size: 1.1rem;"></div>
+        <div class="helper" id="helper">مرحباً بك في النسخة الأسطورية.. اختر القسم لتكشف الأدوات</div>
     </div>
 
-    <div class="category-box">
-        <h2 style="color:var(--gold); margin:5px;">PS4 POWER STATION</h2>
-        <button class="main-btn" onmouseover="s('تفعيل تهكير الجهاز الإصدار الأخير')" onclick="r('goldhen.bin')">تشغيل GoldHEN 2.4 ✨</button>
+    <div class="category-box ps4-border">
+        <h2 style="color:var(--gold)">PS4 POWER STATION</h2>
+        <button class="main-btn ps4-btn" onmouseover="s('أداة تفعيل الجيلبريك الأساسية')" onclick="r('goldhen.bin')">تشغيل GoldHEN 2.4 ✨</button>
         
-        <button class="main-btn" onclick="toggle('ps4tools')">🛠️ مكتبة الأدوات</button>
+        <button class="main-btn ps4-btn" onclick="toggle('ps4tools')">🛠️ مكتبة الأدوات النظامية (Bins)</button>
         <div id="ps4tools" class="sub-menu">
-            <button class="sub-btn" onclick="r('app2usb.bin')">App2USB</button>
-            <button class="sub-btn" onclick="r('dbbackup.bin')">DB Backup</button>
-            <button class="sub-btn" onclick="r('ps4debug.bin')">PS4 Debug</button>
-            <button class="sub-btn" onclick="r('ToDex.bin')">ToDex</button>
+            <button class="sub-btn" onmouseover="s('لتشغيل نظام لينكس')" onclick="r('LinuxLoader.bin')">Linux Loader</button>
+            <button class="sub-btn" onmouseover="s('تفعيل وضع المطورين')" onclick="r('ToDex.bin')">ToDex</button>
+            <button class="sub-btn" onmouseover="s('محرك الغش عبر الشبكة')" onclick="r('WebRTE.bin')">WebRTE</button>
+            <button class="sub-btn" onmouseover="s('أداة سحب الألعاب')" onclick="r('appdumper.bin')">App Dumper</button>
+            <button class="sub-btn" onmouseover="s('نسخ قاعدة البيانات')" onclick="r('dbbackup.bin')">DB Backup</button>
+            <button class="sub-btn" onmouseover="s('إيقاف التحديثات')" onclick="r('disableupdates.bin')">Disable Updates</button>
         </div>
 
-        <button class="main-btn" onclick="toggle('mods4')">🔫 زر المودات</button>
-        <div id="mods4" class="sub-menu">
-            <button class="sub-btn" onclick="r('gtava1.bin')">GTA Arabic</button>
-            <button class="sub-btn" onclick="r('oystersmenu129.bin')">RDR2 1.29</button>
+        <button class="main-btn ps4-btn" onclick="toggle('fans')">❄️ نظام التحكم في الحرارة المتقدم</button>
+        <div id="fans" class="sub-menu">
+            <button class="sub-btn" onclick="r('fan50.bin')">Fan 50%</button>
+            <button class="sub-btn" onclick="r('fan60.bin')">Fan 60%</button>
+            <button class="sub-btn" onclick="r('fan70.bin')">Fan 70%</button>
+            <button class="sub-btn" onclick="r('fan80.bin')">Fan 80%</button>
         </div>
     </div>
 
     <div class="category-box ps3-border">
-        <h2 style="color:var(--blue); margin:5px;">PS3 COMMAND CENTER 🎮</h2>
-        <button class="main-btn" style="border-color:var(--blue)" onclick="location.href='https://ps3xploit.me/hen/installer/auto/index.html'">تفعيل الـ HEN 🚀</button>
-        
-        <button class="main-btn" style="border-color:var(--blue)" onclick="toggle('apps3')">📱 زر التطبيقات</button>
+        <h2 style="color:var(--blue)">PS3 COMMAND CENTER 🎮</h2>
+        <button class="main-btn ps3-btn" onmouseover="s('تفعيل نظام HEN لفتح الصلاحيات')" onclick="location.href='https://ps3xploit.me/hen/installer/auto/index.html'">إطلاق تفعيل الـ HEN 🚀</button>
+
+        <button class="main-btn ps3-btn" onclick="toggle('apps3')">📦 متجر تطبيقات PS3 المباشر</button>
         <div id="apps3" class="sub-menu">
-            <button class="sub-btn" onclick="p('apollo-ps3.pkg')">Apollo</button>
-            <button class="sub-btn" onclick="p('IRISMAN_4.91.pkg')">iRisman</button>
+            <button class="sub-btn" onmouseover="s('تعديل التخزينات')" onclick="p('apollo-ps3.pkg')">Apollo Save Tool</button>
+            <button class="sub-btn" onmouseover="s('مدير الملفات')" onclick="p('IRISMAN_4.91.pkg')">IRISMAN 4.91</button>
+            <button class="sub-btn" onmouseover="s('باكيج الغش')" onclick="p('cheat.webman-pkg')">Webman Cheats</button>
         </div>
     </div>
 
     <div class="ticker-wrap">
         <div class="ticker-move" id="news-content">
-            جاري تحميل الأخبار... أهلاً بك في Game Hub... تأكد من تفعيل GoldHen أولاً...
+            جاري جلب آخر الأخبار من سيرفر Game Hub... تفضل بزيارة ديسكورد للمزيد من المودات... تأكد دائماً من تفعيل GoldHen أولاً...
         </div>
     </div>
 
-    <div class="footer">
-        قدم هذا العمل من قبل <span style="color:var(--blue); font-weight:bold; text-shadow:0 0 10px var(--blue);">Lev</span>
+    <div class="footer-btns">
+        <button class="soc-btn" style="background:#333; border:1px solid var(--blue);" onclick="q('https://t.me/WZ0X0X')">Lev Account 👤</button>
+        <button class="soc-btn" style="background:#5865F2;" onclick="q('https://discord.gg/xdZ8zqS9G')">Game Hub Discord 💬</button>
+        <button class="soc-btn" style="background:#ff4757;" onclick="q(window.location.href)">Remote Control 📱</button>
     </div>
 
+    <div class="credits">
+        قدم هذا العمل من قبل <span class="lev-name">Lev</span>
+    </div>
+
+    <div id="qr" class="qr-overlay" onclick="this.style.display='none'"><div id="q"></div></div>
+
     <script>
-        function toggle(id) {
-            var el = document.getElementById(id);
-            el.style.display = (el.style.display === 'block') ? 'none' : 'block';
+        // سكريبت الخلفية المتحركة
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth; canvas.height = window.innerHeight;
+        let particles = [];
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width; this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 2 + 0.1; this.speedX = Math.random() * 1 - 0.5; this.speedY = Math.random() * 1 - 0.5;
+            }
+            update() { this.x += this.speedX; this.y += this.speedY; if (this.size > 0.1) this.size -= 0.01; }
+            draw() { ctx.fillStyle = '#007bff'; ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fill(); }
         }
-        function s(t) { document.getElementById('helper').innerText = t; }
-        function r(f) { s("جاري حقن: " + f); }
-        function p(f) { window.location.href = "http://127.0.0.1/install.ps3?url=https://raw.githubusercontent.com/wz0x0x/GameHub/main/pkg/" + f; }
-        
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            if (particles.length < 50) particles.push(new Particle());
+            for (let i = 0; i < particles.length; i++) {
+                particles[i].update(); particles[i].draw();
+                if (particles[i].size <= 0.1) { particles.splice(i, 1); i--; }
+            }
+            requestAnimationFrame(animate);
+        }
+        animate();
+
         function updateClock() {
             var now = new Date();
             document.getElementById('live-clock').innerHTML = now.toLocaleDateString('ar-EG') + " | " + now.toLocaleTimeString('ar-EG');
         }
         setInterval(updateClock, 1000); updateClock();
+
+        function toggle(id) { 
+            var el = document.getElementById(id); 
+            var isGrid = el.style.display === 'grid';
+            document.querySelectorAll('.sub-menu').forEach(m => m.style.display = 'none');
+            el.style.display = isGrid ? 'none' : 'grid';
+        }
+        function s(t) { document.getElementById('helper').innerText = t; }
+        function r(f) { s("جاري معالجة Payload: " + f + " ..."); }
+        function p(f) { window.location.href = "http://127.0.0.1/install.ps3?url=https://raw.githubusercontent.com/wz0x0x/GameHub/main/pkg/" + f; }
+        function q(l) { document.getElementById('q').innerHTML=""; new QRCode(document.getElementById("q"),l); document.getElementById('qr').style.display='block'; }
     </script>
 </body>
 </html>
