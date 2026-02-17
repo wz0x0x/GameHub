@@ -15,7 +15,7 @@
         body { 
             background: var(--bg); color: var(--text-color); 
             font-family: 'Arial Black', "Segoe UI", Tahoma, sans-serif; 
-            margin: 0; text-align: center; overflow-x: hidden; 
+            margin: 0; text-align: center; overflow-x: hidden;
         }
 
         #canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; }
@@ -36,16 +36,13 @@
         .main-btn { 
             width: 100%; padding: 25px; margin: 10px 0; font-size: 1.5rem; border-radius: 12px; border: 2px solid transparent;
             cursor: pointer; transition: 0.4s; background: rgba(255,255,255,0.03); color: white; position: relative; overflow: hidden;
-            text-transform: uppercase;
         }
-        .main-btn:hover { transform: translateY(-5px); background: rgba(255,255,255,0.1); }
         .ps4-btn { border-color: var(--gold); }
         .ps4-btn:hover { box-shadow: var(--gold-glow); background: var(--gold); color: black; }
         .vip-btn { border-color: #00ffcc; }
         .vip-btn:hover { box-shadow: 0 0 20px #00ffcc; background: #00ffcc; color: black; }
 
         .sub-menu { display: none; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 12px; padding: 20px; background: rgba(0,0,0,0.4); border-radius: 12px; margin-top: 5px; animation: slideDown 0.4s ease; }
-        @keyframes slideDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
         
         .sub-btn { padding: 15px; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.05); color: white; border-radius: 8px; cursor: pointer; font-size: 0.9rem; }
         .sub-btn:hover { background: white; color: black; font-weight: bold; }
@@ -54,7 +51,6 @@
         .soc-btn { padding: 15px 30px; border-radius: 50px; border: none; font-weight: bold; cursor: pointer; transition: 0.3s; font-size: 1.1rem; }
         .btn-lev { background: #333; color: white; border: 1px solid var(--blue); }
         .btn-discord { background: #5865F2; color: white; }
-        .btn-remote { background: #ff4757; color: white; box-shadow: 0 0 15px #ff4757; }
 
         .credits { margin: 50px 0; color: white; font-size: 1.3rem; letter-spacing: 2px; text-shadow: 0 0 10px white; opacity: 0.8; }
         .lev-name { color: var(--blue); font-weight: bold; text-shadow: var(--blue-glow); }
@@ -71,7 +67,7 @@
 
     <div class="category-box ps4-border">
         <h2 style="color:var(--gold)">PS4 POWER STATION</h2>
-        <button class="main-btn ps4-btn" onmouseover="s('تشغيل GoldHen لتفعيل الصلاحيات الكاملة')" onclick="r('goldhen.bin')">LAUNCH GoldHEN 2.4 ✨</button>
+        <button class="main-btn ps4-btn" onclick="load_goldhen()">LAUNCH GoldHEN 2.4 ✨</button>
         
         <button class="main-btn ps4-btn" onclick="toggle('ps4tools')">🛠️ SYSTEM TOOLS (BINS)</button>
         <div id="ps4tools" class="sub-menu">
@@ -96,7 +92,6 @@
 
     <div class="category-box vip-border">
         <h2 style="color:#00ffcc">VIP ADVANCED ACCESS</h2>
-        
         <button class="main-btn vip-btn" onclick="toggle('fans')">❄️ ADVANCED FAN CONTROL</button>
         <div id="fans" class="sub-menu">
             <button class="sub-btn" onclick="r('fan50.bin')">Fan 50%</button>
@@ -116,15 +111,13 @@
     <div class="footer-btns">
         <button class="soc-btn btn-lev" onclick="q('https://t.me/WZ0X0X')">Lev Account 👤</button>
         <button class="soc-btn btn-discord" onclick="q('https://discord.gg/xdZ8zqS9G')">Game Hub Discord 💬</button>
-        <button class="soc-btn btn-remote" onclick="q(window.location.href)">Remote Control 📱</button>
     </div>
 
-    <div class="credits">تصميم وتطوير بواسطة <span class="lev-name">Lev</span></div>
+    [span_4](start_span)<div class="credits">تصميم وتطوير بواسطة <span class="lev-name">Lev</span>[span_4](end_span)</div>
 
-    <div id="qr" class="qr-overlay" onclick="this.style.display='none'"><div id="q"></div><p style="color:black; font-weight:bold; margin-top:10px;">إغلاق الكود</p></div>
+    [span_5](start_span)<div id="qr" class="qr-overlay" onclick="this.style.display='none'"><div id="q"></div><p style="color:black; font-weight:bold; margin-top:10px;">إغلاق الكود[span_5](end_span)</p></div>
 
     <script>
-        // سكريبت النجوم الاحترافي
         var canvas = document.getElementById('canvas'), ctx = canvas.getContext('2d');
         canvas.width = window.innerWidth; canvas.height = window.innerHeight;
         var stars = [];
@@ -145,11 +138,27 @@
             document.querySelectorAll('.sub-menu').forEach(m => m.style.display = 'none');
             el.style.display = isGrid ? 'none' : 'grid';
         }
+
         function s(t) { document.getElementById('helper').innerText = t; }
-        function r(f) { 
-            s("جاري تفعيل الـ GoldHEN... يرجى الانتظار");
-            setTimeout(function(){ s("جاري إرسال الـ Payload: " + f + " إلى جهازك..."); }, 2000);
+
+        // الوظيفة الخاصة بتشغيل GoldHEN من مجلد payloads
+        function load_goldhen() {
+            s("جاري البحث عن ملف goldhen.bin في مجلد payloads...");
+            setTimeout(function(){
+                window.location.hash = "#payload=payloads/goldhen.bin";
+                s("تم إرسال Payload: GoldHEN 2.4 بنجاح! راجع التنبيهات.");
+            }, 1500);
         }
+
+        // الوظيفة العامة لإرسال الـ Payloads
+        function r(f) { 
+            s("جاري التحميل...");
+            setTimeout(function(){ 
+                window.location.hash = "#payload=payloads/" + f;
+                s("تم إرسال الملف: " + f + " إلى جهازك..."); 
+            }, 1000);
+        }
+        
         function q(l) { document.getElementById('q').innerHTML=""; new QRCode(document.getElementById("q"),l); document.getElementById('qr').style.display='block'; }
     </script>
 </body>
