@@ -6,32 +6,34 @@
 }
     <style>
         :root { --p-blue: #00d4ff; --gold: #d4af37; --bg: #000; --glass: rgba(0, 0, 0, 0.85); }
-<body style="margin: 0; padding: 0; display: flex; flex-direction: column; align-items: center; background-color: #000;">
+<body style="margin: 0; padding: 0; background-color: #000; color: white; font-family: sans-serif; display: flex; flex-direction: column; align-items: center;">
     <canvas id="star-canvas" style="position: fixed; top: 0; left: 0; z-index: -1;"></canvas>
 
-    <div style="margin-top: 40px; text-align: center;">
-        <h1 style="font-family: 'Arial Black', sans-serif; font-size: 45px; margin: 0; letter-spacing: 2px;">
+    <header style="width: 100%; text-align: center; padding-top: 30px; clear: both;">
+        
+        <h1 style="font-family: 'Arial Black', sans-serif; font-size: 40px; margin: 0 0 15px 0; display: block;">
             <span style="color: #00d4ff; text-shadow: 0 0 15px #00d4ff;">Welcome</span> 
             <span style="color: #ff4444; text-shadow: 0 0 15px #ff4444;">Game</span> 
             <span style="color: #00ff88; text-shadow: 0 0 15px #00ff88;">Hub</span> 
             <span style="color: #ff00ff; text-shadow: 0 0 15px #ff00ff;">Host</span>
         </h1>
-    </div>
 
-    <div style="width: 400px; height: 2px; background: linear-gradient(90deg, transparent, #d4af37, #fff, #d4af37, transparent); margin: 20px auto; box-shadow: 0 0 15px #d4af37;"></div>
+        <div style="width: 300px; height: 2px; background: linear-gradient(90deg, transparent, #d4af37, #fff, #d4af37, transparent); margin: 0 auto 20px auto; box-shadow: 0 0 15px #d4af37;"></div>
 
-    <div style="margin-bottom: 25px;">
-        <button class="main-btn" onclick="loadPayload('goldhen')" onmouseover="updateInfo('تشغيل GoldHEN v2.4b18.2')" onmouseout="resetInfo()">
-            LAUNCH GOLDHEN
-        </button>
-    </div>
-
-    <div style="margin-bottom: 50px;"> <div id="info-box" style="margin: 0 auto;">
-            يجب تشغيل الغولد هين قبل كل شيء
+        <div style="margin-bottom: 25px;">
+            <button class="main-btn" onclick="loadPayload('goldhen')" onmouseover="updateInfo('تشغيل GoldHEN v2.4b18.2')" onmouseout="resetInfo()">
+                LAUNCH GOLDHEN
+            </button>
         </div>
-    </div>
 
-    <div class="panel-container">
+        <div style="width: 100%; display: flex; justify-content: center; margin-bottom: 40px;">
+            <div id="info-box" style="margin: 0 !important; min-height: 50px;">
+                يجب تشغيل الغولد هين قبل كل شيء
+            </div>
+        </div>
+    </header>
+
+    <div class="panel-container" style="width: 100%; display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; clear: both;">
         .panel { background: rgba(20, 20, 20, 0.9); border: 1px solid #333; border-radius: 25px; padding: 20px; backdrop-filter: blur(10px); transition: 0.3s; }
         .panel:hover { border-color: var(--p-blue); box-shadow: 0 0 20px rgba(0, 212, 255, 0.1); }
         .panel h2 { color: var(--p-blue); font-size: 24px; margin: 0 0 20px 0; text-align: center; border-bottom: 1px solid #222; padding-bottom: 10px; }
