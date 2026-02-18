@@ -1,7 +1,9 @@
-var malloc_nogc = [];
-function malloc(sz)
-{
-    var arr = new Uint8Array(sz);
-    malloc_nogc.push(arr);
-    return read_ptr_at(addrof(arr)+0x10);
+// دالة تخصيص المساحة في الذاكرة
+function malloc(size) {
+    var buffer = new ArrayBuffer(size);
+    return {
+        addr: window.p.read8(window.p.leakptr(buffer).add32(0x10)),
+        buffer: buffer
+    };
 }
+window.malloc = malloc;
