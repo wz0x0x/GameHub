@@ -7,176 +7,209 @@
         :root {
             --primary-blue: #00d4ff;
             --gold: #d4af37;
-            --bg-dark: #0a0a0a;
-            --panel-bg: rgba(20, 20, 20, 0.9);
+            --bg-dark: #000;
         }
         body {
             background-color: var(--bg-dark);
             color: white;
             font-family: 'Segoe UI', Arial, sans-serif;
             margin: 0;
-            padding: 40px;
+            overflow: hidden; /* لمنع السكرول بسبب النجوم */
             display: flex;
             flex-direction: column;
             align-items: center;
             min-height: 100vh;
         }
-        h1 {
-            font-size: 55px;
-            color: var(--primary-blue);
-            text-shadow: 0 0 25px var(--primary-blue);
-            margin-bottom: 50px;
+
+        /* كود الخلفية المتحركة (النجوم) */
+        #star-canvas {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -1;
         }
+
+        h1 {
+            font-size: 50px;
+            color: var(--primary-blue);
+            text-shadow: 0 0 20px var(--primary-blue);
+            margin-top: 30px;
+        }
+
         .main-btn {
             background: linear-gradient(145deg, var(--gold), #f9d71c);
             color: black;
-            padding: 25px 80px;
-            font-size: 30px;
+            padding: 20px 70px;
+            font-size: 28px;
             font-weight: 900;
             border-radius: 50px;
             border: none;
             cursor: pointer;
-            box-shadow: 0 0 30px rgba(212, 175, 55, 0.5);
+            box-shadow: 0 0 25px var(--gold);
             transition: 0.3s;
-            margin-bottom: 15px;
         }
-        .main-btn:hover { transform: scale(1.1); box-shadow: 0 0 50px var(--gold); }
-        .credit { font-size: 20px; color: #888; margin-bottom: 60px; }
-        
+
+        /* مربع التنبيه الذكي */
+        #info-box {
+            background: rgba(255, 0, 0, 0.2);
+            border: 1px solid red;
+            color: #ffcccc;
+            padding: 15px 40px;
+            border-radius: 10px;
+            margin: 20px 0;
+            font-weight: bold;
+            min-width: 400px;
+            transition: 0.3s;
+        }
+
         .container {
             display: flex;
-            width: 95%;
-            justify-content: space-between;
-            gap: 40px;
+            width: 90%;
+            gap: 30px;
         }
+
         .panel {
-            background: var(--panel-bg);
-            border: 2px solid #222;
-            border-radius: 30px;
+            background: rgba(20, 20, 20, 0.85);
+            border: 1px solid #333;
+            border-radius: 25px;
             flex: 1;
-            padding: 35px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            padding: 25px;
+            backdrop-filter: blur(5px);
         }
-        .panel h2 {
-            color: var(--primary-blue);
-            font-size: 28px;
-            border-bottom: 2px solid #333;
-            padding-bottom: 15px;
-            margin-top: 0;
-        }
+
         .btn-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 15px;
+            gap: 12px;
         }
+
         .tool-btn {
-            background: #1a1a1a;
-            border: 1px solid #333;
-            color: #ccc;
-            padding: 18px;
-            border-radius: 12px;
-            font-size: 18px;
-            font-weight: bold;
+            background: #151515;
+            border: 1px solid #444;
+            color: #fff;
+            padding: 15px;
+            border-radius: 10px;
             cursor: pointer;
-            transition: 0.2s;
         }
-        .tool-btn:hover {
-            background: var(--primary-blue);
-            color: black;
-            border-color: var(--primary-blue);
-            transform: translateY(-3px);
+        .tool-btn:hover { background: var(--primary-blue); color: #000; }
+
+        /* حقوق ليف المضيئة */
+        .lev-credit {
+            color: #fff;
+            text-shadow: 0 0 15px #fff, 0 0 30px var(--primary-blue);
+            font-size: 22px;
+            font-weight: bold;
+            margin-top: 40px;
+        }
+
+        .footer-btns { display: flex; gap: 20px; margin-top: 15px; }
+        .qr-btn {
+            background: transparent;
+            border: 1px solid var(--primary-blue);
+            color: var(--primary-blue);
+            padding: 10px 30px;
+            border-radius: 5px;
+            cursor: pointer;
         }
 
         /* نافذة الباركود */
-        .modal {
+        #qr-modal {
             display: none;
             position: fixed;
-            z-index: 10;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: #111;
-            padding: 30px;
-            border: 2px solid var(--primary-blue);
-            border-radius: 20px;
-            text-align: center;
-        }
-        .modal img { width: 250px; height: 250px; border-radius: 10px; }
-        .close-btn { color: red; display: block; margin-top: 15px; cursor: pointer; font-weight: bold; }
-
-        .footer-links {
-            margin-top: 80px;
-            display: flex;
-            gap: 30px;
-        }
-        .info-btn {
-            background: #222;
-            color: var(--primary-blue);
-            border: 1px solid var(--primary-blue);
-            padding: 15px 40px;
-            border-radius: 10px;
-            cursor: pointer;
+            top: 50%; left: 50%; transform: translate(-50%, -50%);
+            background: #111; padding: 20px; border: 2px solid #fff; border-radius: 20px; text-align: center;
         }
     </style>
 </head>
 <body>
 
+    <canvas id="star-canvas"></canvas>
+
     <h1>Welcome Game Hub Host</h1>
     
     <button class="main-btn" onclick="loadPayload('goldhen')">LAUNCH GOLDHEN v2.4b18.2</button>
-    <div class="credit">قدم هذا العمل بواسطة (Lev)</div>
+    
+    <div id="info-box">يجب تشغيل الغولد هين قبل كل شيء</div>
 
     <div class="container">
         <div class="panel">
             <h2>GAME MODS</h2>
             <div class="btn-grid">
-                <button class="tool-btn" onclick="loadPayload('gtava1')">ArabicGuy GTA v1</button>
-                <button class="tool-btn" onclick="loadPayload('gtava3')">ArabicGuy GTA v3</button>
-                <button class="tool-btn" onclick="loadPayload('oystersmenu100')">RDR2 Oysters 1.00</button>
-                <button class="tool-btn" onclick="loadPayload('oystersmenu129')">RDR2 Oysters 1.29</button>
-                <button class="tool-btn" onclick="loadPayload('gtava0')">GTA Mod v0</button>
-                <button class="tool-btn" onclick="loadPayload('gtavmb127')">GTA MB 127</button>
+                <button class="tool-btn" onmouseover="updateInfo('تفعيل مودات قراند النسخة الثالثة')" onmouseout="resetInfo()" onclick="loadPayload('gtava3')">ArabicGuy GTA v3</button>
+                <button class="tool-btn" onmouseover="updateInfo('تفعيل قائمة Oysters للعبة ريديد 2')" onmouseout="resetInfo()" onclick="loadPayload('oystersmenu129')">RDR2 Oysters 1.29</button>
+                <button class="tool-btn" onmouseover="updateInfo('تفعيل وضع التصحيح وإدارة الألعاب')" onmouseout="resetInfo()" onclick="loadPayload('ps4debug')">PS4 Debug</button>
+                <button class="tool-btn" onmouseover="updateInfo('تحويل جهازك إلى وضع ToDex للمطورين')" onmouseout="resetInfo()" onclick="loadPayload('todex')">ToDex</button>
             </div>
         </div>
 
         <div class="panel">
             <h2>SYSTEM TOOLS</h2>
             <div class="btn-grid">
-                <button class="tool-btn" onclick="loadPayload('ftp')">FTP Server</button>
-                <button class="tool-btn" onclick="loadPayload('webrte')">WebRTE</button>
-                <button class="tool-btn" onclick="loadPayload('ps4debug')">PS4 Debug</button>
-                <button class="tool-btn" onclick="loadPayload('todex')">ToDex</button>
-                <button class="tool-btn" onclick="loadPayload('appdumper')">App Dumper</button>
-                <button class="tool-btn" onclick="loadPayload('dbbackup')">Database Backup</button>
-                <button class="tool-btn" onclick="loadPayload('disableupdates')">Disable Updates</button>
-                <button class="tool-btn" onclick="loadPayload('fan65')">Fan Control 65°</button>
+                <button class="tool-btn" onmouseover="updateInfo('نقل الملفات عبر الشبكة (FTP)')" onmouseout="resetInfo()" onclick="loadPayload('ftp')">FTP Server</button>
+                <button class="tool-btn" onmouseover="updateInfo('تفعيل الغش داخل الألعاب عبر الشبكة')" onmouseout="resetInfo()" onclick="loadPayload('webrte')">WebRTE</button>
+                <button class="tool-btn" onmouseover="updateInfo('سحب نسخة من ألعابك المثبتة')" onmouseout="resetInfo()" onclick="loadPayload('appdumper')">App Dumper</button>
+                <button class="tool-btn" onmouseover="updateInfo('ضبط سرعة المروحة لحماية الجهاز من الحرارة')" onmouseout="resetInfo()" onclick="loadPayload('fan65')">Fan Control 65°</button>
             </div>
         </div>
     </div>
 
-    <div class="footer-links">
-        <button class="info-btn" onclick="showQR('lev')">QR Code: Lev</button>
-        <button class="info-btn" onclick="showQR('hub')">QR Code: Game Hub</button>
+    <div class="lev-credit">قدم هذا العمل بواسطة (Lev)</div>
+
+    <div class="footer-btns">
+        <button class="qr-btn" onclick="showQR('lev')">حساب Lev</button>
+        <button class="qr-btn" onclick="showQR('hub')">سيرفر Game Hub</button>
     </div>
 
-    <div id="qrModal" class="modal">
-        <img id="qrImg" src="" alt="QR Code">
-        <span class="close-btn" onclick="document.getElementById('qrModal').style.display='none'">إغلاق [X]</span>
+    <div id="qr-modal">
+        <img id="qr-img" style="width:250px; height:250px;">
+        <p id="qr-text" style="color:white;"></p>
+        <button onclick="document.getElementById('qr-modal').style.display='none'" style="color:red; background:none; border:none; cursor:pointer;">إغلاق [X]</button>
     </div>
 
     <script>
-        function showQR(type) {
-            var img = document.getElementById('qrImg');
-            var modal = document.getElementById('qrModal');
-            // تأكد من وجود الصور في مجلد img وتسميتها كالتالي
-            img.src = (type === 'lev') ? 'img/lev_qr.png' : 'img/server_qr.png';
-            modal.display = 'block';
-            modal.style.display = 'block';
+        // كود النجوم المتحركة
+        const canvas = document.getElementById('star-canvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        let stars = Array(200).fill().map(() => ({ x: Math.random()*canvas.width, y: Math.random()*canvas.height, r: Math.random()*1.5, s: Math.random()*0.5 }));
+        function drawStars() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = "white";
+            stars.forEach(s => {
+                ctx.beginPath(); ctx.arc(s.x, s.y, s.r, 0, Math.PI*2); ctx.fill();
+                s.y += s.s; if (s.y > canvas.height) s.y = 0;
+            });
+            requestAnimationFrame(drawStars);
         }
-        
-        function loadPayload(name) {
-            alert("جاري تحميل: " + name);
-            // هنا يوضع كود الحقن الخاص بـ jbc.loader
+        drawStars();
+
+        // الذكاء في المربع
+        function updateInfo(msg) {
+            const box = document.getElementById('info-box');
+            box.innerHTML = msg;
+            box.style.background = "rgba(0, 212, 255, 0.2)";
+            box.style.borderColor = "#00d4ff";
+            box.style.color = "#fff";
+        }
+        function resetInfo() {
+            const box = document.getElementById('info-box');
+            box.innerHTML = "يجب تشغيل الغولد هين قبل كل شيء";
+            box.style.background = "rgba(255, 0, 0, 0.2)";
+            box.style.borderColor = "red";
+            box.style.color = "#ffcccc";
+        }
+
+        function showQR(type) {
+            const modal = document.getElementById('qr-modal');
+            const img = document.getElementById('qr-img');
+            if(type === 'lev') {
+                img.src = "https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=https://t.me/WZ0X0X"; 
+                document.getElementById('qr-text').innerText = "تليجرام: @WZ0X0X";
+            } else {
+                img.src = "https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=https://discord.gg/xdZ8zqS9G";
+                document.getElementById('qr-text').innerText = "سيرفر Game Hub";
+            }
+            modal.style.display = 'block';
         }
     </script>
 </body>
