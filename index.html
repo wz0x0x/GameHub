@@ -63,7 +63,7 @@
         .credits { margin-top: 20px; color: white; text-shadow: 0 0 10px white; font-size: 1.1rem; }
     </style>
 </head>
-  <script src="loader.js"></script> <script>
+ <script src="jbc.loader/loader.js"></script>
     // دالة المعلومات الذكية (Hover)
     function s(msg) {
         document.getElementById('helper').innerText = msg;
@@ -144,58 +144,36 @@
     <div id="qr" style="display:none; position:fixed; top:50%; left:50%; transform:translate(-50%,-50%); background:white; padding:20px; border-radius:15px;" onclick="this.style.display='none'"><div id="q"></div></div>
 
     <script>
-        function r(f) {
-    // تحديث النص في البوكس الذكي
-    document.getElementById('helper').innerText = "جاري تحضير: " + f;
+        // 1. ربط دوال المعلومات (لحل مشكلة h و s)
+function s(msg) { document.getElementById('helper').innerText = msg; }
+function h(msg) { s(msg); } 
+
+// 2. الدالة الأساسية لتشغيل الأزرار
+function r(fileName) {
+    // تحديث النص في بوكس المعلومات
+    document.getElementById('helper').innerText = "جاري تحضير: " + fileName;
     
-    // استدعاء الوظيفة من ملف loader.js
+    // مناداة المحرك الذي صنعناه فوق
+    var fullPath = "payloads/" + fileName;
+    loadPayload(fullPath);
+}
+
+    // التأكد من وجود محرك الإرسال في jbc.loader
     if (typeof loadPayload === 'function') {
-        loadPayload("payloads/" + f);
+        loadPayload(payloadPath);
+        setTimeout(function() {
+            s("تم إرسال " + fileName + " بنجاح ✅");
+        }, 2000);
+    } else {
+        s("خطأ: محرك الإرسال غير متصل. تأكد من وجود ملف jbc.loader/loader.js");
     }
 }
-      // دالة تحديث نص بوكس المعلومات (المساعد الذكي)
-function s(msg) {
-    document.getElementById('helper').innerText = msg;
-}
 
-// الدالة الأساسية لتشغيل الملفات (Payloads)
-function r(fileName) {
-    // 1. تحديث النص فور الضغط للتأكيد
-    s("جاري تفعيل " + fileName + "... يرجى الانتظار");
-
-    // 2. تحديد المسار الصحيح للمجلد
-    // بما أن ملفاتك داخل مجلد payloads، نضع المسار هنا
-    var payloadPath = "payloads/" + fileName;
-
-    // 3. محاكاة الإرسال (هنا نربط مع كود الإكسبلويت الخاص بك)
-    // ملاحظة: إذا كان لديك دالة جاهزة في ملف exploit.js قم باستدعائها هنا
-    setTimeout(function() {
-        s("تم إرسال " + fileName + " بنجاح إلى جهاز الـ PS4 ✅");
-        
-        // الكود التقني للإرسال الفعلي (يعتمد على ملفات السيرفر عندك)
-        if (typeof loadPayload === 'function') {
-            loadPayload(payloadPath);
-        } else {
-            console.log("Attempting to load: " + payloadPath);
-            // يمكنك إضافة أمر الشحن الفعلي هنا إذا كان متوفراً في ملفاتك الأخرى
-        }
-    }, 1500);
-}
-
-// دالة التحكم في القوائم المنسدلة
-function toggle(id) { 
-    var el = document.getElementById(id);
-    var isGrid = el.style.display === 'grid';
-    document.querySelectorAll('.sub-menu').forEach(m => m.style.display = 'none');
-    el.style.display = isGrid ? 'none' : 'grid';
-}
-
-// سكريبت النجوم (الخلفية المتحركة)
+// 3. كود الخلفية المتحركة (النجوم) لضمان بقاء الشكل الجميل
 var canvas = document.getElementById('canvas'), ctx = canvas.getContext('2d');
 canvas.width = window.innerWidth; canvas.height = window.innerHeight;
 var stars = [];
-for(var i=0; i<80; i++) stars.push({x: Math.random()*canvas.width, y: Math.random()*canvas.height, r: Math.random()*2, d: Math.random()*1});
-
+for(var i=0; i<80; i++) stars.push({x: Math.random()*canvas.width, y: Math.random()*canvas.height, r: Math.random()*2, d: Math.random()*0.5});
 function drawStars() {
     ctx.clearRect(0,0,canvas.width, canvas.height); ctx.fillStyle = "white";
     stars.forEach(function(star) {
@@ -205,7 +183,6 @@ function drawStars() {
     requestAnimationFrame(drawStars);
 }
 drawStars();
-
     </script>
 </body>
 </html>
