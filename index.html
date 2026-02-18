@@ -144,45 +144,46 @@
     <div id="qr" style="display:none; position:fixed; top:50%; left:50%; transform:translate(-50%,-50%); background:white; padding:20px; border-radius:15px;" onclick="this.style.display='none'"><div id="q"></div></div>
 
     <script>
-        // 1. ربط دوال المعلومات (لحل مشكلة h و s)
-function s(msg) { document.getElementById('helper').innerText = msg; }
-function h(msg) { s(msg); } 
-
-// 2. الدالة الأساسية لتشغيل الأزرار
-function r(fileName) {
-    // تحديث النص في بوكس المعلومات
-    document.getElementById('helper').innerText = "جاري تحضير: " + fileName;
-    
-    // مناداة المحرك الذي صنعناه فوق
-    var fullPath = "payloads/" + fileName;
-    loadPayload(fullPath);
+        // دالة عرض المعلومات (الذكية)
+function h(msg) {
+    var helper = document.getElementById('helper');
+    if(helper) helper.innerText = msg;
 }
 
-    // التأكد من وجود محرك الإرسال في jbc.loader
+// دالة التشغيل
+function r(fileName) {
+    h("جاري محاولة تشغيل: " + fileName);
+    
+    // تأكد من استدعاء الدالة من ملف loader.js
     if (typeof loadPayload === 'function') {
-        loadPayload(payloadPath);
-        setTimeout(function() {
-            s("تم إرسال " + fileName + " بنجاح ✅");
-        }, 2000);
+        loadPayload("payloads/" + fileName);
     } else {
-        s("خطأ: محرك الإرسال غير متصل. تأكد من وجود ملف jbc.loader/loader.js");
+        h("خطأ: لم يتم العثور على محرك التحميل (loader.js)");
     }
 }
 
-// 3. كود الخلفية المتحركة (النجوم) لضمان بقاء الشكل الجميل
+// دالة القوائم
+function toggle(id) { 
+    var el = document.getElementById(id);
+    document.querySelectorAll('.sub-menu').forEach(m => m.style.display = 'none');
+    el.style.display = 'grid';
+}
+
+// كود النجوم (معدل ليكون خفيفاً ولا يسبب بطء)
 var canvas = document.getElementById('canvas'), ctx = canvas.getContext('2d');
 canvas.width = window.innerWidth; canvas.height = window.innerHeight;
 var stars = [];
-for(var i=0; i<80; i++) stars.push({x: Math.random()*canvas.width, y: Math.random()*canvas.height, r: Math.random()*2, d: Math.random()*0.5});
+for(var i=0; i<50; i++) stars.push({x: Math.random()*canvas.width, y: Math.random()*canvas.height, r: Math.random()*2, d: Math.random()*0.5});
 function drawStars() {
     ctx.clearRect(0,0,canvas.width, canvas.height); ctx.fillStyle = "white";
-    stars.forEach(function(star) {
-        ctx.beginPath(); ctx.arc(star.x, star.y, star.r, 0, Math.PI*2); ctx.fill();
-        star.y += star.d; if(star.y > canvas.height) star.y = 0;
+    stars.forEach(function(s) {
+        ctx.beginPath(); ctx.arc(s.x, s.y, s.r, 0, Math.PI*2); ctx.fill();
+        s.y += s.d; if(s.y > canvas.height) s.y = 0;
     });
     requestAnimationFrame(drawStars);
 }
 drawStars();
+
     </script>
 </body>
 </html>
