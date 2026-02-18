@@ -30,46 +30,26 @@ body {
     50% { background-position: 100% 50%; }
     100% { background-position: 0% 50%; }
 }
-<h1 style="text-align:center; font-family: 'Arial Black', sans-serif; font-size: 40px; margin: 20px 0;">
+<div style="text-align: center; padding: 20px 0;">
+    <h1 style="font-family: 'Arial Black', sans-serif; font-size: 40px; margin: 0;">
         <span style="color: #00d4ff; text-shadow: 0 0 15px #00d4ff;">Welcome</span> 
         <span style="color: #ff4444; text-shadow: 0 0 15px #ff4444;">Game</span> 
         <span style="color: #00ff88; text-shadow: 0 0 15px #00ff88;">Hub</span> 
         <span style="color: #ff00ff; text-shadow: 0 0 15px #ff00ff;">Host</span>
     </h1>
+</div>
 
-    <div style="width: 350px; height: 2px; background: linear-gradient(90deg, transparent, #d4af37, transparent); margin: 0 auto 20px auto; box-shadow: 0 0 15px #d4af37;"></div>
+<div style="width: 300px; height: 2px; background: linear-gradient(90deg, transparent, #d4af37, transparent); margin: 5px auto 15px auto; box-shadow: 0 0 15px #d4af37;"></div>
 
-    <div style="width: 100%; text-align: center; margin-bottom: 20px;">
-        <button class="main-btn" onclick="loadPayload('goldhen')" onmouseover="updateInfo('تشغيل GoldHEN v2.4b18.2')" onmouseout="resetInfo()">
-            LAUNCH GOLDHEN
-        </button>
-    </div>
+<div style="text-align: center; padding: 10px 0;">
+    <button class="main-btn" onclick="loadPayload('goldhen')" onmouseover="updateInfo('تشغيل GoldHEN v2.4b18.2')" onmouseout="resetInfo()">
+        LAUNCH GOLDHEN
+    </button>
+</div>
 
-    <div id="info-box" style="margin: 0 auto 30px auto;">
-        يجب تشغيل الغولد هين قبل كل شيء
-    </div>
-
-    ```
-
----
-
-### 📍 ليش هذا الكود راح يرجع الأمور لنصابها؟
-1. **`margin: auto`**: تضمن أن كل قطعة (العنوان، السطر، الزر، البوكس) تكون في نص الشاشة بالضبط وما تروح يمين أو يسار.
-2. **إزالة الـ `display: block` العشوائي**: رجعت العناصر لطبيعتها عشان ما تضغط على "البوكسات" اللي تحتها وتخليها تلتصق.
-3. **تنسيق السطر الذهبي**: خليته نحيف (2px) عشان ما ياخذ مساحة كبيرة ويخرب توزيع الصفحة.
-
-### 💡 نصيحة أخيرة:
-تأكد أنك ما حذفت وسم الـ `<div class="panel-container">` اللي تحتهم، لأن هذا هو "المغناطيس" اللي يمسك البوكسات ويخليها متباعدة عن بعض.
-
-**جرب هذي النسخة "الصافية"، وراح يرجع كل شيء لمكانه مع الألوان الجديدة والسطر الذهبي. بشّر، ضبطت المسافات الحين؟**
-    /* التعديل الجديد للخط هنا */
-    font-family: 'Dubai', 'Segoe UI', Tahoma, sans-serif; /* خط دبي فخم وواضح جداً */
-    font-size: 16px; 
-    font-weight: 500;
-    color: #00d4ff; /* خليت اللون سماوي عشان يتناسب مع "هوية" الهوست */
-    text-shadow: 0 0 5px rgba(0, 212, 255, 0.5); /* وهج خفيف مريح للعين */
-    line-height: 1.4; /* مسافة بين السطور لو الشرح طويل */
-}
+<div style="display: flex; justify-content: center; margin-bottom: 40px;">
+    <div id="info-box">يجب تشغيل الغولد هين قبل كل شيء</div>
+</div>
         /* حاوية القائمة العمودية */
         .vertical-menu { display: flex; flex-direction: column; width: 80%; max-width: 900px; gap: 35px; }
         
