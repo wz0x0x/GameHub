@@ -141,7 +141,34 @@
         drawStars();
 
         function h(t) { document.getElementById('helper').innerText = t; }
-        function r(f) { h("جاري إرسال الـ Payload: " + f + "..."); }
+      // دالة تشغيل الأزرار الذكية
+function r(name) {
+    // 1. تحديث نص بوكس المعلومات
+    const helper = document.getElementById('helper');
+    helper.innerText = "جاري إرسال الملف: " + name + "... يرجى الانتظار";
+    helper.style.borderColor = "#ffd700"; // تغيير اللون للتنبيه
+
+    // 2. كود الإرسال الفعلي (تأكد أن ملفاتك في مجلد payloads)
+    var path = "payloads/" + name;
+    
+    // إذا كان عندك ملف loader خارجي سيقوم بالتشغيل
+    if(typeof PL_Loader !== 'undefined') { 
+        PL_Loader(path); 
+    } else {
+        // محاكاة إرسال إذا كنت تستخدم نظام الـ ROP
+        console.log("Sending: " + path);
+    }
+}
+
+// دالة تحديث المعلومات عند تمرير الماوس (Hover)
+function s(msg) {
+    document.getElementById('helper').innerText = msg;
+}
+
+// دالة إعادة البوكس لحالته الأصلية
+function resetInfo() {
+    document.getElementById('helper').innerText = "مرر المؤشر فوق أي أداة لعرض التفاصيل";
+}
         function q(l) { document.getElementById('q').innerHTML=""; new QRCode(document.getElementById("q"),l); document.getElementById('qr').style.display='block'; }
     </script>
 </body>
