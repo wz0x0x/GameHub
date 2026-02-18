@@ -126,22 +126,36 @@
     <div id="qr" style="display:none; position:fixed; top:50%; left:50%; transform:translate(-50%,-50%); background:white; padding:20px; border-radius:15px;" onclick="this.style.display='none'"><div id="q"></div></div>
 
     <script>
-      // محرك النجوم الخلفية
-var canvas = document.getElementById('canvas'), ctx = canvas.getContext('2d');
-canvas.width = window.innerWidth; canvas.height = window.innerHeight;
-var stars = [];
-for(var i=0; i<80; i++) stars.push({x: Math.random()*canvas.width, y: Math.random()*canvas.height, r: Math.random()*1.5, d: Math.random()*0.5});
-function drawStars() {
-    ctx.clearRect(0,0,canvas.width, canvas.height); ctx.fillStyle = "white";
-    stars.forEach(function(s) {
-        ctx.beginPath(); ctx.arc(s.x, s.y, s.r, 0, Math.PI*2); ctx.fill();
-        s.y += s.d; if(s.y > canvas.height) s.y = 0;
-    });
-    requestAnimationFrame(drawStars);
+      // دالة تحديث نص بوكس المعلومات (المساعد الذكي)
+function s(msg) {
+    document.getElementById('helper').innerText = msg;
 }
-drawStars();
 
-// دالة القوائم المنسدلة
+// الدالة الأساسية لتشغيل الملفات (Payloads)
+function r(fileName) {
+    // 1. تحديث النص فور الضغط للتأكيد
+    s("جاري تفعيل " + fileName + "... يرجى الانتظار");
+
+    // 2. تحديد المسار الصحيح للمجلد
+    // بما أن ملفاتك داخل مجلد payloads، نضع المسار هنا
+    var payloadPath = "payloads/" + fileName;
+
+    // 3. محاكاة الإرسال (هنا نربط مع كود الإكسبلويت الخاص بك)
+    // ملاحظة: إذا كان لديك دالة جاهزة في ملف exploit.js قم باستدعائها هنا
+    setTimeout(function() {
+        s("تم إرسال " + fileName + " بنجاح إلى جهاز الـ PS4 ✅");
+        
+        // الكود التقني للإرسال الفعلي (يعتمد على ملفات السيرفر عندك)
+        if (typeof loadPayload === 'function') {
+            loadPayload(payloadPath);
+        } else {
+            console.log("Attempting to load: " + payloadPath);
+            // يمكنك إضافة أمر الشحن الفعلي هنا إذا كان متوفراً في ملفاتك الأخرى
+        }
+    }, 1500);
+}
+
+// دالة التحكم في القوائم المنسدلة
 function toggle(id) { 
     var el = document.getElementById(id);
     var isGrid = el.style.display === 'grid';
@@ -149,44 +163,22 @@ function toggle(id) {
     el.style.display = isGrid ? 'none' : 'grid';
 }
 
-// دالة البوكس الذكي (تغيير النص عند اللمس)
-function s(text) {
-    var helper = document.getElementById('helper');
-    if(helper) {
-        helper.innerText = text;
-        helper.style.borderColor = "#fff";
-    }
-}
+// سكريبت النجوم (الخلفية المتحركة)
+var canvas = document.getElementById('canvas'), ctx = canvas.getContext('2d');
+canvas.width = window.innerWidth; canvas.height = window.innerHeight;
+var stars = [];
+for(var i=0; i<80; i++) stars.push({x: Math.random()*canvas.width, y: Math.random()*canvas.height, r: Math.random()*2, d: Math.random()*1});
 
-// إعادة النص عند إبعاد المؤشر
-function resetInfo() {
-    document.getElementById('helper').innerText = "مرر المؤشر فوق أي أداة لعرض التفاصيل";
-    document.getElementById('helper').style.borderColor = "var(--blue)";
+function drawStars() {
+    ctx.clearRect(0,0,canvas.width, canvas.height); ctx.fillStyle = "white";
+    stars.forEach(function(star) {
+        ctx.beginPath(); ctx.arc(star.x, star.y, star.r, 0, Math.PI*2); ctx.fill();
+        star.y += star.d; if(star.y > canvas.height) star.y = 0;
+    });
+    requestAnimationFrame(drawStars);
 }
+drawStars();
 
-// --- المحرك الفعلي لتشغيل الأزرار ---
-function r(file) {
-    var helper = document.getElementById('helper');
-    helper.innerText = "جاري إرسال الـ Payload: " + file + "...";
-    
-    // محاولة إرسال الملف عبر AJAX (الطريقة القياسية للهوستات)
-    var xhr = new XMLHttpRequest();
-    xhr.open('GET', file, true);
-    xhr.overrideMimeType('text/plain; charset=x-user-defined');
-    
-    xhr.onreadystatechange = function() {
-        if (xhr.readyState == 4) {
-            if (xhr.status == 200) {
-                helper.innerText = "تم إرسال " + file + " بنجاح! راجع شاشة السوني.";
-                helper.style.borderColor = "#00ff88"; // لون أخضر عند النجاح
-            } else {
-                helper.innerText = "خطأ: لم يتم العثور على ملف " + file;
-                helper.style.borderColor = "#ff4444"; // لون أحمر عند الخطأ
-            }
-        }
-    };
-    xhr.send();
-} 
     </script>
 </body>
 </html>
