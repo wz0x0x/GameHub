@@ -63,7 +63,24 @@
         .credits { margin-top: 20px; color: white; text-shadow: 0 0 10px white; font-size: 1.1rem; }
     </style>
 </head>
-    <script src="loader.js"></script>
+  <script src="loader.js"></script> <script>
+    // دالة المعلومات الذكية (Hover)
+    function s(msg) {
+        document.getElementById('helper').innerText = msg;
+    }
+
+    // تأكد أن دالة r موجودة هنا أيضاً كاحتياط
+    function r(f) {
+        if (typeof loadPayload === 'function') {
+            loadPayload(f);
+        } else {
+            document.getElementById('helper').innerText = "خطأ: ملف loader.js غير متصل!";
+        }
+    }
+
+    // هنا تضع كود النجوم (الخلفية) الذي أعطيتك إياه سابقاً
+    // ... كود النجوم ...
+</script>
 <body>
     <canvas id="canvas"></canvas>
     <h1 class="header"><span class="w">Welcome</span> <span class="g">Game</span> <span class="h">Hub</span></h1>
