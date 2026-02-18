@@ -1,46 +1,40 @@
-// هذا الملف هو الجسر بين الأزرار وبين ثغرة الجهاز
-function loadPayload(fileName) {
-    var helper = document.getElementById('helper');
-    var path = "payloads/" + fileName;
+// جيه بي سي لودر - محرك إرسال البايلود الخاص بـ Lev
+function loadPayload(payloadPath) {
+    // 1. إظهار رسالة في بوكس المعلومات
+    if (document.getElementById('helper')) {
+        document.getElementById('helper').innerText = "جاري قراءة الملف من المسار: " + payloadPath;
+    }
 
-    helper.innerText = "جاري قراءة الملف: " + fileName + "...";
-    helper.style.color = "#ffd700";
-
-    // 1. جلب ملف الـ bin
-    var xhr = new XMLHttpRequest();
-    xhr.open('GET', path, true);
-    xhr.responseType = 'arraybuffer';
-
-    xhr.onload = function (e) {
-        if (this.status == 200) {
-            var payloadBuffer = new Uint8Array(this.response);
-            helper.innerText = "تم قراءة " + fileName + " ✅ جاري الحقن...";
-
-            // 2. محاولة إيجاد دالة الحقن في ملفاتك (exploit.js / rop.js)
-            try {
-                // سنحاول تشغيل أشهر الدوال التي تستخدم في الهوستات
-                if (typeof PL_Loader === 'function') {
-                    PL_Loader(payloadBuffer);
-                } else if (typeof runPayload === 'function') {
-                    runPayload(payloadBuffer);
-                } else if (typeof load_payload === 'function') {
-                    load_payload(payloadBuffer);
-                } else {
-                    helper.innerText = "خطأ: لم أجد دالة (PL_Loader) في ملف exploit.js";
-                    helper.style.color = "#ff4444";
+    // 2. استخدام Fetch لجلب ملف الـ .bin وتحويله لبيانات باينري
+    fetch(payloadPath)
+        .then(response => {
+            if (!response.ok) throw new Error("الملف غير موجود في مجلد payloads");
+            return response.arrayBuffer();
+        })
+        .then(buffer => {
+            // 3. إرسال البيانات إلى محرك الـ JBC (الموجود في ملفاتك الأخرى)
+            // ملاحظة: جهازه يحتاج أن يكون الثغرة (Exploit) شغال أولاً
+            if (typeof jbc_payload === 'function') {
+                jbc_payload(new Uint8Array(buffer));
+                if (document.getElementById('helper')) {
+                    document.getElementById('helper').innerText = "تم إرسال البايلود بنجاح! ✅";
                 }
-            } catch (err) {
-                helper.innerText = "حدث خطأ أثناء الحقن: " + err.message;
+            } else {
+                // محاولة الإرسال عبر اللودر التقليدي إذا لم يجد jbc
+                let data = new Uint8Array(buffer);
+                // هنا نضع كود الإرسال الاحتياطي
+                console.log("Payload data ready: ", data.length, " bytes");
+                if (document.getElementById('helper')) {
+                    document.getElementById('helper').innerText = "خطأ: محرك jbc_payload غير مفعّل. هل شغلت الثغرة؟";
+                }
             }
-        } else {
-            helper.innerText = "خطأ: الملف غير موجود في مجلد payloads/";
-            helper.style.color = "#ff4444";
-        }
-    };
-    xhr.send();
+        })
+        .catch(error => {
+            if (document.getElementById('helper')) {
+                document.getElementById('helper').innerText = "فشل التحميل: " + error.message;
+            }
+        });
 }
 
-// الدالة التي تستدعيها الأزرار في index.html
-function r(f) {
-    loadPayload(f);
-}
+// تصدير الدالة لتكون جاهزة للاستخدام من index.html
+window.loadPayload = loadPayload;
