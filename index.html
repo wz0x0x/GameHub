@@ -2,147 +2,163 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <title>GAME HUB MASTER OS - PS4 PRO EDITION</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <title>Welcome Game Hub Host</title>
     <style>
-        :root {
-            --blue: #007bff; --blue-glow: 0 0 20px #007bff;
-            --gold: #ffd700; --gold-glow: 0 0 20px #ffd700;
-            --bg: #050505; --card: rgba(255, 255, 255, 0.05);
-            --text-color: white;
+        body {
+            background-color: #000;
+            color: #fff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            text-align: center;
+            margin: 0;
+            overflow: hidden;
         }
-        
-        body { 
-            background: var(--bg); color: var(--text-color); 
-            font-family: 'Arial Black', "Segoe UI", Tahoma, sans-serif; 
-            margin: 0; text-align: center; overflow-x: hidden;
+        .header {
+            margin-top: 30px;
+            font-size: 40px;
+            font-weight: bold;
+            color: #00d4ff;
+            text-shadow: 0 0 15px #00d4ff;
         }
-
-        #canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; }
-
-        .header { font-size: 3.5rem; color: var(--blue); text-shadow: var(--blue-glow); padding: 40px 20px 10px; animation: glowPulse 2s infinite; }
-        @keyframes glowPulse { 0%, 100% { opacity: 1; text-shadow: var(--blue-glow); } 50% { opacity: 0.7; text-shadow: 0 0 40px var(--blue); } }
-
-        .helper { 
-            color: #00ffcc; font-size: 1.2rem; margin: 10px auto 30px auto; 
-            min-height: 25px; background: rgba(0,0,0,0.3); padding: 15px;
-            width: 80%; border-radius: 10px; border: 1px dashed var(--blue);
+        .credit {
+            font-size: 18px;
+            color: #aaa;
+            margin-bottom: 20px;
         }
-
-        .category-box { margin: 25px auto; width: 90%; max-width: 1000px; padding: 20px; border-radius: 20px; background: var(--card); border: 1px solid rgba(255,255,255,0.1); backdrop-filter: blur(15px); }
-        .ps4-border { border-top: 4px solid var(--gold); }
-        .vip-border { border-top: 4px solid #00ffcc; }
-
-        .main-btn { 
-            width: 100%; padding: 25px; margin: 10px 0; font-size: 1.5rem; border-radius: 12px; border: 2px solid transparent;
-            cursor: pointer; transition: 0.4s; background: rgba(255,255,255,0.03); color: white; text-transform: uppercase;
+        .main-btn {
+            background: linear-gradient(45deg, #d4af37, #f9d71c);
+            border: none;
+            padding: 20px 50px;
+            font-size: 24px;
+            border-radius: 15px;
+            color: #000;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 0 20px #d4af37;
+            margin-bottom: 10px;
         }
-        .ps4-btn { border-color: var(--gold); }
-        .ps4-btn:hover { box-shadow: var(--gold-glow); background: var(--gold); color: black; }
-        .vip-btn { border-color: #00ffcc; }
-        .vip-btn:hover { box-shadow: 0 0 20px #00ffcc; background: #00ffcc; color: black; }
-
-        .sub-menu { display: none; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 12px; padding: 20px; background: rgba(0,0,0,0.4); border-radius: 12px; margin-top: 5px; animation: slideDown 0.4s ease; }
-        
-        .sub-btn { padding: 15px; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.05); color: white; border-radius: 8px; cursor: pointer; font-size: 0.9rem; }
-        .sub-btn:hover { background: white; color: black; font-weight: bold; }
-
-        .credits { margin: 50px 0; color: white; font-size: 1.3rem; opacity: 0.8; }
-        .lev-name { color: var(--blue); font-weight: bold; }
+        .container {
+            display: flex;
+            justify-content: space-around;
+            padding: 20px;
+        }
+        .panel {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid #333;
+            border-radius: 20px;
+            width: 40%;
+            padding: 20px;
+            backdrop-filter: blur(10px);
+        }
+        .panel h2 { color: #00d4ff; border-bottom: 1px solid #333; padding-bottom: 10px; }
+        .btn-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        button.tool-btn {
+            background: #111;
+            border: 1px solid #00d4ff;
+            color: #fff;
+            padding: 10px;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+        button:hover { background: #00d4ff; color: #000; }
+        .footer {
+            position: absolute;
+            bottom: 20px;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            gap: 50px;
+        }
+        .qr-box { text-align: center; }
+        .qr-box img { width: 100px; height: 100px; border: 2px solid #fff; border-radius: 10px; }
+        .link-btn {
+            display: block;
+            margin-top: 5px;
+            color: #00d4ff;
+            text-decoration: none;
+            font-weight: bold;
+        }
     </style>
+
+    <script src="jbc.loader/constant.js"></script>
+    <script src="jbc.loader/offset.js"></script>
+    <script src="jbc.loader/int64.js"></script>
+    <script src="jbc.loader/rop.js"></script>
+    <script src="jbc.loader/kexploit.js"></script>
+    <script src="jbc.loader/exploit.js"></script>
+    <script src="jbc.loader/malloc.js"></script>
+    <script src="jbc.loader/payload.js"></script>
+
+    <script>
+        function loadPayload(payloadName) {
+            document.getElementById('status').innerHTML = "جاري تشغيل: " + payloadName + "...";
+            // المسار المعتمد للملفات كما في مجلدك
+            var payloadPath = "payloads/" + payloadName + ".bin";
+            
+            // دالة الحقن (تعتمد على ملفات jbc.loader)
+            setTimeout(function(){
+                PL_Loader(payloadPath);
+            }, 500);
+        }
+
+        function PL_Loader(path) {
+            // كود الربط بين الثغرة والملف الـ bin
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', path, true);
+            xhr.responseType = 'arraybuffer';
+            xhr.onload = function(e) {
+                if (this.status == 200) {
+                    window.payload_buffer = this.response;
+                    run_scripts(); // تشغيل ملفات الـ js للحقن
+                }
+            };
+            xhr.send();
+        }
+    </script>
 </head>
 <body>
 
-    <canvas id="canvas"></canvas>
-
-    <h1 class="header">GAME HUB MASTER OS</h1>
+    <div class="header">Welcome Game Hub Host</div>
     
-    <div class="helper" id="helper">PLEASE ENABLE GOLDHEN FIRST</div>
+    <button class="main-btn" onclick="loadPayload('goldhen')">LAUNCH GOLDHEN v2.4b18.2</button>
+    <div class="credit">قدم هذا العمل بواسطة (Lev)</div>
+    <div id="status" style="color: #f9d71c;">الحالة: جاهز للحقن</div>
 
-    <div class="category-box ps4-border">
-        <h2 style="color:var(--gold)">PS4 POWER STATION</h2>
-        <button class="main-btn ps4-btn" onclick="load_payload('goldhen.bin')">LAUNCH GOLDHEN 2.4</button>
-        
-        <button class="main-btn ps4-btn" onclick="toggle('ps4tools')">SYSTEM TOOLS</button>
-        <div id="ps4tools" class="sub-menu">
-            <button class="sub-btn" onclick="load_payload('LinuxLoader.bin')">LINUX LOADER</button>
-            <button class="sub-btn" onclick="load_payload('WebRTE.bin')">WEBRTE MODS</button>
-            <button class="sub-btn" onclick="load_payload('appdumper.bin')">APP DUMPER</button>
-            <button class="sub-btn" onclick="load_payload('dbbackup.bin')">DB BACKUP</button>
-            <button class="sub-btn" onclick="load_payload('disableupdates.bin')">BLOCK UPDATES</button>
-            <button class="sub-btn" onclick="load_payload('ps4debug.bin')">PS4 DEBUG</button>
-            <button class="sub-btn" onclick="load_payload('ToDex.bin')">TODEX MODE</button>
+    <div class="container">
+        <div class="panel">
+            <h2>SYSTEM TOOLS</h2>
+            <div class="btn-grid">
+                <button class="tool-btn" onclick="loadPayload('ftp')">FTP Server</button>
+                <button class="tool-btn" onclick="loadPayload('appdumper')">App Dumper</button>
+                <button class="tool-btn" onclick="loadPayload('webrte')">WebRTE</button>
+                <button class="tool-btn" onclick="loadPayload('disableupdates')">Disable Updates</button>
+                <button class="tool-btn" onclick="loadPayload('dbbackup')">DB Backup</button>
+                <button class="tool-btn" onclick="loadPayload('fan60')">Fan Control 60°</button>
+            </div>
         </div>
 
-        <button class="main-btn ps4-btn" onclick="toggle('mods')">GAME MOD MENUS</button>
-        <div id="mods" class="sub-menu">
-            <button class="sub-btn" onclick="load_payload('gtava1.bin')">GTA ARABICGUY</button>
-            <button class="sub-btn" onclick="load_payload('gtavmb127.bin')">GTA BEEF V1.27</button>
-            <button class="sub-btn" onclick="load_payload('oystersmenu129.bin')">RDR2 V1.29</button>
-        </div>
-    </div>
-
-    <div class="category-box vip-border">
-        <h2 style="color:#00ffcc">VIP ADVANCED ACCESS</h2>
-        <button class="main-btn vip-btn" onclick="toggle('fans')">FAN CONTROL</button>
-        <div id="fans" class="sub-menu">
-            <button class="sub-btn" onclick="load_payload('fan50.bin')">FAN 50%</button>
-            <button class="sub-btn" onclick="load_payload('fan65.bin')">FAN 65%</button>
-            <button class="sub-btn" onclick="load_payload('fan80.bin')">FAN 80%</button>
+        <div class="panel">
+            <h2>GAME MODS</h2>
+            <div class="btn-grid">
+                <button class="tool-btn" onclick="loadPayload('gtava1')">ArabicGuy GTA v1</button>
+                <button class="tool-btn" onclick="loadPayload('gtava3')">ArabicGuy GTA v3</button>
+                <button class="tool-btn" onclick="loadPayload('oystersmenu100')">RDR2 Oysters 1.00</button>
+                <button class="tool-btn" onclick="loadPayload('oystersmenu129')">RDR2 Oysters 1.29</button>
+                <button class="tool-btn" onclick="loadPayload('ps4debug')">PS4 Debug</button>
+                <button class="tool-btn" onclick="loadPayload('todex')">ToDex</button>
+            </div>
         </div>
     </div>
 
-    <div class="credits">DEVELOPED BY <span class="lev-name">LEV</span></div>
+    <div class="footer">
+        <div class="qr-box">
+            <img src="img/lev_qr.png" alt="QR Lev">
+            <a href="#" class="link-btn">Lev</a>
+        </div>
+        <div class="qr-box">
+            <img src="img/server_qr.png" alt="QR Server">
+            <a href="https://discord.gg/xdZ8zqS9G" class="link-btn">Game Hub</a>
+        </div>
+    </div>
 
-    <script>
-        // سكريبت النجوم
-        var canvas = document.getElementById('canvas'), ctx = canvas.getContext('2d');
-        canvas.width = window.innerWidth; canvas.height = window.innerHeight;
-        var stars = [];
-        for(var i=0; i<80; i++) stars.push({x: Math.random()*canvas.width, y: Math.random()*canvas.height, r: Math.random()*2, d: Math.random()*1});
-        function drawStars() {
-            ctx.clearRect(0,0,canvas.width, canvas.height); ctx.fillStyle = "white";
-            stars.forEach(function(s) {
-                ctx.beginPath(); ctx.arc(s.x, s.y, s.r, 0, Math.PI*2); ctx.fill();
-                s.y += s.d; if(s.y > canvas.height) s.y = 0;
-            });
-            requestAnimationFrame(drawStars);
-        }
-        drawStars();
-
-        function toggle(id) { 
-            var el = document.getElementById(id);
-            var isGrid = el.style.display === 'grid';
-            document.querySelectorAll('.sub-menu').forEach(m => m.style.display = 'none');
-            el.style.display = isGrid ? 'none' : 'grid';
-        }
-
-        function s(t) { document.getElementById('helper').innerText = t; }
-
-        // وظيفة التشغيل الاحترافية (بدون الحاجة لملفات خارجية معقدة)
-        function load_payload(payload_name) {
-            s("PREPARING EXPLOIT... PLEASE WAIT");
-            
-            // استدعاء المشغل (هذا الكود هو الذي يربط بين المتصفح وملفات الـ bin)
-            setTimeout(function() {
-                s("SENDING " + payload_name.toUpperCase() + "...");
-                
-                // الطريقة المعتمدة في السوني لإرسال الـ Payload
-                var xhr = new XMLHttpRequest();
-                xhr.open('GET', 'payloads/' + payload_name, true);
-                xhr.responseType = 'arraybuffer';
-                xhr.onload = function (e) {
-                    if (xhr.status == 200) {
-                        // إرسال المسار للمتصفح ليقوم بالحقن
-                        window.location.hash = "#payload=payloads/" + payload_name;
-                        s("SUCCESS! CHECK SYSTEM NOTIFICATIONS");
-                    } else {
-                        s("ERROR: " + payload_name + " NOT FOUND IN PAYLOADS FOLDER");
-                    }
-                };
-                xhr.send();
-            }, 1000);
-        }
-    </script>
 </body>
 </html>
