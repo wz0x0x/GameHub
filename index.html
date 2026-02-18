@@ -126,73 +126,67 @@
     <div id="qr" style="display:none; position:fixed; top:50%; left:50%; transform:translate(-50%,-50%); background:white; padding:20px; border-radius:15px;" onclick="this.style.display='none'"><div id="q"></div></div>
 
     <script>
-      // إعدادات الخلفية المتحركة (النجوم)
-        var canvas = document.getElementById('canvas'), ctx = canvas.getContext('2d');
-        canvas.width = window.innerWidth; canvas.height = window.innerHeight;
-        var stars = [];
-        for(var i=0; i<80; i++) stars.push({x: Math.random()*canvas.width, y: Math.random()*canvas.height, r: Math.random()*2, d: Math.random()*1});
-        
-        function drawStars() {
-            ctx.clearRect(0,0,canvas.width, canvas.height); ctx.fillStyle = "white";
-            stars.forEach(function(s) {
-                ctx.beginPath(); ctx.arc(s.x, s.y, s.r, 0, Math.PI*2); ctx.fill();
-                s.y += s.d; if(s.y > canvas.height) s.y = 0;
-            });
-            requestAnimationFrame(drawStars);
-        }
-        drawStars();
+      // محرك النجوم الخلفية
+var canvas = document.getElementById('canvas'), ctx = canvas.getContext('2d');
+canvas.width = window.innerWidth; canvas.height = window.innerHeight;
+var stars = [];
+for(var i=0; i<80; i++) stars.push({x: Math.random()*canvas.width, y: Math.random()*canvas.height, r: Math.random()*1.5, d: Math.random()*0.5});
+function drawStars() {
+    ctx.clearRect(0,0,canvas.width, canvas.height); ctx.fillStyle = "white";
+    stars.forEach(function(s) {
+        ctx.beginPath(); ctx.arc(s.x, s.y, s.r, 0, Math.PI*2); ctx.fill();
+        s.y += s.d; if(s.y > canvas.height) s.y = 0;
+    });
+    requestAnimationFrame(drawStars);
+}
+drawStars();
 
-        // دالة إظهار وإخفاء القوائم (Toggle)
-        function toggle(id) { 
-            var el = document.getElementById(id);
-            var isGrid = (el.style.display === 'grid');
-            // إغلاق أي قائمة أخرى مفتوحة
-            document.querySelectorAll('.sub-menu').forEach(m => m.style.display = 'none');
-            // فتح القائمة المطلوبة
-            el.style.display = isGrid ? 'none' : 'grid';
-        }
+// دالة القوائم المنسدلة
+function toggle(id) { 
+    var el = document.getElementById(id);
+    var isGrid = el.style.display === 'grid';
+    document.querySelectorAll('.sub-menu').forEach(m => m.style.display = 'none');
+    el.style.display = isGrid ? 'none' : 'grid';
+}
 
-        // دالة الوصف الذكي (تغيير النص في بوكس المعلومات)
-        function s(t) { 
-            document.getElementById('helper').innerText = t; 
-        }
+// دالة البوكس الذكي (تغيير النص عند اللمس)
+function s(text) {
+    var helper = document.getElementById('helper');
+    if(helper) {
+        helper.innerText = text;
+        helper.style.borderColor = "#fff";
+    }
+}
 
-        // دالة إعادة النص الأصلي عند إبعاد المؤشر
-        function resetInfo() {
-            document.getElementById('helper').innerText = "مرر المؤشر فوق أي أداة لعرض التفاصيل";
-        }
+// إعادة النص عند إبعاد المؤشر
+function resetInfo() {
+    document.getElementById('helper').innerText = "مرر المؤشر فوق أي أداة لعرض التفاصيل";
+    document.getElementById('helper').style.borderColor = "var(--blue)";
+}
 
-        // المحرك الرئيسي لتشغيل الأزرار (إرسال الملفات للجهاز)
-        function r(file) { 
-            // 1. عرض رسالة التفعيل في البوكس
-            s("جاري تفعيل الـ " + file + "... يرجى الانتظار");
-            
-            // 2. تحديد مسار الملف (تأكد أن ملفاتك بجانب الـ index أو في مجلد payloads)
-            var payloadPath = "payloads/" + file; 
-
-            // 3. استدعاء محرك الإرسال الخاص بالـ PS4
-            // ملاحظة: هذا السطر يعتمد على وجود ملفات الـ JS الأساسية (exploit.js, kexploit.js)
-            if(typeof PL_Loader !== 'undefined') {
-                PL_Loader(payloadPath);
+// --- المحرك الفعلي لتشغيل الأزرار ---
+function r(file) {
+    var helper = document.getElementById('helper');
+    helper.innerText = "جاري إرسال الـ Payload: " + file + "...";
+    
+    // محاولة إرسال الملف عبر AJAX (الطريقة القياسية للهوستات)
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', file, true);
+    xhr.overrideMimeType('text/plain; charset=x-user-defined');
+    
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState == 4) {
+            if (xhr.status == 200) {
+                helper.innerText = "تم إرسال " + file + " بنجاح! راجع شاشة السوني.";
+                helper.style.borderColor = "#00ff88"; // لون أخضر عند النجاح
             } else {
-                // إذا لم يجد المحرك، يحاول الإرسال عبر نظام الـ AJAX
-                var xhr = new XMLHttpRequest();
-                xhr.open('GET', payloadPath, true);
-                xhr.send();
+                helper.innerText = "خطأ: لم يتم العثور على ملف " + file;
+                helper.style.borderColor = "#ff4444"; // لون أحمر عند الخطأ
             }
-
-            // 4. رسالة تأكيد بعد الإرسال بـ 3 ثواني
-            setTimeout(function(){ 
-                s("تم إرسال " + file + " بنجاح! راجع شاشة السوني"); 
-            }, 3000);
         }
-
-        // دالة الـ QR Code للحسابات
-        function q(link) { 
-            document.getElementById('q').innerHTML = ""; 
-            new QRCode(document.getElementById("q"), link); 
-            document.getElementById('qr').style.display = 'block'; 
-        }
+    };
+    xhr.send();
+} 
     </script>
 </body>
 </html>
