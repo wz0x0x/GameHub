@@ -4,93 +4,102 @@
     <meta charset="UTF-8">
     <title>Welcome Game Hub Host</title>
     <style>
-        :root { --p-blue: #00d4ff; --gold: #d4af37; --bg: #000; --glass: rgba(0, 0, 0, 0.8); }
-        body { background-color: var(--bg); color: white; font-family: 'Segoe UI', Arial; margin: 0; overflow: hidden; display: flex; flex-direction: column; align-items: center; }
+        :root { --p-blue: #00d4ff; --gold: #d4af37; --bg: #000; --glass: rgba(0, 0, 0, 0.85); }
+        body { background-color: var(--bg); color: white; font-family: 'Segoe UI', Arial; margin: 0; display: flex; flex-direction: column; align-items: center; padding-bottom: 50px; overflow-y: auto; }
         #star-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; }
-        h1 { font-size: 45px; color: var(--p-blue); text-shadow: 0 0 20px var(--p-blue); margin-top: 15px; }
-        .main-btn { background: linear-gradient(145deg, var(--gold), #f9d71c); color: black; padding: 12px 50px; font-size: 22px; font-weight: 900; border-radius: 50px; border: none; cursor: pointer; box-shadow: 0 0 15px var(--gold); transition: 0.3s; }
         
-        /* المربع الذكي الشفاف الصغير */
-        #info-box { background: var(--glass); border: 1px solid var(--p-blue); color: #fff; padding: 8px 15px; border-radius: 10px; margin: 10px 0; font-weight: bold; width: 450px; text-align: center; font-size: 15px; }
+        h1 { font-size: 45px; color: var(--p-blue); text-shadow: 0 0 20px var(--p-blue); margin: 30px 0 15px 0; }
+        
+        .main-btn { background: linear-gradient(145deg, var(--gold), #f9d71c); color: black; padding: 18px 80px; font-size: 26px; font-weight: 900; border-radius: 50px; border: none; cursor: pointer; box-shadow: 0 0 20px var(--gold); transition: 0.3s; margin-bottom: 10px; }
+        
+        /* بوكس المعلومات الذكي (أسود شفاف ومرتب) */
+        #info-box { background: var(--glass); border: 1px solid var(--p-blue); color: #fff; padding: 12px 25px; border-radius: 12px; margin-bottom: 30px; font-weight: bold; width: 600px; text-align: center; font-size: 17px; box-shadow: 0 0 15px rgba(0, 212, 255, 0.2); }
 
-        .container { display: flex; width: 98%; gap: 10px; padding: 0 10px; }
-        .panel { background: rgba(15, 15, 15, 0.9); border: 1px solid #333; border-radius: 20px; flex: 1; padding: 12px; backdrop-filter: blur(10px); }
-        .panel h2 { color: var(--p-blue); font-size: 18px; margin-top: 0; text-align: center; border-bottom: 1px solid #222; padding-bottom: 5px; }
+        /* حاوية القائمة العمودية */
+        .vertical-menu { display: flex; flex-direction: column; width: 80%; max-width: 900px; gap: 35px; }
+        
+        .panel { background: rgba(20, 20, 20, 0.9); border: 1px solid #333; border-radius: 25px; padding: 20px; backdrop-filter: blur(10px); transition: 0.3s; }
+        .panel:hover { border-color: var(--p-blue); box-shadow: 0 0 20px rgba(0, 212, 255, 0.1); }
+        .panel h2 { color: var(--p-blue); font-size: 24px; margin: 0 0 20px 0; text-align: center; border-bottom: 1px solid #222; padding-bottom: 10px; }
 
-        .btn-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
-        .tool-btn { background: #111; border: 1px solid #444; color: #fff; padding: 10px 5px; border-radius: 8px; cursor: pointer; font-size: 12px; transition: 0.2s; }
-        .tool-btn:hover { background: var(--p-blue); color: #000; font-weight: bold; transform: translateY(-2px); }
+        .btn-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+        .tool-btn { background: #111; border: 1px solid #444; color: #fff; padding: 15px; border-radius: 10px; cursor: pointer; font-size: 15px; transition: 0.2s; font-weight: 500; }
+        .tool-btn:hover { background: var(--p-blue); color: #000; font-weight: bold; transform: scale(1.03); }
 
-        .lev-credit { color: #fff; text-shadow: 0 0 10px #fff; font-size: 18px; font-weight: bold; margin-top: 15px; }
-        .footer-btns { display: flex; gap: 15px; margin-top: 5px; }
-        .qr-btn { background: transparent; border: 1px solid var(--p-blue); color: var(--p-blue); padding: 5px 20px; border-radius: 5px; cursor: pointer; font-size: 13px; }
-        #qr-modal { display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: #111; padding: 20px; border: 2px solid #fff; border-radius: 20px; text-align: center; z-index: 100; }
+        .footer-section { margin-top: 40px; display: flex; flex-direction: column; align-items: center; gap: 20px; }
+        .footer-btns { display: flex; gap: 25px; }
+        .qr-btn { background: transparent; border: 1px solid var(--p-blue); color: var(--p-blue); padding: 12px 35px; border-radius: 8px; cursor: pointer; font-size: 16px; font-weight: bold; }
+        .qr-btn:hover { background: var(--p-blue); color: #000; }
+
+        .lev-credit { color: #fff; text-shadow: 0 0 15px #fff; font-size: 22px; font-weight: bold; margin-top: 10px; }
+        
+        #qr-modal { display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: #111; padding: 25px; border: 2px solid #fff; border-radius: 20px; text-align: center; z-index: 100; box-shadow: 0 0 50px #000; }
     </style>
 </head>
 <body>
     <canvas id="star-canvas"></canvas>
+    
     <h1>Welcome Game Hub Host</h1>
+    
     <button class="main-btn" onmouseover="updateInfo('تشغيل GoldHEN v2.4b18.2 لفك قيود النظام')" onmouseout="resetInfo()" onclick="loadPayload('goldhen')">LAUNCH GOLDHEN</button>
     
     <div id="info-box">يجب تشغيل الغولد هين قبل كل شيء</div>
 
-    <div class="container">
+    <div class="vertical-menu">
+        <div class="panel">
+            <h2>SYSTEM TOOLS</h2>
+            <div class="btn-grid">
+                <button class="tool-btn" onmouseover="updateInfo('نقل الملفات عبر FTP')" onclick="loadPayload('ftp')">FTP Server</button>
+                <button class="tool-btn" onmouseover="updateInfo('تفعيل WebRTE للغش')" onclick="loadPayload('WebRTE')">WebRTE</button>
+                <button class="tool-btn" onmouseover="updateInfo('سحب نسخة من الألعاب Dumper')" onclick="loadPayload('appdumper')">Dumper</button>
+                <button class="tool-btn" onmouseover="updateInfo('مسح سجل المتصفح تلقائياً')" onclick="loadPayload('historyblocker')">History Blocker</button>
+                <button class="tool-btn" onmouseover="updateInfo('سحب نسخة من الكيرنل')" onclick="loadPayload('kerneldumper')">Kernel Dumper</button>
+                <button class="tool-btn" onmouseover="updateInfo('تعديل ملفات الترخيص Rif')" onclick="loadPayload('rifrenamer')">Rif Renamer</button>
+                <button class="tool-btn" onmouseover="updateInfo('تشغيل نظام Linux Loader')" onclick="loadPayload('LinuxLoader')">Linux Loader</button>
+                <button class="tool-btn" onmouseover="updateInfo('نقل الألعاب للفلاش App2USB')" onclick="loadPayload('app2usb')">App2USB</button>
+                <button class="tool-btn" onmouseover="updateInfo('أخذ نسخة احتياطية للقاعدة DB Backup')" onclick="loadPayload('dbbackup')">DB Backup</button>
+            </div>
+        </div>
+
         <div class="panel">
             <h2>GAME MODS</h2>
             <div class="btn-grid">
                 <button class="tool-btn" onmouseover="updateInfo('ArabicGuy GTA V v3')" onclick="loadPayload('gtava3')">GTA V v3</button>
                 <button class="tool-btn" onmouseover="updateInfo('ArabicGuy GTA V v1')" onclick="loadPayload('gtava1')">GTA V v1</button>
                 <button class="tool-btn" onmouseover="updateInfo('RDR2 Oysters v1.29')" onclick="loadPayload('oystersmenu129')">RDR2 1.29</button>
-                <button class="tool-btn" onmouseover="updateInfo('RDR2 Oysters v1.00')" onclick="loadPayload('oystersmenu100')">RDR2 1.00</button>
                 <button class="tool-btn" onmouseover="updateInfo('RDR2 Oysters v1.24')" onclick="loadPayload('oystersmenu124')">RDR2 1.24</button>
+                <button class="tool-btn" onmouseover="updateInfo('RDR2 Oysters v1.00')" onclick="loadPayload('oystersmenu100')">RDR2 1.00</button>
                 <button class="tool-btn" onmouseover="updateInfo('تفعيل وضع المطورين ToDex')" onclick="loadPayload('ToDex')">ToDex</button>
-            </div>
-        </div>
-
-        <div class="panel">
-            <h2>SYSTEM TOOLS</h2>
-            <div class="btn-grid">
-                <button class="tool-btn" onmouseover="updateInfo('نقل الملفات عبر FTP')" onclick="loadPayload('ftp')">FTP</button>
-                <button class="tool-btn" onmouseover="updateInfo('تفعيل WebRTE للغش')" onclick="loadPayload('WebRTE')">WebRTE</button>
-                <button class="tool-btn" onmouseover="updateInfo('سحب نسخة من الألعاب Dumper')" onclick="loadPayload('appdumper')">Dumper</button>
-                <button class="tool-btn" onmouseover="updateInfo('مسح سجل المتصفح تلقائياً')" onclick="loadPayload('historyblocker')">History</button>
-                <button class="tool-btn" onmouseover="updateInfo('سحب نسخة من الكيرنل')" onclick="loadPayload('kerneldumper')">Kernel</button>
-                <button class="tool-btn" onmouseover="updateInfo('تعديل ملفات الترخيص Rif')" onclick="loadPayload('rifrenamer')">Rif</button>
-                <button class="tool-btn" onmouseover="updateInfo('تشغيل نظام Linux')" onclick="loadPayload('LinuxLoader')">Linux</button>
-                <button class="tool-btn" onmouseover="updateInfo('نقل الألعاب للفلاش App2USB')" onclick="loadPayload('app2usb')">App2USB</button>
-                <button class="tool-btn" onmouseover="updateInfo('أخذ نسخة احتياطية للقاعدة')" onclick="loadPayload('dbbackup')">Backup</button>
             </div>
         </div>
 
         <div class="panel">
             <h2>FAN CONTROL</h2>
             <div class="btn-grid">
-                <button class="tool-btn" onmouseover="updateInfo('سرعة المروحة 50°')" onclick="loadPayload('fan50')">50°C</button>
-                <button class="tool-btn" onmouseover="updateInfo('سرعة المروحة 60°')" onclick="loadPayload('fan60')">60°C</button>
-                <button class="tool-btn" onmouseover="updateInfo('سرعة المروحة 70°')" onclick="loadPayload('fan70')">70°C</button>
-                <button class="tool-btn" onmouseover="updateInfo('سرعة المروحة 75°')" onclick="loadPayload('fan75')">75°C</button>
-                <button class="tool-btn" onmouseover="updateInfo('سرعة المروحة 80°')" onclick="loadPayload('fan80')">80°C</button>
-                <button class="tool-btn" onmouseover="updateInfo('إيقاف تحديثات النظام')" onclick="loadPayload('disableupdates')">Updates</button>
+                <button class="tool-btn" onmouseover="updateInfo('ضبط المروحة: 50°C')" onclick="loadPayload('fan50')">50°C</button>
+                <button class="tool-btn" onmouseover="updateInfo('ضبط المروحة: 60°C')" onclick="loadPayload('fan60')">60°C</button>
+                <button class="tool-btn" onmouseover="updateInfo('ضبط المروحة: 70°C')" onclick="loadPayload('fan70')">70°C</button>
+                <button class="tool-btn" onmouseover="updateInfo('ضبط المروحة: 75°C')" onclick="loadPayload('fan75')">75°C</button>
+                <button class="tool-btn" onmouseover="updateInfo('ضبط المروحة: 80°C')" onclick="loadPayload('fan80')">80°C</button>
+                <button class="tool-btn" onmouseover="updateInfo('إيقاف تحديثات النظام')" onclick="loadPayload('disableupdates')">Disable Updates</button>
             </div>
         </div>
     </div>
 
-    <div class="lev-credit">قدم هذا العمل بواسطة (Lev)</div>
-    <div class="footer-btns">
-        <button class="qr-btn" onclick="showQR('lev')">حساب Lev</button>
-        <button class="qr-btn" onclick="showQR('hub')">سيرفر Game Hub</button>
+    <div class="footer-section">
+        <div class="footer-btns">
+            <button class="qr-btn" onclick="showQR('lev')">حساب Lev</button>
+            <button class="qr-btn" onclick="showQR('hub')">سيرفر Game Hub</button>
+        </div>
+        <div class="lev-credit">قدم هذا العمل بواسطة (Lev)</div>
     </div>
 
     <div id="qr-modal">
         <img id="qr-img" style="width:250px; height:250px;">
-        <p id="qr-text" style="color:white;"></p>
-        <button onclick="document.getElementById('qr-modal').style.display='none'" style="color:red; background:none; border:none; cursor:pointer;">إغلاق [X]</button>
+        <p id="qr-text" style="color:white; font-weight:bold;"></p>
+        <button onclick="document.getElementById('qr-modal').style.display='none'" style="color:red; background:none; border:1px solid red; padding:5px 15px; border-radius:5px; cursor:pointer; margin-top:10px;">إغلاق [X]</button>
     </div>
 
-    <script src="exploit.js"></script>
-    <script src="int64.js"></script>
-    <script src="rop.js"></script>
-    <script src="kexploit.js"></script>
     <script>
         // كود النجوم المتحركة
         const canvas = document.getElementById('star-canvas');
@@ -105,8 +114,8 @@
 
         function loadPayload(name) {
             var path = "payloads/" + name + ".bin";
-            updateInfo("جاري تحميل " + name + "...");
-            if(typeof PL_Loader !== 'undefined') { PL_Loader(path); } else { console.log("Path: " + path); }
+            updateInfo("جاري إرسال الملف: " + name + "...");
+            if(typeof PL_Loader !== 'undefined') { PL_Loader(path); }
         }
 
         function showQR(type) {
@@ -122,5 +131,9 @@
             modal.style.display = 'block';
         }
     </script>
+    <script src="exploit.js"></script>
+    <script src="int64.js"></script>
+    <script src="rop.js"></script>
+    <script src="kexploit.js"></script>
 </body>
 </html>
