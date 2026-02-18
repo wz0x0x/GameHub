@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Welcome Game Hub Host</title>
+}
     <style>
         :root { --p-blue: #00d4ff; --gold: #d4af37; --bg: #000; --glass: rgba(0, 0, 0, 0.85); }
 body {
@@ -20,7 +21,16 @@ body {
     align-items: center;
     overflow-y: auto;
 }
-
+/* كود السطر الذهبي المضيء بالتفصيل */
+.gold-line {
+    width: 50%;               /* يغطي نصف عرض الشاشة */
+    max-width: 500px;         /* ما يتعدى الـ 500 بكسل عشان ما يخرب الشكل */
+    height: 3px;              /* سماكة واضحة للسطر */
+    background: linear-gradient(90deg, transparent, #d4af37, #fff, #d4af37, transparent); 
+    margin: 20px auto;        /* مسافة 20 بكسل بينه وبين اللي فوقه واللي تحته */
+    box-shadow: 0 0 20px #d4af37, 0 0 10px rgba(212, 175, 55, 0.8); /* وهج ذهبي نيون */
+    border-radius: 50px;      /* يخلي الأطراف ناعمة جداً */
+}
 @keyframes nebulaMove {
     0% { background-position: 0% 50%; }
     50% { background-position: 100% 50%; }
@@ -30,8 +40,14 @@ body {
     50% { background-position: 100% 50%; }
     100% { background-position: 0% 50%; }
 }
-       h1 { font-size: 45px; color: var(--p-blue); text-shadow: 0 0 20px var(--p-blue); margin: 30px 0 15px 0; }
-        
+   h1 { font-size: 45px; color: var(--p-blue); text-shadow: 0 0 20px var(--p-blue); margin: 30px 0 15px 0; }
+      </h1> 
+
+<div class="gold-line"></div>
+
+<div id="info-box">
+    يجب تشغيل الغولد هين قبل كل شيء
+</div>  
        .main-btn { 
     background: linear-gradient(145deg, var(--gold), #f9d71c); 
     color: black; 
