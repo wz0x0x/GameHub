@@ -108,7 +108,6 @@ body {
 <video autoplay muted loop id="myVideo" style="position: fixed; right: 0; bottom: 0; min-width: 100%; min-height: 100%; z-index: -1; object-fit: cover; filter: brightness(40%);">
   <source src="https://assets.mixkit.co/videos/preview/mixkit-Abstract-blue-and-purple-ink-shades-31713-large.mp4" type="video/mp4">
 </video>
-    <canvas id="star-canvas"></canvas>
     
     <h1>Welcome Game Hub Host</h1>
     
@@ -172,8 +171,6 @@ body {
     </div>
 
     <script>
-        // كود النجوم المتحركة
-        const canvas = document.getElementById('star-canvas');
         const ctx = canvas.getContext('2d');
         canvas.width = window.innerWidth; canvas.height = window.innerHeight;
         let stars = Array(150).fill().map(() => ({ x: Math.random()*canvas.width, y: Math.random()*canvas.height, r: Math.random()*1.2, s: Math.random()*0.4 }));
