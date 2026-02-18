@@ -8,7 +8,11 @@
 body {
     margin: 0;
     padding-bottom: 50px;
-    background: #000; /* خلفية سوداء احتياطية */
+    background: radial-gradient(circle at bottom, #001f3f 0%, #000 70%), 
+                linear-gradient(135deg, #000 0%, #1a0a2a 50%, #000 100%);
+    background-attachment: fixed;
+    background-size: 200% 200%;
+    animation: nebulaMove 12s ease infinite;
     color: white;
     font-family: 'Segoe UI', Arial;
     display: flex;
@@ -16,7 +20,12 @@ body {
     align-items: center;
     overflow-y: auto;
 }
-@keyframes gradientBG {
+
+@keyframes nebulaMove {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}@keyframes gradientBG {
     0% { background-position: 0% 50%; }
     50% { background-position: 100% 50%; }
     100% { background-position: 0% 50%; }
@@ -104,11 +113,7 @@ body {
     </style>
 </head>
 <body>
-<body>
-<video autoplay muted loop id="myVideo" style="position: fixed; right: 0; bottom: 0; min-width: 100%; min-height: 100%; z-index: -1; object-fit: cover; filter: brightness(40%);">
-  <source src="https://assets.mixkit.co/videos/preview/mixkit-Abstract-blue-and-purple-ink-shades-31713-large.mp4" type="video/mp4">
-</video>
-    
+<body>  
     <h1>Welcome Game Hub Host</h1>
     
     <button class="main-btn" onmouseover="updateInfo('تشغيل GoldHEN v2.4b18.2 لفك قيود النظام')" onmouseout="resetInfo()" onclick="loadPayload('goldhen')">LAUNCH GOLDHEN</button>
