@@ -151,45 +151,64 @@
     <div id="qr" style="display:none; position:fixed; top:50%; left:50%; transform:translate(-50%,-50%); background:white; padding:20px; border-radius:15px;" onclick="this.style.display='none'"><div id="q"></div></div>
 
     <script>
-        // دالة عرض المعلومات (الذكية)
+        /// 1. دالة عرض الرسائل في بوكس المعلومات (helper)
 function h(msg) {
     var helper = document.getElementById('helper');
     if(helper) helper.innerText = msg;
 }
 
-// دالة التشغيل
-function r(fileName) {
-    h("جاري محاولة تشغيل: " + fileName);
+// 2. المحرك الأساسي لإرسال البايلود (المتوافق مع ملفات sleirsgoevy)
+function loadPayload(payloadPath) {
+    h("جاري تحميل البايلود: " + payloadPath.split('/').pop());
+
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', payloadPath, true);
+    xhr.responseType = 'arraybuffer';
     
-    // تأكد من استدعاء الدالة من ملف loader.js
-    if (typeof loadPayload === 'function') {
-        loadPayload("payloads/" + fileName);
-    } else {
-        h("خطأ: لم يتم العثور على محرك التحميل (loader.js)");
-    }
+    xhr.onload = function() {
+        if (xhr.status === 200) {
+            var data = new Uint8Array(xhr.response);
+            
+            // الربط مع ملفات الثغرة النظيفة (int64.js & kexploit.js)
+            try {
+                // تخصيص مساحة في ذاكرة البلايستيشن
+                var payload_buffer = chain.syscall(477, 0, data.length, 7, 0x1000, -1, 0);
+                
+                // كتابة ملف الـ .bin داخل الذاكرة
+                for (var i = 0; i < data.length; i++) {
+                    write8(payload_buffer.add32(i), data[i]);
+                }
+                
+                // تشغيل البايلود فوراً
+                var thread_addr = malloc(8);
+                chain.syscall(79, payload_buffer, 0, thread_addr);
+                
+                h("تم تشغيل البايلود بنجاح! ✅");
+            } catch (e) {
+                h("خطأ: تأكد من تفعيل الثغرة أولاً (GoldHEN)");
+            }
+        } else {
+            h("خطأ: الملف غير موجود في مجلد payloads");
+        }
+    };
+    xhr.send();
 }
 
-// دالة القوائم
-function toggle(id) { 
-    var el = document.getElementById(id);
-    document.querySelectorAll('.sub-menu').forEach(m => m.style.display = 'none');
-    el.style.display = 'grid';
+// 3. دالة الأزرار التي تستدعيها عند الضغط
+function r(fileName) {
+    var path = "payloads/" + fileName;
+    loadPayload(path);
 }
 
-// كود النجوم (معدل ليكون خفيفاً ولا يسبب بطء)
-var canvas = document.getElementById('canvas'), ctx = canvas.getContext('2d');
-canvas.width = window.innerWidth; canvas.height = window.innerHeight;
-var stars = [];
-for(var i=0; i<50; i++) stars.push({x: Math.random()*canvas.width, y: Math.random()*canvas.height, r: Math.random()*2, d: Math.random()*0.5});
-function drawStars() {
-    ctx.clearRect(0,0,canvas.width, canvas.height); ctx.fillStyle = "white";
-    stars.forEach(function(s) {
-        ctx.beginPath(); ctx.arc(s.x, s.y, s.r, 0, Math.PI*2); ctx.fill();
-        s.y += s.d; if(s.y > canvas.height) s.y = 0;
-    });
-    requestAnimationFrame(drawStars);
-}
-drawStars();
+// 4. تشغيل الثغرة تلقائياً عند فتح الصفحة (كما يفعل المطور الأصلي)
+window.onload = function() {
+    h("جاري تشغيل الثغرة.. انتظر ثواني");
+    setTimeout(function() {
+        if (typeof poc === 'function') {
+            poc(); // تشغيل دالة الثغرة الموجودة في ملفات sleirsgoevy
+        }
+    }, 1500);
+};
 
     </script>
 </body>
