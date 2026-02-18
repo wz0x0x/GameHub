@@ -13,54 +13,46 @@
         }
         
         body { 
-            background: var(--bg); color: var(--text-color); 
-            font-family: 'Arial Black', "Segoe UI", Tahoma, sans-serif; 
-            margin: 0; text-align: center; overflow-x: hidden;
-            display: flex; flex-direction: column; align-items: center;
-        }
-
-        #canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; }
-
-        /* العنوان الملون */
-        .header { font-size: 3.5rem; margin-top: 30px; }
-        .header span.w { color: #00d4ff; text-shadow: 0 0 15px #00d4ff; }
-        .header span.g { color: #ff4444; text-shadow: 0 0 15px #ff4444; }
-        .header span.h { color: #00ff88; text-shadow: 0 0 15px #00ff88; }
-        .header span.host { color: #ff00ff; text-shadow: 0 0 15px #ff00ff; }
-
-        /* سطر ذهبي فاصل */
-        .gold-line { width: 400px; height: 2px; background: linear-gradient(90deg, transparent, #d4af37, #fff, #d4af37, transparent); margin: 10px auto 20px auto; box-shadow: 0 0 15px #d4af37; }
-
-        /* بوكس معلومات مصغر */
-        .helper { 
-            color: #00ffcc; font-size: 1rem; margin: 5px auto 25px auto; 
-            min-height: 20px; background: rgba(0,255,204,0.05); padding: 8px 15px;
-            width: fit-content; border-radius: 8px; border: 1px dashed #00ffcc;
-        }
-
-        .category-box { margin: 20px auto; width: 90%; max-width: 1000px; padding: 20px; border-radius: 20px; background: var(--card); border: 1px solid rgba(255,255,255,0.1); backdrop-filter: blur(15px); }
-        .ps4-border { border-top: 4px solid var(--gold); }
-        .vip-border { border-top: 4px solid #00ffcc; }
-
         /* أزرار ذكية - تتحول للأبيض عند اللمس */
         .main-btn { 
             width: 100%; padding: 20px; margin: 10px 0; font-size: 1.3rem; border-radius: 12px; border: 2px solid transparent;
             cursor: pointer; transition: 0.3s ease; background: rgba(255,255,255,0.03); color: white; text-transform: uppercase;
         }
-        .main-btn:hover { background: white; color: black; box-shadow: 0 0 30px white; transform: translateY(-3px); }
-        
-        /* زر الغولد هين الذهبي */
-        .goldhen-btn { border-color: var(--gold); background: rgba(255, 215, 0, 0.1); }
-        .goldhen-btn:hover { background: var(--gold); box-shadow: var(--gold-glow); color: black; }
+        /* زر غولد هين ذهبي لامع مع تأثير نبض */
+.goldhen-btn { 
+    background: linear-gradient(45deg, #ffd700, #fff, #d4af37);
+    color: black !important; 
+    font-weight: bold;
+    border: none;
+    box-shadow: 0 0 20px #ffd700;
+    animation: goldPulse 2s infinite;
+}
 
-        .sub-menu { display: none; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 12px; padding: 20px; background: rgba(0,0,0,0.4); border-radius: 12px; margin-top: 5px; }
-        
-        .sub-btn { padding: 15px; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.05); color: white; border-radius: 8px; cursor: pointer; transition: 0.3s; }
-        .sub-btn:hover { background: white; color: black; font-weight: bold; box-shadow: 0 0 20px white; }
+@keyframes goldPulse {
+    0% { box-shadow: 0 0 15px #ffd700; transform: scale(1); }
+    50% { box-shadow: 0 0 30px #fff; transform: scale(1.02); }
+    100% { box-shadow: 0 0 15px #ffd700; transform: scale(1); }
+}
 
-        .footer-btns { display: flex; justify-content: center; gap: 20px; margin-top: 30px; }
-        .soc-btn { padding: 12px 25px; border-radius: 50px; border: none; font-weight: bold; cursor: pointer; transition: 0.3s; }
-        
+/* تحويل البوكسات لوضع أفقي بجانب بعضها */
+.category-box { 
+    display: inline-block; 
+    vertical-align: top;
+    width: 30%; /* لجعل 3 بوكسات بجانب بعض */
+    margin: 10px 1%; 
+    min-width: 300px;
+}
+
+/* البوكس الذكي - تصغير الحجم وتغيير اللون */
+.helper { 
+    color: #fff; 
+    font-size: 0.9rem; 
+    background: rgba(255, 255, 255, 0.1); 
+    border: 1px solid #ffd700;
+    padding: 5px 15px;
+    width: fit-content;
+    border-radius: 20px;
+}  
         /* قدم هذا العمل بواسطة Lev - أبيض مضيء */
         .credits { margin-top: 30px; margin-bottom: 50px; color: white; font-size: 1.2rem; text-shadow: 0 0 10px white, 0 0 20px white; opacity: 0.9; }
 
@@ -80,8 +72,8 @@
         <button class="main-btn goldhen-btn" onmouseover="s('تشغيل GoldHen لتفعيل الصلاحيات الكاملة')" onclick="r('goldhen.bin')">LAUNCH GoldHEN 2.4 ✨</button>
     </div>
 
-    <div class="helper" id="helper">أهلاً بك يا Lev.. يرجى تفعيل GoldHen أولاً للتحكم الكامل</div>
-
+   <div class="helper" id="helper">مرر المؤشر فوق أي زر لعرض التفاصيل</div>
+    
     <div class="category-box ps4-border">
         <h2 style="color:var(--gold)">PS4 POWER STATION</h2>
         <button class="main-btn" onclick="toggle('ps4tools')">🛠️ SYSTEM TOOLS (BINS)</button>
@@ -160,7 +152,10 @@
             el.style.display = isGrid ? 'none' : 'grid';
         }
         function s(t) { document.getElementById('helper').innerText = t; }
-        function r(f) { s("جاري إرسال الـ Payload: " + f); }
+      function r(f) { 
+    document.getElementById('helper').innerText = "جاري إرسال: " + f + "... يرجى الانتظار";
+    // هنا كود الإرسال الأصلي الخاص بك
+}
         function q(l) { document.getElementById('q').innerHTML=""; new QRCode(document.getElementById("q"),l); document.getElementById('qr').style.display='block'; }
     </script>
 </body>
