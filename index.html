@@ -6,135 +6,130 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     <style>
         :root {
-            --blue: #007bff; --blue-glow: 0 0 20px #007bff;
-            --gold: #ffd700; --gold-glow: 0 0 20px #ffd700;
-            --bg: #050505; --card: rgba(255, 255, 255, 0.05);
-            --text-color: white;
+            --blue: #00d4ff; --gold: #ffd700; --bg: #050505;
         }
-        
         body { 
-        /* أزرار ذكية - تتحول للأبيض عند اللمس */
-        .main-btn { 
-            width: 100%; padding: 20px; margin: 10px 0; font-size: 1.3rem; border-radius: 12px; border: 2px solid transparent;
-            cursor: pointer; transition: 0.3s ease; background: rgba(255,255,255,0.03); color: white; text-transform: uppercase;
+            background: var(--bg); color: white; font-family: 'Arial Black', sans-serif; 
+            margin: 0; text-align: center; overflow-x: hidden;
         }
-        /* زر غولد هين ذهبي لامع مع تأثير نبض */
-.goldhen-btn { 
-    background: linear-gradient(45deg, #ffd700, #fff, #d4af37);
-    color: black !important; 
-    font-weight: bold;
-    border: none;
-    box-shadow: 0 0 20px #ffd700;
-    animation: goldPulse 2s infinite;
-}
+        #canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; }
 
-@keyframes goldPulse {
-    0% { box-shadow: 0 0 15px #ffd700; transform: scale(1); }
-    50% { box-shadow: 0 0 30px #fff; transform: scale(1.02); }
-    100% { box-shadow: 0 0 15px #ffd700; transform: scale(1); }
-}
+        /* العنوان */
+        .header { font-size: 3rem; margin: 30px 0 10px; }
+        .header span.w { color: var(--blue); text-shadow: 0 0 15px var(--blue); }
+        .header span.g { color: #ff4444; text-shadow: 0 0 15px #ff4444; }
+        .header span.h { color: #00ff88; text-shadow: 0 0 15px #00ff88; }
+        .gold-line { width: 400px; height: 2px; background: linear-gradient(90deg, transparent, var(--gold), #fff, var(--gold), transparent); margin: 0 auto 20px; box-shadow: 0 0 15px var(--gold); }
 
-/* تحويل البوكسات لوضع أفقي بجانب بعضها */
-.category-box { 
-    display: inline-block; 
-    vertical-align: top;
-    width: 30%; /* لجعل 3 بوكسات بجانب بعض */
-    margin: 10px 1%; 
-    min-width: 300px;
-}
+        /* زر غولد هين ذهبي لامع */
+        .goldhen-wrap { margin-bottom: 20px; }
+        .goldhen-btn { 
+            background: linear-gradient(45deg, #ffd700, #fff, #d4af37);
+            color: black; border: none; padding: 15px 40px; font-size: 1.4rem; font-weight: bold;
+            border-radius: 10px; cursor: pointer; transition: 0.3s;
+            box-shadow: 0 0 20px var(--gold); animation: pulse 2s infinite;
+        }
+        @keyframes pulse { 0%, 100% { transform: scale(1); box-shadow: 0 0 15px var(--gold); } 50% { transform: scale(1.05); box-shadow: 0 0 30px #fff; } }
 
-/* البوكس الذكي - تصغير الحجم وتغيير اللون */
-.helper { 
-    color: #fff; 
-    font-size: 0.9rem; 
-    background: rgba(255, 255, 255, 0.1); 
-    border: 1px solid #ffd700;
-    padding: 5px 15px;
-    width: fit-content;
-    border-radius: 20px;
-}  
-        /* قدم هذا العمل بواسطة Lev - أبيض مضيء */
-        .credits { margin-top: 30px; margin-bottom: 50px; color: white; font-size: 1.2rem; text-shadow: 0 0 10px white, 0 0 20px white; opacity: 0.9; }
+        /* البوكس الذكي */
+        .helper { 
+            color: #00ffcc; font-size: 0.95rem; background: rgba(0, 255, 204, 0.1); 
+            padding: 10px 20px; width: fit-content; margin: 0 auto 30px; 
+            border-radius: 50px; border: 1px solid #00ffcc; min-width: 300px;
+        }
 
-        .qr-overlay { display:none; position:fixed; top:50%; left:50%; transform:translate(-50%,-50%); background:white; padding:25px; border-radius:20px; z-index:1000; }
+        /* ترتيب البوكسات بشكل أفقي */
+        .container { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; padding: 0 20px; }
+        .category-box { 
+            background: rgba(255, 255, 255, 0.05); border-radius: 15px; 
+            padding: 15px; width: 30%; min-width: 320px; 
+            border: 1px solid rgba(255,255,255,0.1); backdrop-filter: blur(10px);
+        }
+        .ps-border { border-top: 4px solid var(--blue); }
+        .gm-border { border-top: 4px solid #00ff88; }
+        .fn-border { border-top: 4px solid #ff4444; }
+
+        /* الأزرار الذكية */
+        .btn-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+        .tool-btn { 
+            background: rgba(255, 255, 255, 0.07); border: 1px solid rgba(255,255,255,0.1);
+            color: #fffac2; padding: 12px 5px; border-radius: 8px; font-size: 0.85rem;
+            cursor: pointer; transition: 0.3s; font-weight: bold;
+        }
+        .tool-btn:hover { background: white !important; color: black !important; box-shadow: 0 0 20px white; }
+
+        .footer { margin: 40px 0; }
+        .soc-btn { padding: 10px 25px; border-radius: 50px; border: none; color: white; cursor: pointer; margin: 0 10px; font-weight: bold; }
+        .credits { margin-top: 20px; color: white; text-shadow: 0 0 10px white; font-size: 1.1rem; }
     </style>
 </head>
 <body>
-
     <canvas id="canvas"></canvas>
-
-    <h1 class="header">
-        <span class="w">Welcome</span> <span class="g">Game</span> <span class="h">Hub</span> <span class="host">Host</span>
-    </h1>
+    <h1 class="header"><span class="w">Welcome</span> <span class="g">Game</span> <span class="h">Hub</span></h1>
     <div class="gold-line"></div>
-    
-    <div style="width: 85%; max-width: 600px;">
-        <button class="main-btn goldhen-btn" onmouseover="s('تشغيل GoldHen لتفعيل الصلاحيات الكاملة')" onclick="r('goldhen.bin')">LAUNCH GoldHEN 2.4 ✨</button>
+
+    <div class="goldhen-wrap">
+        <button class="goldhen-btn" 
+            onmouseover="h('تشغيل نظام GoldHEN 2.4 لإدارة جهازك وتفعيل الصلاحيات')" 
+            onclick="r('goldhen.bin')">✨ LAUNCH GOLDHEN 2.4</button>
     </div>
 
-   <div class="helper" id="helper">مرر المؤشر فوق أي زر لعرض التفاصيل</div>
-    
-    <div class="category-box ps4-border">
-        <h2 style="color:var(--gold)">PS4 POWER STATION</h2>
-        <button class="main-btn" onclick="toggle('ps4tools')">🛠️ SYSTEM TOOLS (BINS)</button>
-        <div id="ps4tools" class="sub-menu">
-            <button class="sub-btn" onclick="r('LinuxLoader.bin')">Linux Loader</button>
-            <button class="sub-btn" onclick="r('WebRTE.bin')">WebRTE Mods</button>
-            <button class="sub-btn" onclick="r('appdumper.bin')">App Dumper</button>
-            <button class="sub-btn" onclick="r('app2usb.bin')">App2USB</button>
-            <button class="sub-btn" onclick="r('dbbackup.bin')">Database Backup</button>
-            <button class="sub-btn" onclick="r('disableupdates.bin')">Block Updates</button>
-            <button class="sub-btn" onclick="r('historyblocker.bin')">History Blocker</button>
-            <button class="sub-btn" onclick="r('ps4debug.bin')">PS4 Debug</button>
-            <button class="sub-btn" onclick="r('ToDex.bin')">ToDex Mode</button>
-            <button class="sub-btn" onclick="r('rifrenamer.bin')">Rif Renamer</button>
-            <button class="sub-btn" onclick="r('kerneldumper.bin')">Kernel Dumper</button>
+    <div class="helper" id="helper">مرر المؤشر فوق أي زر لعرض التفاصيل</div>
+
+    <div class="container">
+        <div class="category-box ps-border">
+            <h3 style="color:var(--blue)">SYSTEM TOOLS</h3>
+            <div class="btn-grid">
+                <button class="tool-btn" onmouseover="h('استخراج ملفات الألعاب من القرص أو الجهاز')" onclick="r('appdumper.bin')">DUMPER</button>
+                <button class="tool-btn" onmouseover="h('تفعيل الغش والمودات عبر الشبكة')" onclick="r('WebRTE.bin')">WEBRTE</button>
+                <button class="tool-btn" onmouseover="h('نقل ملفات الـ PS4 عبر الكمبيوتر (FTP)')" onclick="r('ftp.bin')">FTP SERVER</button>
+                <button class="tool-btn" onmouseover="h('تعديل تراخيص الألعاب والملفات')" onclick="r('rifrenamer.bin')">RIF RENAMER</button>
+                <button class="tool-btn" onmouseover="h('أخذ نسخة احتياطية من كيرنل الجهاز')" onclick="r('kerneldumper.bin')">KERNEL</button>
+                <button class="tool-btn" onmouseover="h('مسح سجل المتصفح والنشاط تلقائياً')" onclick="r('historyblocker.bin')">HISTORY</button>
+                <button class="tool-btn" onmouseover="h('نسخة احتياطية لقاعدة البيانات')" onclick="r('dbbackup.bin')">DB BACKUP</button>
+                <button class="tool-btn" onmouseover="h('نقل الألعاب إلى ذاكرة USB خارجية')" onclick="r('app2usb.bin')">APP2USB</button>
+                <button class="tool-btn" onmouseover="h('تشغيل نظام لينكس على البلايستيشن')" onclick="r('LinuxLoader.bin')">LINUX</button>
+            </div>
         </div>
 
-        <button class="main-btn" onclick="toggle('mods')">🔫 GAME MOD MENUS</button>
-        <div id="mods" class="sub-menu">
-            <button class="sub-btn" onclick="r('gtava0.bin')">GTA ArabicGuy V0</button>
-            <button class="sub-btn" onclick="r('gtava1.bin')">GTA ArabicGuy V1</button>
-            <button class="sub-btn" onclick="r('gtava2.bin')">GTA ArabicGuy V2</button>
-            <button class="sub-btn" onclick="r('gtava3.bin')">GTA ArabicGuy V3</button>
-            <button class="sub-btn" onclick="r('gtavmb127.bin')">GTA Beef v1.27</button>
-            <button class="sub-btn" onclick="r('oystersmenu100.bin')">RDR2 v1.00</button>
-            <button class="sub-btn" onclick="r('oystersmenu113.bin')">RDR2 v1.13</button>
-            <button class="sub-btn" onclick="r('oystersmenu119.bin')">RDR2 v1.19</button>
-            <button class="sub-btn" onclick="r('oystersmenu124.bin')">RDR2 v1.24</button>
-            <button class="sub-btn" onclick="r('oystersmenu129.bin')">RDR2 v1.29</button>
+        <div class="category-box gm-border">
+            <h3 style="color:#00ff88">GAME MODS</h3>
+            <div class="btn-grid">
+                <button class="tool-btn" onmouseover="h('مود منيو ريد ديد ريمبشن الإصدار 1.29')" onclick="r('oystersmenu129.bin')">RDR2 1.29</button>
+                <button class="tool-btn" onmouseover="h('مود منيو قراند 5 - النسخة الأولى')" onclick="r('gtava1.bin')">GTA V V1</button>
+                <button class="tool-btn" onmouseover="h('مود منيو قراند 5 - النسخة الثالثة')" onclick="r('gtava3.bin')">GTA V V3</button>
+                <button class="tool-btn" onmouseover="h('تفعيل وضع المطورين (ToDex)')" onclick="r('ToDex.bin')">TODEX</button>
+                <button class="tool-btn" onmouseover="h('مود منيو ريد ديد ريمبشن الإصدار 1.00')" onclick="r('oystersmenu100.bin')">RDR2 1.00</button>
+                <button class="tool-btn" onmouseover="h('مود منيو ريد ديد ريمبشن الإصدار 1.24')" onclick="r('oystersmenu124.bin')">RDR2 1.24</button>
+            </div>
+        </div>
+
+        <div class="category-box fn-border">
+            <h3 style="color:#ff4444">FAN CONTROL</h3>
+            <div class="btn-grid">
+                <button class="tool-btn" onmouseover="h('ضبط المروحة على درجة حرارة 70')" onclick="r('fan70.bin')">70°C</button>
+                <button class="tool-btn" onmouseover="h('ضبط المروحة على درجة حرارة 60')" onclick="r('fan60.bin')">60°C</button>
+                <button class="tool-btn" onmouseover="h('ضبط المروحة على درجة حرارة 50')" onclick="r('fan50.bin')">50°C</button>
+                <button class="tool-btn" onmouseover="h('ضبط المروحة على درجة حرارة 55')" onclick="r('fan55.bin')">55°C</button>
+                <button class="tool-btn" onmouseover="h('ضبط المروحة على درجة حرارة 65')" onclick="r('fan65.bin')">65°C</button>
+                <button class="tool-btn" onmouseover="h('ضبط المروحة على درجة حرارة 80')" onclick="r('fan80.bin')">80°C</button>
+            </div>
         </div>
     </div>
 
-    <div class="category-box vip-border">
-        <h2 style="color:#00ffcc">VIP ADVANCED ACCESS</h2>
-        <button class="main-btn" onclick="toggle('fans')">❄️ ADVANCED FAN CONTROL</button>
-        <div id="fans" class="sub-menu">
-            <button class="sub-btn" onclick="r('fan50.bin')">Fan 50°C</button>
-            <button class="sub-btn" onclick="r('fan55.bin')">Fan 55°C</button>
-            <button class="sub-btn" onclick="r('fan60.bin')">Fan 60°C</button>
-            <button class="sub-btn" onclick="r('fan65.bin')">Fan 65°C</button>
-            <button class="sub-btn" onclick="r('fan70.bin')">Fan 70°C</button>
-            <button class="sub-btn" onclick="r('fan75.bin')">Fan 75°C</button>
-            <button class="sub-btn" onclick="r('fan80.bin')">Fan 80°C</button>
-        </div>
-        <button class="main-btn" onclick="r('ftp.bin')">📂 FTP SERVER</button>
+    <div class="footer">
+        <button class="soc-btn" style="background:#333; border:1px solid white;" onclick="q('https://t.me/WZ0X0X')">Lev Account</button>
+        <button class="soc-btn" style="background:#5865F2;" onclick="q('https://discord.gg/xdZ8zqS9G')">Discord</button>
+        <div class="credits">قدم هذا العمل بواسطة <span>(Lev)</span></div>
     </div>
 
-    <div class="footer-btns">
-        <button class="soc-btn" style="background:#333; color:white; border:1px solid white;" onclick="q('https://t.me/WZ0X0X')">Lev Account 👤</button>
-        <button class="soc-btn" style="background:#5865F2; color:white;" onclick="q('https://discord.gg/xdZ8zqS9G')">Game Hub Discord 💬</button>
-    </div>
-
-    <div class="credits">قدم هذا العمل بواسطة <span>(Lev)</span></div>
-
-    <div id="qr" class="qr-overlay" onclick="this.style.display='none'"><div id="q"></div></div>
+    <div id="qr" style="display:none; position:fixed; top:50%; left:50%; transform:translate(-50%,-50%); background:white; padding:20px; border-radius:15px;" onclick="this.style.display='none'"><div id="q"></div></div>
 
     <script>
         var canvas = document.getElementById('canvas'), ctx = canvas.getContext('2d');
         canvas.width = window.innerWidth; canvas.height = window.innerHeight;
         var stars = [];
-        for(var i=0; i<80; i++) stars.push({x: Math.random()*canvas.width, y: Math.random()*canvas.height, r: Math.random()*2, d: Math.random()*1});
+        for(var i=0; i<80; i++) stars.push({x: Math.random()*canvas.width, y: Math.random()*canvas.height, r: Math.random()*2, d: Math.random()*0.5});
         function drawStars() {
             ctx.clearRect(0,0,canvas.width, canvas.height); ctx.fillStyle = "white";
             stars.forEach(function(s) {
@@ -145,17 +140,8 @@
         }
         drawStars();
 
-        function toggle(id) { 
-            var el = document.getElementById(id);
-            var isGrid = el.style.display === 'grid';
-            document.querySelectorAll('.sub-menu').forEach(m => m.style.display = 'none');
-            el.style.display = isGrid ? 'none' : 'grid';
-        }
-        function s(t) { document.getElementById('helper').innerText = t; }
-      function r(f) { 
-    document.getElementById('helper').innerText = "جاري إرسال: " + f + "... يرجى الانتظار";
-    // هنا كود الإرسال الأصلي الخاص بك
-}
+        function h(t) { document.getElementById('helper').innerText = t; }
+        function r(f) { h("جاري إرسال الـ Payload: " + f + "..."); }
         function q(l) { document.getElementById('q').innerHTML=""; new QRCode(document.getElementById("q"),l); document.getElementById('qr').style.display='block'; }
     </script>
 </body>
