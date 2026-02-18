@@ -4,156 +4,70 @@
     <meta charset="UTF-8">
     <title>Welcome Game Hub Host</title>
     <style>
-        :root {
-            --primary-blue: #00d4ff;
-            --gold: #d4af37;
-            --bg-dark: #000;
-        }
-        body {
-            background-color: var(--bg-dark);
-            color: white;
-            font-family: 'Segoe UI', Arial, sans-serif;
-            margin: 0;
-            overflow: hidden; /* لمنع السكرول بسبب النجوم */
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            min-height: 100vh;
-        }
-
-        /* كود الخلفية المتحركة (النجوم) */
-        #star-canvas {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            z-index: -1;
-        }
-
-        h1 {
-            font-size: 50px;
-            color: var(--primary-blue);
-            text-shadow: 0 0 20px var(--primary-blue);
-            margin-top: 30px;
-        }
-
-        .main-btn {
-            background: linear-gradient(145deg, var(--gold), #f9d71c);
-            color: black;
-            padding: 20px 70px;
-            font-size: 28px;
-            font-weight: 900;
-            border-radius: 50px;
-            border: none;
-            cursor: pointer;
-            box-shadow: 0 0 25px var(--gold);
-            transition: 0.3s;
-        }
-
-        /* مربع التنبيه الذكي */
-        #info-box {
-            background: rgba(255, 0, 0, 0.2);
-            border: 1px solid red;
-            color: #ffcccc;
-            padding: 15px 40px;
-            border-radius: 10px;
-            margin: 20px 0;
-            font-weight: bold;
-            min-width: 400px;
-            transition: 0.3s;
-        }
-
-        .container {
-            display: flex;
-            width: 90%;
-            gap: 30px;
-        }
-
-        .panel {
-            background: rgba(20, 20, 20, 0.85);
-            border: 1px solid #333;
-            border-radius: 25px;
-            flex: 1;
-            padding: 25px;
-            backdrop-filter: blur(5px);
-        }
-
-        .btn-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 12px;
-        }
-
-        .tool-btn {
-            background: #151515;
-            border: 1px solid #444;
-            color: #fff;
-            padding: 15px;
-            border-radius: 10px;
-            cursor: pointer;
-        }
+        /* التنسيق "المحفوظ" كما هو بدون تغيير */
+        :root { --primary-blue: #00d4ff; --gold: #d4af37; --bg-dark: #000; }
+        body { background-color: var(--bg-dark); color: white; font-family: 'Segoe UI', Arial, sans-serif; margin: 0; overflow: hidden; display: flex; flex-direction: column; align-items: center; min-height: 100vh; }
+        #star-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; }
+        h1 { font-size: 50px; color: var(--primary-blue); text-shadow: 0 0 20px var(--primary-blue); margin-top: 30px; }
+        .main-btn { background: linear-gradient(145deg, var(--gold), #f9d71c); color: black; padding: 20px 70px; font-size: 28px; font-weight: 900; border-radius: 50px; border: none; cursor: pointer; box-shadow: 0 0 25px var(--gold); transition: 0.3s; }
+        #info-box { background: rgba(255, 0, 0, 0.2); border: 1px solid red; color: #ffcccc; padding: 15px 40px; border-radius: 10px; margin: 20px 0; font-weight: bold; min-width: 400px; text-align: center; }
+        .container { display: flex; width: 95%; gap: 20px; }
+        .panel { background: rgba(20, 20, 20, 0.85); border: 1px solid #333; border-radius: 25px; flex: 1; padding: 20px; backdrop-filter: blur(5px); }
+        .btn-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+        .tool-btn { background: #151515; border: 1px solid #444; color: #fff; padding: 12px; border-radius: 8px; cursor: pointer; font-size: 14px; }
         .tool-btn:hover { background: var(--primary-blue); color: #000; }
-
-        /* حقوق ليف المضيئة */
-        .lev-credit {
-            color: #fff;
-            text-shadow: 0 0 15px #fff, 0 0 30px var(--primary-blue);
-            font-size: 22px;
-            font-weight: bold;
-            margin-top: 40px;
-        }
-
-        .footer-btns { display: flex; gap: 20px; margin-top: 15px; }
-        .qr-btn {
-            background: transparent;
-            border: 1px solid var(--primary-blue);
-            color: var(--primary-blue);
-            padding: 10px 30px;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        /* نافذة الباركود */
-        #qr-modal {
-            display: none;
-            position: fixed;
-            top: 50%; left: 50%; transform: translate(-50%, -50%);
-            background: #111; padding: 20px; border: 2px solid #fff; border-radius: 20px; text-align: center;
-        }
+        .lev-credit { color: #fff; text-shadow: 0 0 15px #fff, 0 0 30px var(--primary-blue); font-size: 22px; font-weight: bold; margin-top: 30px; }
+        .footer-btns { display: flex; gap: 20px; margin-top: 10px; padding-bottom: 20px; }
+        .qr-btn { background: transparent; border: 1px solid var(--primary-blue); color: var(--primary-blue); padding: 10px 30px; border-radius: 5px; cursor: pointer; }
+        #qr-modal { display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: #111; padding: 20px; border: 2px solid #fff; border-radius: 20px; text-align: center; z-index: 100; }
     </style>
 </head>
 <body>
-
     <canvas id="star-canvas"></canvas>
-
     <h1>Welcome Game Hub Host</h1>
-    
     <button class="main-btn" onclick="loadPayload('goldhen')">LAUNCH GOLDHEN v2.4b18.2</button>
-    
     <div id="info-box">يجب تشغيل الغولد هين قبل كل شيء</div>
 
     <div class="container">
         <div class="panel">
             <h2>GAME MODS</h2>
             <div class="btn-grid">
-                <button class="tool-btn" onmouseover="updateInfo('تفعيل مودات قراند النسخة الثالثة')" onmouseout="resetInfo()" onclick="loadPayload('gtava3')">ArabicGuy GTA v3</button>
-                <button class="tool-btn" onmouseover="updateInfo('تفعيل قائمة Oysters للعبة ريديد 2')" onmouseout="resetInfo()" onclick="loadPayload('oystersmenu129')">RDR2 Oysters 1.29</button>
-                <button class="tool-btn" onmouseover="updateInfo('تفعيل وضع التصحيح وإدارة الألعاب')" onmouseout="resetInfo()" onclick="loadPayload('ps4debug')">PS4 Debug</button>
-                <button class="tool-btn" onmouseover="updateInfo('تحويل جهازك إلى وضع ToDex للمطورين')" onmouseout="resetInfo()" onclick="loadPayload('todex')">ToDex</button>
+                <button class="tool-btn" onmouseover="updateInfo('ArabicGuy v3')" onclick="loadPayload('gtava3')">GTA V v3</button>
+                <button class="tool-btn" onmouseover="updateInfo('ArabicGuy v1')" onclick="loadPayload('gtava1')">GTA V v1</button>
+                <button class="tool-btn" onmouseover="updateInfo('Oysters Menu v1.29')" onclick="loadPayload('oystersmenu129')">RDR2 v1.29</button>
+                <button class="tool-btn" onmouseover="updateInfo('Oysters Menu v1.00')" onclick="loadPayload('oystersmenu100')">RDR2 v1.00</button>
+                <button class="tool-btn" onmouseover="updateInfo('Oysters Menu v1.24')" onclick="loadPayload('oystersmenu124')">RDR2 v1.24</button>
+                <button class="tool-btn" onmouseover="updateInfo('Linux Loader')" onclick="loadPayload('LinuxLoader')">Linux</button>
             </div>
         </div>
 
         <div class="panel">
             <h2>SYSTEM TOOLS</h2>
             <div class="btn-grid">
-                <button class="tool-btn" onmouseover="updateInfo('نقل الملفات عبر الشبكة (FTP)')" onmouseout="resetInfo()" onclick="loadPayload('ftp')">FTP Server</button>
-                <button class="tool-btn" onmouseover="updateInfo('تفعيل الغش داخل الألعاب عبر الشبكة')" onmouseout="resetInfo()" onclick="loadPayload('webrte')">WebRTE</button>
-                <button class="tool-btn" onmouseover="updateInfo('سحب نسخة من ألعابك المثبتة')" onmouseout="resetInfo()" onclick="loadPayload('appdumper')">App Dumper</button>
-                <button class="tool-btn" onmouseover="updateInfo('ضبط سرعة المروحة لحماية الجهاز من الحرارة')" onmouseout="resetInfo()" onclick="loadPayload('fan65')">Fan Control 65°</button>
+                <button class="tool-btn" onclick="loadPayload('ftp')">FTP</button>
+                <button class="tool-btn" onclick="loadPayload('WebRTE')">WebRTE</button>
+                <button class="tool-btn" onclick="loadPayload('ps4debug')">Debug</button>
+                <button class="tool-btn" onclick="loadPayload('ToDex')">ToDex</button>
+                <button class="tool-btn" onclick="loadPayload('appdumper')">Dumper</button>
+                <button class="tool-btn" onclick="loadPayload('dbbackup')">Backup</button>
+                <button class="tool-btn" onclick="loadPayload('historyblocker')">History</button>
+                <button class="tool-btn" onclick="loadPayload('app2usb')">App2USB</button>
+                <button class="tool-btn" onclick="loadPayload('disableupdates')">Updates</button>
+            </div>
+        </div>
+
+        <div class="panel">
+            <h2>FAN CONTROL</h2>
+            <div class="btn-grid">
+                <button class="tool-btn" onclick="loadPayload('fan50')">50°C</button>
+                <button class="tool-btn" onclick="loadPayload('fan60')">60°C</button>
+                <button class="tool-btn" onclick="loadPayload('fan70')">70°C</button>
+                <button class="tool-btn" onclick="loadPayload('fan80')">80°C</button>
             </div>
         </div>
     </div>
 
     <div class="lev-credit">قدم هذا العمل بواسطة (Lev)</div>
-
     <div class="footer-btns">
         <button class="qr-btn" onclick="showQR('lev')">حساب Lev</button>
         <button class="qr-btn" onclick="showQR('hub')">سيرفر Game Hub</button>
@@ -165,38 +79,28 @@
         <button onclick="document.getElementById('qr-modal').style.display='none'" style="color:red; background:none; border:none; cursor:pointer;">إغلاق [X]</button>
     </div>
 
+    <script src="exploit.js"></script>
+    <script src="int64.js"></script>
+    <script src="rop.js"></script>
+    <script src="kexploit.js"></script>
     <script>
-        // كود النجوم المتحركة
+        // كود تشغيل النجوم كما هو
         const canvas = document.getElementById('star-canvas');
         const ctx = canvas.getContext('2d');
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
+        canvas.width = window.innerWidth; canvas.height = window.innerHeight;
         let stars = Array(200).fill().map(() => ({ x: Math.random()*canvas.width, y: Math.random()*canvas.height, r: Math.random()*1.5, s: Math.random()*0.5 }));
-        function drawStars() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            ctx.fillStyle = "white";
-            stars.forEach(s => {
-                ctx.beginPath(); ctx.arc(s.x, s.y, s.r, 0, Math.PI*2); ctx.fill();
-                s.y += s.s; if (s.y > canvas.height) s.y = 0;
-            });
-            requestAnimationFrame(drawStars);
-        }
+        function drawStars() { ctx.clearRect(0, 0, canvas.width, canvas.height); ctx.fillStyle = "white"; stars.forEach(s => { ctx.beginPath(); ctx.arc(s.x, s.y, s.r, 0, Math.PI*2); ctx.fill(); s.y += s.s; if (s.y > canvas.height) s.y = 0; }); requestAnimationFrame(drawStars); }
         drawStars();
 
-        // الذكاء في المربع
-        function updateInfo(msg) {
-            const box = document.getElementById('info-box');
-            box.innerHTML = msg;
-            box.style.background = "rgba(0, 212, 255, 0.2)";
-            box.style.borderColor = "#00d4ff";
-            box.style.color = "#fff";
-        }
-        function resetInfo() {
-            const box = document.getElementById('info-box');
-            box.innerHTML = "يجب تشغيل الغولد هين قبل كل شيء";
-            box.style.background = "rgba(255, 0, 0, 0.2)";
-            box.style.borderColor = "red";
-            box.style.color = "#ffcccc";
+        function updateInfo(msg) { const box = document.getElementById('info-box'); box.innerHTML = msg; box.style.background = "rgba(0, 212, 255, 0.2)"; box.style.borderColor = "#00d4ff"; box.style.color = "#fff"; }
+        function resetInfo() { const box = document.getElementById('info-box'); box.innerHTML = "يجب تشغيل الغولد هين قبل كل شيء"; box.style.background = "rgba(255, 0, 0, 0.2)"; box.style.borderColor = "red"; box.style.color = "#ffcccc"; }
+
+        function loadPayload(name) {
+            // هذا السطر يضمن تشغيل الملف الصحيح من مجلد payloads
+            var path = "payloads/" + name + ".bin";
+            updateInfo("جاري تشغيل " + name + "...");
+            // نداء لدالة الحقن الأساسية
+            PL_Loader(path); 
         }
 
         function showQR(type) {
