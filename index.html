@@ -5,9 +5,25 @@
     <title>Welcome Game Hub Host</title>
     <style>
         :root { --p-blue: #00d4ff; --gold: #d4af37; --bg: #000; --glass: rgba(0, 0, 0, 0.85); }
-        body { background-color: var(--bg); color: white; font-family: 'Segoe UI', Arial; margin: 0; display: flex; flex-direction: column; align-items: center; padding-bottom: 50px; overflow-y: auto; }
-        #star-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; }
-        
+      body {
+    margin: 0;
+    padding-bottom: 50px;
+    background: linear-gradient(-45deg, #000000, #0a1a2a, #000000, #1a0a0a);
+    background-size: 400% 400%;
+    animation: gradientBG 15s ease infinite;
+    color: white;
+    font-family: 'Segoe UI', Arial;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-y: auto;
+}
+
+@keyframes gradientBG {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
         h1 { font-size: 45px; color: var(--p-blue); text-shadow: 0 0 20px var(--p-blue); margin: 30px 0 15px 0; }
         
         .main-btn { background: linear-gradient(145deg, var(--gold), #f9d71c); color: black; padding: 18px 80px; font-size: 26px; font-weight: 900; border-radius: 50px; border: none; cursor: pointer; box-shadow: 0 0 20px var(--gold); transition: 0.3s; margin-bottom: 10px; }
@@ -46,7 +62,44 @@
         .lev-credit { color: #fff; text-shadow: 0 0 15px #fff; font-size: 22px; font-weight: bold; margin-top: 10px; }
         
       #qr-modal { display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: #111; padding: 25px; border: 2px solid #fff; border-radius: 20px; text-align: center; z-index: 100; box-shadow: 0 0 50px #000; }
- </style>
+ /* تنسيق الخط العام للأزرار والعناوين */
+.panel h2, .tool-btn, .qr-btn {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    font-weight: bold;
+    color: #fff !important;
+    text-transform: uppercase;
+}
+
+/* 1. بوكس الأدوات - إضاءة زرقاء نيون */
+.panel:nth-child(1) { 
+    border-color: #00d4ff !important; 
+    box-shadow: 0 0 15px rgba(0, 212, 255, 0.4); 
+}
+.panel:nth-child(1) h2 { text-shadow: 0 0 10px #00d4ff; color: #00d4ff !important; }
+
+/* 2. بوكس المودات - إضاءة خضراء نيون */
+.panel:nth-child(2) { 
+    border-color: #00ff88 !important; 
+    box-shadow: 0 0 15px rgba(0, 255, 136, 0.4); 
+}
+.panel:nth-child(2) h2 { text-shadow: 0 0 10px #00ff88; color: #00ff88 !important; }
+
+/* 3. بوكس المروحة - إضاءة حمراء نيون */
+.panel:nth-child(3) { 
+    border-color: #ff4444 !important; 
+    box-shadow: 0 0 15px rgba(255, 68, 68, 0.4); 
+}
+.panel:nth-child(3) h2 { text-shadow: 0 0 10px #ff4444; color: #ff4444 !important; }
+
+/* تأثير الأزرار عند اللمس (وهج أبيض فخم) */
+.tool-btn:hover {
+    background: #fff !important;
+    color: #000 !important;
+    box-shadow: 0 0 20px #fff;
+    transform: scale(1.05);
+    transition: 0.3s;
+}
+    </style>
 </head>
 <body>
     <canvas id="star-canvas"></canvas>
