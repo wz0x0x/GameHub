@@ -8,7 +8,7 @@
 body {
     margin: 0;
     padding-bottom: 50px;
-    background-color: #000; /* خلفية سوداء عميقة */
+    background: #000; /* خلفية سوداء احتياطية */
     color: white;
     font-family: 'Segoe UI', Arial;
     display: flex;
@@ -104,6 +104,10 @@ body {
     </style>
 </head>
 <body>
+<body>
+<video autoplay muted loop id="myVideo" style="position: fixed; right: 0; bottom: 0; min-width: 100%; min-height: 100%; z-index: -1; object-fit: cover; filter: brightness(40%);">
+  <source src="https://assets.mixkit.co/videos/preview/mixkit-Abstract-blue-and-purple-ink-shades-31713-large.mp4" type="video/mp4">
+</video>
     <canvas id="star-canvas"></canvas>
     
     <h1>Welcome Game Hub Host</h1>
