@@ -63,6 +63,7 @@
         .credits { margin-top: 20px; color: white; text-shadow: 0 0 10px white; font-size: 1.1rem; }
     </style>
 </head>
+    <script src="loader.js"></script>
 <body>
     <canvas id="canvas"></canvas>
     <h1 class="header"><span class="w">Welcome</span> <span class="g">Game</span> <span class="h">Hub</span></h1>
@@ -126,6 +127,15 @@
     <div id="qr" style="display:none; position:fixed; top:50%; left:50%; transform:translate(-50%,-50%); background:white; padding:20px; border-radius:15px;" onclick="this.style.display='none'"><div id="q"></div></div>
 
     <script>
+        function r(f) {
+    // تحديث النص في البوكس الذكي
+    document.getElementById('helper').innerText = "جاري تحضير: " + f;
+    
+    // استدعاء الوظيفة من ملف loader.js
+    if (typeof loadPayload === 'function') {
+        loadPayload("payloads/" + f);
+    }
+}
       // دالة تحديث نص بوكس المعلومات (المساعد الذكي)
 function s(msg) {
     document.getElementById('helper').innerText = msg;
