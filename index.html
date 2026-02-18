@@ -21,84 +21,53 @@
 
         #canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; }
 
-        /* 1. العنوان الملون الجديد */
-        .ps-title { font-size: 3.5rem; margin: 40px 0 10px 0; line-height: 1.2; }
+        /* العنوان الملون */
+        .ps-title { font-size: 3.5rem; margin: 30px 0 10px 0; }
         .ps-title .w { color: #00d4ff; text-shadow: 0 0 15px #00d4ff; }
         .ps-title .g { color: #ff4444; text-shadow: 0 0 15px #ff4444; }
         .ps-title .h { color: #00ff88; text-shadow: 0 0 15px #00ff88; }
         .ps-title .host { color: #ff00ff; text-shadow: 0 0 15px #ff00ff; }
 
-        /* 2. السطر الذهبي */
-        .gold-line {
-            width: 400px; height: 2px; 
-            background: linear-gradient(90deg, transparent, #d4af37, #fff, #d4af37, transparent); 
-            margin: 10px auto 25px auto; box-shadow: 0 0 15px #d4af37;
-        }
+        .gold-line { width: 350px; height: 2px; background: linear-gradient(90deg, transparent, #d4af37, #fff, #d4af37, transparent); margin: 5px auto 15px auto; box-shadow: 0 0 15px #d4af37; }
 
-        /* 3. زر LAUNCH GOLDHEN (مثل الصورة) */
-        .launch-btn {
-            background: white; color: black; border: none; padding: 10px 25px;
-            font-weight: bold; font-size: 1.2rem; cursor: pointer; border-radius: 5px;
-            margin-bottom: 10px; transition: 0.3s;
-        }
-        .launch-btn:hover { background: #ffd700; box-shadow: 0 0 20px #ffd700; }
+        /* زر غولد هين ذهبي */
+        .launch-btn { background: var(--gold); color: black; border: none; padding: 12px 30px; font-weight: bold; font-size: 1.3rem; cursor: pointer; border-radius: 8px; box-shadow: var(--gold-glow); transition: 0.3s; margin-bottom: 10px; }
+        .launch-btn:hover { transform: scale(1.05); filter: brightness(1.2); }
 
-        /* 4. بوكس المعلومات (مفصول تماماً) */
-        .helper { 
-            color: #00ffcc; font-size: 1.1rem; margin-bottom: 30px; 
-            min-height: 25px; background: rgba(0,0,0,0.4); padding: 12px;
-            width: 80%; border-radius: 10px; border: 1px dashed var(--blue);
-        }
+        /* بوكس معلومات مصغر */
+        .helper { color: #00ffcc; font-size: 1rem; margin-bottom: 20px; min-height: 20px; background: rgba(0,0,0,0.4); padding: 8px 15px; width: 70%; border-radius: 8px; border: 1px dashed var(--blue); }
 
-        /* 5. تصميم المربعات (نفس الصورة اللي أرسلتها) */
-        .category-box { margin: 15px auto; width: 90%; max-width: 1000px; padding: 20px; border-radius: 20px; background: var(--card); border: 1px solid rgba(255,255,255,0.1); backdrop-filter: blur(15px); }
-        .ps4-border { border-top: 4px solid var(--blue); } /* System Tools باللون الأزرق */
-        .game-border { border-top: 4px solid #00ff88; } /* Game Mods باللون الأخضر */
-        .fan-border { border-top: 4px solid #ff4444; } /* Fan Control باللون الأحمر */
+        /* تصميم المربعات مثل الصورة */
+        .category-box { margin: 15px auto; width: 90%; max-width: 950px; padding: 15px; border-radius: 20px; background: var(--card); border: 1px solid rgba(255,255,255,0.1); backdrop-filter: blur(10px); }
+        .ps4-border { border-top: 4px solid var(--blue); }
+        .game-border { border-top: 4px solid #00ff88; }
+        .fan-border { border-top: 4px solid #ff4444; }
 
-        .btn-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr); /* 3 أزرار بجانب بعض مثل الصورة */
-            gap: 15px;
-            padding: 10px;
-        }
-
-        .tool-btn {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            color: #fffac2; /* لون الخط المصفر قليلاً مثل الصورة */
-            padding: 20px 10px;
-            border-radius: 10px;
-            font-size: 1rem;
-            font-weight: bold;
-            cursor: pointer;
-            transition: 0.3s;
-        }
+        .btn-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; padding: 10px; }
+        .tool-btn { background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); color: #fffac2; padding: 18px 5px; border-radius: 10px; font-size: 0.95rem; font-weight: bold; cursor: pointer; transition: 0.2s; }
         .tool-btn:hover { background: rgba(255, 255, 255, 0.15); border-color: white; }
 
-        .footer-btns { display: flex; justify-content: center; gap: 20px; margin: 40px 0; }
-        .soc-btn { padding: 12px 25px; border-radius: 50px; border: none; font-weight: bold; cursor: pointer; }
-        .qr-overlay { display:none; position:fixed; top:50%; left:50%; transform:translate(-50%,-50%); background:white; padding:25px; border-radius:20px; z-index:1000; }
+        .footer-btns { display: flex; justify-content: center; gap: 15px; margin: 30px 0 10px 0; }
+        .soc-btn { padding: 10px 20px; border-radius: 50px; border: none; font-weight: bold; cursor: pointer; color: white; }
+        .credit-text { color: white; opacity: 0.8; font-size: 1.1rem; margin-bottom: 40px; letter-spacing: 1px; }
+        .qr-overlay { display:none; position:fixed; top:50%; left:50%; transform:translate(-50%,-50%); background:white; padding:20px; border-radius:15px; z-index:1000; }
     </style>
 </head>
 <body>
-
     <canvas id="canvas"></canvas>
 
-    <h1 class="ps-title">
-        <span class="w">Welcome</span> <span class="g">Game</span> <span class="h">Hub</span> <span class="host">Host</span>
-    </h1>
+    <h1 class="ps-title"><span class="w">Welcome</span> <span class="g">Game</span> <span class="h">Hub</span> <span class="host">Host</span></h1>
     <div class="gold-line"></div>
 
     <button class="launch-btn" onclick="r('goldhen.bin')">LAUNCH GOLDHEN</button>
     <div class="helper" id="helper">يجب تشغيل الغولد هين قبل كل شيء</div>
 
     <div class="category-box ps4-border">
-        <h2 style="color:#00d4ff; margin-bottom:20px;">SYSTEM TOOLS</h2>
+        <h2 style="color:#00d4ff; margin: 0 0 15px 0;">SYSTEM TOOLS</h2>
         <div class="btn-grid">
             <button class="tool-btn" onclick="r('appdumper.bin')">DUMPER</button>
             <button class="tool-btn" onclick="r('WebRTE.bin')">WEBRTE</button>
-            <button class="tool-btn" onclick="alert('FTP Started')">FTP SERVER</button>
+            <button class="tool-btn" onclick="r('ftp.bin')">FTP SERVER</button>
             <button class="tool-btn" onclick="r('rifrenamer.bin')">RIF RENAMER</button>
             <button class="tool-btn" onclick="r('kerneldumper.bin')">KERNEL DUMPER</button>
             <button class="tool-btn" onclick="r('historyblocker.bin')">HISTORY BLOCKER</button>
@@ -109,19 +78,19 @@
     </div>
 
     <div class="category-box game-border">
-        <h2 style="color:#00ff88; margin-bottom:20px;">GAME MODS</h2>
+        <h2 style="color:#00ff88; margin: 0 0 15px 0;">GAME MODS</h2>
         <div class="btn-grid">
-            <button class="tool-btn" onclick="r('oysters129.bin')">RDR2 1.29</button>
-            <button class="tool-btn" onclick="r('gtav1.bin')">GTA V V1</button>
-            <button class="tool-btn" onclick="r('gtav3.bin')">GTA V V3</button>
+            <button class="tool-btn" onclick="r('oystersmenu129.bin')">RDR2 1.29</button>
+            <button class="tool-btn" onclick="r('gtava1.bin')">GTA V V1</button>
+            <button class="tool-btn" onclick="r('gtava3.bin')">GTA V V3</button>
             <button class="tool-btn" onclick="r('ToDex.bin')">TODEX</button>
-            <button class="tool-btn" onclick="r('oysters100.bin')">RDR2 1.00</button>
-            <button class="tool-btn" onclick="r('oysters124.bin')">RDR2 1.24</button>
+            <button class="tool-btn" onclick="r('oystersmenu100.bin')">RDR2 1.00</button>
+            <button class="tool-btn" onclick="r('oystersmenu124.bin')">RDR2 1.24</button>
         </div>
     </div>
 
     <div class="category-box fan-border">
-        <h2 style="color:#ff4444; margin-bottom:20px;">FAN CONTROL</h2>
+        <h2 style="color:#ff4444; margin: 0 0 15px 0;">FAN CONTROL</h2>
         <div class="btn-grid">
             <button class="tool-btn" onclick="r('fan70.bin')">70°C</button>
             <button class="tool-btn" onclick="r('fan60.bin')">60°C</button>
@@ -130,9 +99,10 @@
     </div>
 
     <div class="footer-btns">
-        <button class="soc-btn" style="background:#333; color:white;" onclick="q('https://t.me/WZ0X0X')">Lev Account</button>
-        <button class="soc-btn" style="background:#5865F2; color:white;" onclick="q('https://discord.gg/xdZ8zqS9G')">Game Hub Discord</button>
+        <button class="soc-btn" style="background:#333;" onclick="q('https://t.me/WZ0X0X')">Lev Account</button>
+        <button class="soc-btn" style="background:#5865F2;" onclick="q('https://discord.gg/xdZ8zqS9G')">Game Hub Discord</button>
     </div>
+    <div class="credit-text">قدم هذا العمل بواسطة (Lev)</div>
 
     <div id="qr" class="qr-overlay" onclick="this.style.display='none'"><div id="q"></div></div>
 
@@ -140,7 +110,7 @@
         var canvas = document.getElementById('canvas'), ctx = canvas.getContext('2d');
         canvas.width = window.innerWidth; canvas.height = window.innerHeight;
         var stars = [];
-        for(var i=0; i<80; i++) stars.push({x: Math.random()*canvas.width, y: Math.random()*canvas.height, r: Math.random()*2, d: Math.random()*0.5});
+        for(var i=0; i<70; i++) stars.push({x: Math.random()*canvas.width, y: Math.random()*canvas.height, r: Math.random()*1.5, d: Math.random()*0.4});
         function drawStars() {
             ctx.clearRect(0,0,canvas.width, canvas.height); ctx.fillStyle = "white";
             stars.forEach(function(s) {
@@ -150,7 +120,6 @@
             requestAnimationFrame(drawStars);
         }
         drawStars();
-
         function r(f) { document.getElementById('helper').innerText = "جاري إرسال الـ Payload: " + f; }
         function q(l) { document.getElementById('q').innerHTML=""; new QRCode(document.getElementById("q"),l); document.getElementById('qr').style.display='block'; }
     </script>
