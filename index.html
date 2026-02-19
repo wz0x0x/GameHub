@@ -2,67 +2,38 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <title>GAME HUB - ULTRA STABLE</title>
+    <title>GAME HUB - FINAL STABLE</title>
     <script src="jbc.loader/int64.js"></script>
     <script src="jbc.loader/rop.js"></script>
     <script src="jbc.loader/kexploit.js"></script>
     <script src="jbc.loader/webkit.js"></script>
     <style>
-        :root {
-            --primary: #00d4ff; --secondary: #00ff88; --danger: #ff4444; --gold: #ffd700; --bg: #050505;
-        }
-        /* خلفية ثابتة تماماً لا تستهلك الرام */
-        body { 
-            background: radial-gradient(circle at top, #111 0%, #050505 100%);
-            color: white; font-family: sans-serif; margin: 0; text-align: center;
-        }
-
-        .header { font-size: 2.8rem; margin: 25px 0 5px; font-weight: bold; text-transform: uppercase; }
-        .header span.w { color: var(--primary); text-shadow: 0 0 10px var(--primary); }
-        .header span.g { color: var(--danger); text-shadow: 0 0 10px var(--danger); }
-        .header span.h { color: var(--secondary); text-shadow: 0 0 10px var(--secondary); }
-
-        .info-box { 
-            background: rgba(255,255,255,0.05); padding: 12px; border-radius: 4px; 
-            margin: 15px auto; width: 50%; border: 1px solid var(--primary);
-        }
-        #helper { font-size: 1rem; color: var(--primary); font-weight: bold; }
-
-        /* زر GoldHEN الكبير */
-        .main-btn { 
-            background: linear-gradient(180deg, #ffd700, #b8860b); 
-            border: 1px solid #ffd700; padding: 18px 60px; font-size: 1.5rem; 
-            color: #000; font-weight: 900; border-radius: 6px; cursor: pointer;
-            margin-bottom: 25px; box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
-        }
-
-        .grid-container { 
-            display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; padding: 15px;
-        }
-        .category { 
-            background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.1); 
-            border-radius: 8px; padding: 15px; width: 30%; min-width: 300px;
-        }
-        .category h2 { font-size: 1.1rem; margin-bottom: 15px; border-bottom: 2px solid; padding-bottom: 8px; }
-        
-        .sub-menu { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
-        .btn-sub { 
-            background: #1a1a1a; border: 1px solid #333; 
-            color: #eee; padding: 12px 5px; border-radius: 4px; cursor: pointer; 
-            font-size: 0.85rem; font-weight: bold;
-        }
-        .btn-sub:hover { background: var(--primary); color: #000; border-color: var(--primary); }
+        :root { --primary: #00d4ff; --secondary: #00ff88; --danger: #ff4444; --gold: #ffd700; --bg: #050505; }
+        body { background: radial-gradient(circle at top, #111 0%, #050505 100%); color: white; font-family: sans-serif; margin: 0; text-align: center; }
+        .header { font-size: 2.5rem; margin: 20px 0; font-weight: bold; }
+        .header span.w { color: var(--primary); }
+        .header span.g { color: var(--danger); }
+        .header span.h { color: var(--secondary); }
+        .info-box { background: rgba(255,255,255,0.05); padding: 15px; border-radius: 8px; margin: 15px auto; width: 60%; border: 1px solid var(--primary); }
+        #helper { font-size: 1.1rem; color: var(--gold); font-weight: bold; }
+        .main-btn { background: linear-gradient(180deg, #ffd700, #b8860b); border: 1px solid #ffd700; padding: 15px 50px; font-size: 1.4rem; color: #000; font-weight: 900; border-radius: 8px; cursor: pointer; margin-bottom: 20px; box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3); }
+        .grid-container { display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; padding: 10px; }
+        .category { background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; padding: 15px; width: 30%; min-width: 290px; }
+        .category h2 { font-size: 1rem; margin-bottom: 12px; border-bottom: 2px solid; padding-bottom: 5px; }
+        .sub-menu { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
+        .btn-sub { background: #1a1a1a; border: 1px solid #333; color: #eee; padding: 10px 5px; border-radius: 5px; cursor: pointer; font-size: 0.85rem; font-weight: bold; }
+        .btn-sub:hover { background: var(--primary); color: #000; }
     </style>
 </head>
 
-<body onload="initHost();">
+<body onload="startExploit();">
 
     <div class="header">
         <span class="w">Welcome</span> <span class="g">Game</span> <span class="h">Hub</span>
     </div>
 
     <div class="info-box">
-        <div id="helper">انتظر 5 ثوانٍ لاستقرار المتصفح...</div>
+        <div id="helper">جاري بدء تشغيل الثغرة...</div>
     </div>
 
     <button class="main-btn" onclick="r('goldhen.bin')">LAUNCH GOLDHEN 2.4</button>
@@ -72,11 +43,8 @@
             <h2 style="color: var(--danger); border-color: var(--danger);">FAN CONTROL</h2>
             <div class="sub-menu">
                 <button class="btn-sub" onclick="r('fan50.bin')">50°C</button>
-                <button class="btn-sub" onclick="r('fan55.bin')">55°C</button>
                 <button class="btn-sub" onclick="r('fan60.bin')">60°C</button>
-                <button class="btn-sub" onclick="r('fan65.bin')">65°C</button>
                 <button class="btn-sub" onclick="r('fan70.bin')">70°C</button>
-                <button class="btn-sub" onclick="r('fan75.bin')">75°C</button>
                 <button class="btn-sub" onclick="r('fan80.bin')">80°C</button>
             </div>
         </div>
@@ -84,14 +52,10 @@
         <div class="category" style="border-top: 3px solid var(--secondary);">
             <h2 style="color: var(--secondary); border-color: var(--secondary);">GAME MODS</h2>
             <div class="sub-menu">
-                <button class="btn-sub" onclick="r('gtava0.bin')">GTA V V0</button>
-                <button class="btn-sub" onclick="r('gtava1.bin')">GTA V V1</button>
-                <button class="btn-sub" onclick="r('gtava2.bin')">GTA V V2</button>
                 <button class="btn-sub" onclick="r('gtava3.bin')">GTA V V3</button>
-                <button class="btn-sub" onclick="r('gtavmb127.bin')">BEEF 1.27</button>
-                <button class="btn-sub" onclick="r('oystersmenu100.bin')">RDR2 1.00</button>
                 <button class="btn-sub" onclick="r('oystersmenu129.bin')">RDR2 1.29</button>
                 <button class="btn-sub" onclick="r('ToDex.bin')">TODEX</button>
+                <button class="btn-sub" onclick="r('ps4debug.bin')">DEBUG</button>
             </div>
         </div>
 
@@ -102,20 +66,34 @@
                 <button class="btn-sub" onclick="r('WebRTE.bin')">WEBRTE</button>
                 <button class="btn-sub" onclick="r('appdumper.bin')">DUMPER</button>
                 <button class="btn-sub" onclick="r('dbbackup.bin')">DB BACKUP</button>
-                <button class="btn-sub" onclick="r('historyblocker.bin')">BLOCK HISTORY</button>
-                <button class="btn-sub" onclick="r('disableupdates.bin')">BLOCK UPDATE</button>
-                <button class="btn-sub" onclick="r('ps4debug.bin')">PS4 DEBUG</button>
-                <button class="btn-sub" onclick="r('rifrenamer.bin')">RIF RENAMER</button>
             </div>
         </div>
     </div>
 
     <script>
+        var isReady = false; // متغير للتحقق من جاهزية النظام
+
         function s(t) { document.getElementById('helper').innerText = t; }
 
-        // محرك الحقن المتوافق مع sleirsgoevy
+        // هذه الدالة يناديها ملف kexploit.js تلقائياً عند النجاح
+        function allset() {
+            isReady = true;
+            s("تم تفعيل الثغرة بنجاح! ✅ النظام جاهز الآن.");
+        }
+
+        // دالة يتم استدعاؤها في حالات معينة من الثغرة
+        function awaitpl() {
+            s("في انتظار البايلود... اضغط على الزر الآن.");
+            isReady = true; 
+        }
+
         function loadPayload(path) {
-            s("جاري الإرسال... يرجى الانتظار");
+            if(!isReady) {
+                s("❌ خطأ: انتظر حتى تكتمل الثغرة وتظهر رسالة (تم التفعيل)");
+                return;
+            }
+
+            s("جاري إرسال: " + path.split('/').pop());
             var xhr = new XMLHttpRequest();
             xhr.open('GET', path, true);
             xhr.responseType = 'arraybuffer';
@@ -123,19 +101,16 @@
                 if (xhr.status === 200) {
                     var data = new Uint8Array(xhr.response);
                     try {
-                        // استخدام دوال النظام من ملفات المطور
                         var pb = chain.syscall(477, 0, data.length, 7, 0x1000, -1, 0);
-                        for (var i = 0; i < data.length; i++) {
-                            write8(pb.add32(i), data[i]);
-                        }
+                        for (var i = 0; i < data.length; i++) { write8(pb.add32(i), data[i]); }
                         var ta = malloc(8);
                         chain.syscall(79, pb, 0, ta);
                         s("تم التشغيل بنجاح! ✅");
                     } catch (e) {
-                        s("خطأ: الثغرة لم تكتمل بعد");
+                        s("فشل تقني: حاول إعادة تحديث الصفحة.");
                     }
                 } else {
-                    s("خطأ: الملف غير موجود في المجلد");
+                    s("خطأ: الملف مفقود في مجلد payloads");
                 }
             };
             xhr.send();
@@ -143,17 +118,15 @@
 
         function r(f) { loadPayload("payloads/" + f); }
 
-        // تشغيل الثغرة POC بعد تأخير كافٍ
-        function initHost() {
-            s("انتظر... يتم الآن تفعيل الثغرة");
+        function startExploit() {
+            s("جاري تهيئة المتصفح... يرجى الانتظار");
             setTimeout(function() {
                 if (typeof poc === 'function') {
-                    poc();
-                    s("تم التفعيل! يمكنك الآن الضغط على الأزرار");
+                    poc(); // تشغيل الثغرة الأصلية
                 } else {
-                    s("خطأ: ملفات jbc.loader مفقودة");
+                    s("خطأ: ملفات jbc.loader غير صحيحة");
                 }
-            }, 5000); // 5 ثواني لضمان استقرار المعالج تماماً
+            }, 2000);
         }
     </script>
 </body>
