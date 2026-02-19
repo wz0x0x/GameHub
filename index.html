@@ -2,121 +2,91 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <title>GAME HUB MASTER OS - PS4 PRO EDITION</title>
+    <title>GAME HUB - TOTAL CONTROL</title>
     
     <script src="int64.js"></script>
     <script src="rop.js"></script>
     <script src="webkit.js"></script>
     <script src="exploit.js"></script>
     <script src="kexploit.js"></script>
-    <script src="loader.js"></script>
 
     <style>
         :root { --blue: #00d4ff; --gold: #ffd700; --bg: #050505; }
-        body { background: var(--bg); color: white; font-family: sans-serif; margin: 0; text-align: center; overflow-x: hidden; }
-        #canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; }
-        .header { font-size: 3rem; margin: 30px 0 10px; }
-        .header span.w { color: var(--blue); text-shadow: 0 0 15px var(--blue); }
-        .header span.g { color: #ff4444; text-shadow: 0 0 15px #ff4444; }
-        .header span.h { color: #00ff88; text-shadow: 0 0 15px #00ff88; }
-        .gold-line { width: 400px; height: 2px; background: linear-gradient(90deg, transparent, var(--gold), #fff, var(--gold), transparent); margin: 0 auto 20px; }
-        .goldhen-btn { background: linear-gradient(45deg, #ffd700, #fff, #d4af37); color: black; border: none; padding: 15px 40px; font-size: 1.4rem; font-weight: bold; border-radius: 10px; cursor: pointer; box-shadow: 0 0 20px var(--gold); animation: pulse 2s infinite; }
-        @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
-        .helper { color: #00ffcc; font-size: 0.95rem; background: rgba(0, 255, 204, 0.1); padding: 10px 20px; width: fit-content; margin: 0 auto 30px; border-radius: 50px; border: 1px solid #00ffcc; min-width: 300px; }
-        .container { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; padding: 0 20px; }
-        .category-box { background: rgba(255, 255, 255, 0.05); border-radius: 15px; padding: 15px; width: 30%; min-width: 320px; border: 1px solid rgba(255,255,255,0.1); backdrop-filter: blur(10px); }
-        .ps-border { border-top: 4px solid var(--blue); }
-        .gm-border { border-top: 4px solid #00ff88; }
-        .fn-border { border-top: 4px solid #ff4444; }
-        .btn-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
-        .tool-btn { background: rgba(255, 255, 255, 0.07); border: 1px solid rgba(255,255,255,0.1); color: #fffac2; padding: 12px 5px; border-radius: 8px; font-size: 0.85rem; cursor: pointer; font-weight: bold; }
-        .tool-btn:hover { background: white; color: black; }
-        .footer { margin: 40px 0; }
-        .soc-btn { padding: 10px 25px; border-radius: 50px; border: none; color: white; cursor: pointer; margin: 0 10px; font-weight: bold; }
+        body { background: var(--bg); color: white; font-family: sans-serif; margin: 0; text-align: center; }
+        .header { font-size: 2.5rem; margin: 20px 0; font-weight: bold; }
+        .header span.w { color: var(--blue); }
+        .header span.g { color: #ff4444; }
+        .header span.h { color: #00ff88; }
+        .helper { color: var(--gold); background: rgba(255, 215, 0, 0.1); padding: 10px; border-radius: 8px; margin: 15px auto; width: 60%; border: 1px solid var(--gold); }
+        .main-btn { background: linear-gradient(180deg, #ffd700, #b8860b); color: black; padding: 15px 40px; font-size: 1.3rem; font-weight: bold; border-radius: 10px; cursor: pointer; border: none; margin-bottom: 20px; }
+        .grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; }
+        .box { background: rgba(255,255,255,0.05); padding: 15px; border-radius: 10px; width: 280px; border-top: 3px solid var(--blue); }
+        .btn-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+        .btn { background: #222; border: 1px solid #444; color: white; padding: 10px; border-radius: 5px; cursor: pointer; font-size: 0.8rem; }
+        .btn:hover { background: var(--blue); color: black; }
     </style>
 </head>
 
 <body onload="setTimeout(poc, 1500);">
-    <canvas id="canvas"></canvas>
     <h1 class="header"><span class="w">Welcome</span> <span class="g">Game</span> <span class="h">Hub</span></h1>
-    <div class="gold-line"></div>
+    
+    <div class="helper" id="helper">جاري تحضير الثغرة... يرجى الانتظار</div>
 
-    <div class="goldhen-wrap">
-        <button class="goldhen-btn" onclick="r('goldhen.bin')">✨ LAUNCH GOLDHEN 2.4</button>
-    </div>
+    <button class="main-btn" onclick="loadPayload('payloads/goldhen.bin')">LAUNCH GOLDHEN 2.4</button>
 
-    <div class="helper" id="helper">جاري تحميل الثغرة... يرجى الانتظار</div>
-
-    <div class="container">
-        <div class="category-box ps-border">
-            <h3 style="color:var(--blue)">SYSTEM TOOLS</h3>
+    <div class="grid">
+        <div class="box">
+            <h3>SYSTEM TOOLS</h3>
             <div class="btn-grid">
-                <button class="tool-btn" onclick="r('appdumper.bin')">DUMPER</button>
-                <button class="tool-btn" onclick="r('WebRTE.bin')">WEBRTE</button>
-                <button class="tool-btn" onclick="r('ftp.bin')">FTP SERVER</button>
-                <button class="tool-btn" onclick="r('dbbackup.bin')">DB BACKUP</button>
-                <button class="tool-btn" onclick="r('app2usb.bin')">APP2USB</button>
-                <button class="tool-btn" onclick="r('LinuxLoader.bin')">LINUX</button>
+                <button class="btn" onclick="loadPayload('payloads/ftp.bin')">FTP</button>
+                <button class="btn" onclick="loadPayload('payloads/appdumper.bin')">DUMPER</button>
+                <button class="btn" onclick="loadPayload('payloads/WebRTE.bin')">WebRTE</button>
+                <button class="btn" onclick="loadPayload('payloads/dbbackup.bin')">BACKUP</button>
             </div>
         </div>
-
-        <div class="category-box gm-border">
-            <h3 style="color:#00ff88">GAME MODS</h3>
+        
+        <div class="box" style="border-top-color: #ff4444;">
+            <h3>FAN CONTROL</h3>
             <div class="btn-grid">
-                <button class="tool-btn" onclick="r('oystersmenu129.bin')">RDR2 1.29</button>
-                <button class="tool-btn" onclick="r('gtava3.bin')">GTA V V3</button>
-                <button class="tool-btn" onclick="r('ToDex.bin')">TODEX</button>
-                <button class="tool-btn" onclick="r('ps4debug.bin')">DEBUG</button>
+                <button class="btn" onclick="loadPayload('payloads/fan60.bin')">60°C</button>
+                <button class="btn" onclick="loadPayload('payloads/fan70.bin')">70°C</button>
             </div>
         </div>
-
-        <div class="category-box fn-border">
-            <h3 style="color:#ff4444">FAN CONTROL</h3>
-            <div class="btn-grid">
-                <button class="tool-btn" onclick="r('fan50.bin')">50°C</button>
-                <button class="tool-btn" onclick="r('fan60.bin')">60°C</button>
-                <button class="tool-btn" onclick="r('fan70.bin')">70°C</button>
-                <button class="tool-btn" onclick="r('fan80.bin')">80°C</button>
-            </div>
-        </div>
-    </div>
-
-    <div class="footer">
-        <button class="soc-btn" style="background:#333; border:1px solid white;">Lev Account</button>
-        <button class="soc-btn" style="background:#5865F2;">Discord</button>
-        <div style="margin-top:20px;">قدم هذا العمل بواسطة <span>(Lev)</span></div>
     </div>
 
     <script>
-        function s(msg) { document.getElementById('helper').innerText = msg; }
+        function s(t) { document.getElementById('helper').innerText = t; }
 
-        // هذه الدوال تناديها ملفات الجافا سكربت الأصلية
-        function allset() { s("تم تفعيل الثغرة بنجاح! ✅ الجهاز جاهز."); }
-        function awaitpl() { s("بانتظار البايلود... اضغط على الزر المطلوب."); }
+        // دوال الاستجابة للثغرة
+        function allset() { s("الثغرة اكتملت! ✅ النظام جاهز الآن."); }
+        function awaitpl() { s("بانتظار البايلود... اضغط على الزر الآن."); }
 
-        function r(f) {
-            s("جاري تفعيل " + f + "... يرجى الانتظار");
-            if (typeof loadPayload === 'function') {
-                [span_2](start_span)[span_3](start_span)loadPayload("payloads/" + f);[span_2](end_span)[span_3](end_span)
-            } else {
-                [span_4](start_span)s("خطأ: محرك الإرسال (loader.js) غير جاهز!");[span_4](end_span)
-            }
+        // محرك الشحن المدمج (بديل loader.js)
+        function loadPayload(path) {
+            s("جاري قراءة الملف: " + path);
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', path, true);
+            xhr.responseType = 'arraybuffer';
+            xhr.onload = function() {
+                if (xhr.status === 200) {
+                    var data = new Uint8Array(xhr.response);
+                    s("جاري الحقن في الذاكرة...");
+                    try {
+                        // استخدام دوال الحقن من الملفات المستدعاة
+                        var pb = chain.syscall(477, 0, data.length, 7, 0x1000, -1, 0);
+                        for (var i = 0; i < data.length; i++) { write8(pb.add32(i), data[i]); }
+                        var ta = malloc(8);
+                        chain.syscall(79, pb, 0, ta);
+                        s("تم التشغيل بنجاح! ✅");
+                    } catch (e) {
+                        s("خطأ في الحقن: تأكد من اكتمال الثغرة أولاً");
+                    }
+                } else {
+                    s("خطأ: لم يتم العثور على الملف في مجلد payloads");
+                }
+            };
+            xhr.send();
         }
-
-        // سكريبت النجوم (الخلفية)
-        var canvas = document.getElementById('canvas'), ctx = canvas.getContext('2d');
-        canvas.width = window.innerWidth; canvas.height = window.innerHeight;
-        var stars = [];
-        for(var i=0; i<80; i++) stars.push({x: Math.random()*canvas.width, y: Math.random()*canvas.height, r: Math.random()*2, d: Math.random()*1});
-        function drawStars() {
-            ctx.clearRect(0,0,canvas.width, canvas.height); ctx.fillStyle = "white";
-            stars.forEach(function(star) {
-                ctx.beginPath(); ctx.arc(star.x, star.y, star.r, 0, Math.PI*2); ctx.fill();
-                star.y += star.d; if(star.y > canvas.height) star.y = 0;
-            });
-            requestAnimationFrame(drawStars);
-        }
-        drawStars();
     </script>
 </body>
 </html>
