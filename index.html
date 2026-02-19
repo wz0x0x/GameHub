@@ -1,3 +1,5 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
 <head>
     <script src="int64.js"></script>
     <script src="rop.js"></script>
@@ -45,3 +47,97 @@
         };
     </script>
 </head>
+
+<body onload="setTimeout(poc, 1500);">
+    <canvas id="canvas"></canvas>
+    <h1 class="header"><span class="w">Welcome</span> <span class="g">Game</span> <span class="h">Hub</span></h1>
+    <div class="gold-line"></div>
+
+    <div class="goldhen-wrap">
+        <button class="goldhen-btn" onclick="loadPayload('payloads/goldhen.bin')">✨ LAUNCH GOLDHEN 2.4</button>
+    </div>
+
+    <div class="helper" id="helper">جاري تحميل الثغرة... يرجى الانتظار</div>
+
+    <div class="container">
+        <div class="category-box ps-border">
+            <h3 style="color:var(--blue)">SYSTEM TOOLS</h3>
+            <div class="btn-grid">
+                <button class="tool-btn" onclick="loadPayload('payloads/appdumper.bin')">DUMPER</button>
+                <button class="tool-btn" onclick="loadPayload('payloads/WebRTE.bin')">WEBRTE</button>
+                <button class="tool-btn" onclick="loadPayload('payloads/ftp.bin')">FTP SERVER</button>
+                <button class="tool-btn" onclick="loadPayload('payloads/dbbackup.bin')">DB BACKUP</button>
+                <button class="tool-btn" onclick="loadPayload('payloads/app2usb.bin')">APP2USB</button>
+                <button class="tool-btn" onclick="loadPayload('payloads/LinuxLoader.bin')">LINUX</button>
+            </div>
+        </div>
+
+        <div class="category-box gm-border">
+            <h3 style="color:#00ff88">GAME MODS</h3>
+            <div class="btn-grid">
+                <button class="tool-btn" onclick="loadPayload('payloads/oystersmenu129.bin')">RDR2 1.29</button>
+                <button class="tool-btn" onclick="loadPayload('payloads/gtava3.bin')">GTA V V3</button>
+                <button class="tool-btn" onclick="loadPayload('payloads/ToDex.bin')">TODEX</button>
+                <button class="tool-btn" onclick="loadPayload('payloads/ps4debug.bin')">DEBUG</button>
+            </div>
+        </div>
+
+        <div class="category-box fn-border">
+            <h3 style="color:#ff4444">FAN CONTROL</h3>
+            <div class="btn-grid">
+                <button class="tool-btn" onclick="loadPayload('payloads/fan50.bin')">50°C</button>
+                <button class="tool-btn" onclick="loadPayload('payloads/fan60.bin')">60°C</button>
+                <button class="tool-btn" onclick="loadPayload('payloads/fan70.bin')">70°C</button>
+                <button class="tool-btn" onclick="loadPayload('payloads/fan80.bin')">80°C</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function s(msg) { document.getElementById('helper').innerText = msg; }
+        
+        // دوال التفاعل مع ملفات الإكسبلويت
+        function allset() { s("الثغرة اكتملت! ✅ النظام جاهز الآن."); }
+        function awaitpl() { s("بانتظار البايلود... اضغط على الزر الآن."); }
+
+        // دالة الشحن المدمجة (تعوض ملف loader.js المفقود)
+        function loadPayload(path) {
+            s("جاري إرسال البايلود: " + path);
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', path, true);
+            xhr.responseType = 'arraybuffer';
+            xhr.onload = function() {
+                if (xhr.status === 200) {
+                    var data = new Uint8Array(xhr.response);
+                    // استخدام محرك الثغرة المدمج في exploit.js للحقن
+                    try {
+                        var pb = chain.syscall(477, 0, data.length, 7, 0x1000, -1, 0);
+                        for (var i = 0; i < data.length; i++) { write8(pb.add32(i), data[i]); }
+                        var ta = malloc(8);
+                        chain.syscall(79, pb, 0, ta);
+                        s("تم التشغيل بنجاح! ✅");
+                    } catch (e) {
+                        s("خطأ: يرجى تفعيل الثغرة أولاً (Awaiting Payload)");
+                    }
+                } else { s("خطأ: الملف غير موجود في مجلد payloads"); }
+            };
+            xhr.send();
+        }
+
+        // سكريبت النجوم
+        var canvas = document.getElementById('canvas'), ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth; canvas.height = window.innerHeight;
+        var stars = [];
+        for(var i=0; i<80; i++) stars.push({x: Math.random()*canvas.width, y: Math.random()*canvas.height, r: Math.random()*2, d: Math.random()*1});
+        function drawStars() {
+            ctx.clearRect(0,0,canvas.width, canvas.height); ctx.fillStyle = "white";
+            stars.forEach(function(star) {
+                ctx.beginPath(); ctx.arc(star.x, star.y, star.r, 0, Math.PI*2); ctx.fill();
+                star.y += star.d; if(star.y > canvas.height) star.y = 0;
+            });
+            requestAnimationFrame(drawStars);
+        }
+        drawStars();
+    </script>
+</body>
+</html>
