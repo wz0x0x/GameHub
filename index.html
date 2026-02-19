@@ -1,63 +1,130 @@
 <!DOCTYPE html>
-<html>
+<html lang="ar" dir="rtl">
 <head>
-<title>GAME HUB MASTER - PS4 9.00</title>
-<style>
-    body { background-color: #050505; color: white; text-align: center; font-family: sans-serif; }
-    .loader { border: 10px solid #1f1e1e; border-top: 10px solid #00d4ff; border-radius: 50%; width: 100px; height: 100px; animation: spin 1s linear infinite; margin: 50px auto; }
-    @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-    .msg { color: #00ffcc; font-size: 1.5rem; margin-top: 20px; }
-    #btns { display: none; margin-top: 30px; }
-    button { background: #222; color: white; border: 1px solid #00d4ff; padding: 15px; margin: 5px; cursor: pointer; border-radius: 8px; }
-</style>
+    <meta charset="UTF-8">
+    <title>GAME HUB MASTER OS - PS4 PRO EDITION</title>
+    <style>
+        :root { --blue: #00d4ff; --gold: #ffd700; --bg: #050505; }
+        body { background: var(--bg); color: white; font-family: 'Arial Black', sans-serif; margin: 0; text-align: center; overflow-x: hidden; }
+        #canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; }
+        .header { font-size: 3rem; margin: 30px 0 10px; }
+        .header span.w { color: var(--blue); text-shadow: 0 0 15px var(--blue); }
+        .header span.g { color: #ff4444; text-shadow: 0 0 15px #ff4444; }
+        .header span.h { color: #00ff88; text-shadow: 0 0 15px #00ff88; }
+        .gold-line { width: 400px; height: 2px; background: linear-gradient(90deg, transparent, var(--gold), #fff, var(--gold), transparent); margin: 0 auto 20px; box-shadow: 0 0 15px var(--gold); }
+        .goldhen-btn { background: linear-gradient(45deg, #ffd700, #fff, #d4af37); color: black; border: none; padding: 15px 40px; font-size: 1.4rem; font-weight: bold; border-radius: 10px; cursor: pointer; box-shadow: 0 0 20px var(--gold); animation: pulse 2s infinite; }
+        @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
+        .helper { color: #00ffcc; font-size: 0.95rem; background: rgba(0, 255, 204, 0.1); padding: 10px 20px; width: fit-content; margin: 0 auto 30px; border-radius: 50px; border: 1px solid #00ffcc; min-width: 300px; }
+        .container { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; padding: 0 20px; }
+        .category-box { background: rgba(255, 255, 255, 0.05); border-radius: 15px; padding: 15px; width: 30%; min-width: 320px; border: 1px solid rgba(255,255,255,0.1); backdrop-filter: blur(10px); }
+        .ps-border { border-top: 4px solid var(--blue); }
+        .gm-border { border-top: 4px solid #00ff88; }
+        .fn-border { border-top: 4px solid #ff4444; }
+        .btn-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+        .tool-btn { background: rgba(255, 255, 255, 0.07); border: 1px solid rgba(255,255,255,0.1); color: #fffac2; padding: 12px 5px; border-radius: 8px; font-size: 0.85rem; cursor: pointer; font-weight: bold; }
+        .tool-btn:hover { background: white; color: black; box-shadow: 0 0 20px white; }
+        .footer { margin: 40px 0; }
+        .soc-btn { padding: 10px 25px; border-radius: 50px; border: none; color: white; cursor: pointer; margin: 0 10px; font-weight: bold; }
+    </style>
 
-<script src="int64.js"></script>
-<script src="rop.js"></script>
-<script src="kexploit.js"></script>
-<script src="webkit.js"></script>
-
-<script>
-    function s(msg) { document.getElementById('status').innerText = msg; }
-    
-    // دوال الثغرة
-    function awaitpl() {
-        document.getElementById('loader').style.display = "none";
-        document.getElementById('btns').style.display = "block";
-        s("بانتظار البايلود... أدخل الفلاشة الآن ✅");
-    }
-
-    function allset() {
-        s("تم تفعيل الثغرة بنجاح! ✅");
-    }
-
-    // محرك الشحن المدمج
-    function r(file) {
-        s("جاري إرسال: " + file);
-        var xhr = new XMLHttpRequest();
-        xhr.open('GET', 'payloads/' + file, true);
-        xhr.responseType = 'arraybuffer';
-        xhr.onload = function() {
-            var data = new Uint8Array(xhr.response);
-            var pb = chain.syscall(477, 0, data.length, 7, 0x1000, -1, 0);
-            for (var i = 0; i < data.length; i++) { write8(pb.add32(i), data[i]); }
-            var ta = malloc(8);
-            chain.syscall(79, pb, 0, ta);
-            s("تم التفعيل: " + file);
-        };
-        xhr.send();
-    }
-</script>
+    <script src="int64.js"></script>
+    <script src="rop.js"></script>
+    <script src="kexploit.js"></script>
+    <script src="webkit.js"></script>
 </head>
 
 <body onload="setTimeout(poc, 1500);">
-    <h1>GAME HUB MASTER</h1>
-    <div id="loader" class="loader"></div>
-    <div id="status" class="msg">جاري تشغيل الثغرة...</div>
+    <canvas id="canvas"></canvas>
+    <h1 class="header"><span class="w">Welcome</span> <span class="g">Game</span> <span class="h">Hub</span></h1>
+    <div class="gold-line"></div>
 
-    <div id="btns">
-        <button onclick="r('goldhen.bin')">GOLDHEN 2.4</button>
-        <button onclick="r('ftp.bin')">FTP</button>
-        <button onclick="r('appdumper.bin')">DUMPER</button>
+    <div class="goldhen-wrap">
+        <button class="goldhen-btn" onclick="r('goldhen.bin')">✨ LAUNCH GOLDHEN 2.4</button>
     </div>
+
+    <div class="helper" id="helper">جاري تحميل الثغرة... يرجى الانتظار</div>
+
+    <div class="container">
+        <div class="category-box ps-border">
+            <h3 style="color:var(--blue)">SYSTEM TOOLS</h3>
+            <div class="btn-grid">
+                <button class="tool-btn" onclick="r('appdumper.bin')">DUMPER</button>
+                <button class="tool-btn" onclick="r('WebRTE.bin')">WEBRTE</button>
+                <button class="tool-btn" onclick="r('ftp.bin')">FTP SERVER</button>
+                <button class="tool-btn" onclick="r('dbbackup.bin')">DB BACKUP</button>
+                <button class="tool-btn" onclick="r('app2usb.bin')">APP2USB</button>
+                <button class="tool-btn" onclick="r('LinuxLoader.bin')">LINUX</button>
+            </div>
+        </div>
+
+        <div class="category-box gm-border">
+            <h3 style="color:#00ff88">GAME MODS</h3>
+            <div class="btn-grid">
+                <button class="tool-btn" onclick="r('oystersmenu129.bin')">RDR2 1.29</button>
+                <button class="tool-btn" onclick="r('gtava3.bin')">GTA V V3</button>
+                <button class="tool-btn" onclick="r('ToDex.bin')">TODEX</button>
+            </div>
+        </div>
+
+        <div class="category-box fn-border">
+            <h3 style="color:#ff4444">FAN CONTROL</h3>
+            <div class="btn-grid">
+                <button class="tool-btn" onclick="r('fan50.bin')">50°C</button>
+                <button class="tool-btn" onclick="r('fan60.bin')">60°C</button>
+                <button class="tool-btn" onclick="r('fan70.bin')">70°C</button>
+                <button class="tool-btn" onclick="r('fan80.bin')">80°C</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <button class="soc-btn" style="background:#333; border:1px solid white;">Lev Account</button>
+        <div class="credits">قدم هذا العمل بواسطة <span>(Lev)</span></div>
+    </div>
+
+    <script>
+        function s(msg) { document.getElementById('helper').innerText = msg; }
+        
+        // دوال التفاعل مع الثغرة
+        function awaitpl() { s("الثغرة نجحت! ✅ أدخل الفلاشة الآن (Awaiting Payload)"); }
+        function allset() { s("تم تفعيل النظام بنجاح! ✅"); }
+
+        // دالة شحن البايلودات (Payload Loader)
+        function r(fileName) {
+            s("جاري تفعيل " + fileName + "... يرجى الانتظار");
+            var payloadPath = "payloads/" + fileName;
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', payloadPath, true);
+            xhr.responseType = 'arraybuffer';
+            xhr.onload = function() {
+                if (xhr.status === 200) {
+                    var data = new Uint8Array(xhr.response);
+                    try {
+                        var pb = chain.syscall(477, 0, data.length, 7, 0x1000, -1, 0);
+                        for (var i = 0; i < data.length; i++) { write8(pb.add32(i), data[i]); }
+                        var ta = malloc(8);
+                        chain.syscall(79, pb, 0, ta);
+                        s("تم إرسال " + fileName + " بنجاح ✅");
+                    } catch (e) { s("خطأ: يرجى تفعيل الثغرة أولاً"); }
+                } else { s("خطأ: تأكد من وجود الملف في مجلد payloads"); }
+            };
+            xhr.send();
+        }
+
+        // سكريبت النجوم
+        var canvas = document.getElementById('canvas'), ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth; canvas.height = window.innerHeight;
+        var stars = [];
+        for(var i=0; i<80; i++) stars.push({x: Math.random()*canvas.width, y: Math.random()*canvas.height, r: Math.random()*2, d: Math.random()*1});
+        function drawStars() {
+            ctx.clearRect(0,0,canvas.width, canvas.height); ctx.fillStyle = "white";
+            stars.forEach(function(star) {
+                ctx.beginPath(); ctx.arc(star.x, star.y, star.r, 0, Math.PI*2); ctx.fill();
+                star.y += star.d; if(star.y > canvas.height) star.y = 0;
+            });
+            requestAnimationFrame(drawStars);
+        }
+        drawStars();
+    </script>
 </body>
 </html>
