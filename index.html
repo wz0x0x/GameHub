@@ -39,79 +39,79 @@
     <div class="gold-line"></div>
 
     <div class="goldhen-wrap">
-        <button class="goldhen-btn" onclick="r('goldhen.bin')">✨ LAUNCH GOLDHEN 2.4</button>
+        <button class="goldhen-btn" onclick="loadPayload('goldhen.bin')">✨ LAUNCH GOLDHEN 2.4</button>
     </div>
 
-    <div class="helper" id="helper">جاري تحميل الثغرة... يرجى الانتظار</div>
+    <div class="helper" id="helper">جاري تحضير الثغرة... يرجى الانتظار</div>
 
     <div class="container">
         <div class="category-box ps-border">
             <h3 style="color:var(--blue)">SYSTEM TOOLS</h3>
             <div class="btn-grid">
-                <button class="tool-btn" onclick="r('appdumper.bin')">DUMPER</button>
-                <button class="tool-btn" onclick="r('WebRTE.bin')">WEBRTE</button>
-                <button class="tool-btn" onclick="r('ftp.bin')">FTP SERVER</button>
-                <button class="tool-btn" onclick="r('dbbackup.bin')">DB BACKUP</button>
-                <button class="tool-btn" onclick="r('app2usb.bin')">APP2USB</button>
-                <button class="tool-btn" onclick="r('LinuxLoader.bin')">LINUX</button>
+                <button class="tool-btn" onclick="loadPayload('appdumper.bin')">DUMPER</button>
+                <button class="tool-btn" onclick="loadPayload('WebRTE.bin')">WEBRTE</button>
+                <button class="tool-btn" onclick="loadPayload('ftp.bin')">FTP SERVER</button>
+                <button class="tool-btn" onclick="loadPayload('dbbackup.bin')">DB BACKUP</button>
+                <button class="tool-btn" onclick="loadPayload('app2usb.bin')">APP2USB</button>
+                <button class="tool-btn" onclick="loadPayload('LinuxLoader.bin')">LINUX</button>
             </div>
         </div>
 
         <div class="category-box gm-border">
             <h3 style="color:#00ff88">GAME MODS</h3>
             <div class="btn-grid">
-                <button class="tool-btn" onclick="r('oystersmenu129.bin')">RDR2 1.29</button>
-                <button class="tool-btn" onclick="r('gtava3.bin')">GTA V V3</button>
-                <button class="tool-btn" onclick="r('ToDex.bin')">TODEX</button>
+                <button class="tool-btn" onclick="loadPayload('oystersmenu129.bin')">RDR2 1.29</button>
+                <button class="tool-btn" onclick="loadPayload('gtava3.bin')">GTA V V3</button>
+                <button class="tool-btn" onclick="loadPayload('ToDex.bin')">TODEX</button>
             </div>
         </div>
 
         <div class="category-box fn-border">
             <h3 style="color:#ff4444">FAN CONTROL</h3>
             <div class="btn-grid">
-                <button class="tool-btn" onclick="r('fan50.bin')">50°C</button>
-                <button class="tool-btn" onclick="r('fan60.bin')">60°C</button>
-                <button class="tool-btn" onclick="r('fan70.bin')">70°C</button>
-                <button class="tool-btn" onclick="r('fan80.bin')">80°C</button>
+                <button class="tool-btn" onclick="loadPayload('fan50.bin')">50°C</button>
+                <button class="tool-btn" onclick="loadPayload('fan60.bin')">60°C</button>
+                <button class="tool-btn" onclick="loadPayload('fan70.bin')">70°C</button>
+                <button class="tool-btn" onclick="loadPayload('fan80.bin')">80°C</button>
             </div>
         </div>
     </div>
 
     <div class="footer">
         <button class="soc-btn" style="background:#333; border:1px solid white;">Lev Account</button>
-        <div class="credits">قدم هذا العمل بواسطة <span>(Lev)</span></div>
+        <div class="credits">بواسطة <span>(Lev)</span></div>
     </div>
 
     <script>
         function s(msg) { document.getElementById('helper').innerText = msg; }
         
-        // دوال التفاعل مع الثغرة
-        function awaitpl() { s("الثغرة نجحت! ✅ أدخل الفلاشة الآن (Awaiting Payload)"); }
-        function allset() { s("تم تفعيل النظام بنجاح! ✅"); }
+        // هذه الدوال يتم استدعاؤها من داخل kexploit.js تلقائياً
+        function awaitpl() { s("أدخل الفلاشة الآن... بانتظار البايلود ✅"); }
+        function allset() { s("تم تفعيل الثغرة بنجاح! ✅"); }
 
-        // دالة شحن البايلودات (Payload Loader)
-        function r(fileName) {
-            s("جاري تفعيل " + fileName + "... يرجى الانتظار");
-            var payloadPath = "payloads/" + fileName;
+        [span_3](start_span)// دالة شحن الملفات (إصلاح مشكلة الأزرار)[span_3](end_span)
+        function loadPayload(fileName) {
+            s("جاري تفعيل " + fileName + "...");
             var xhr = new XMLHttpRequest();
-            xhr.open('GET', payloadPath, true);
+            xhr.open('GET', 'payloads/' + fileName, true);
             xhr.responseType = 'arraybuffer';
             xhr.onload = function() {
                 if (xhr.status === 200) {
                     var data = new Uint8Array(xhr.response);
                     try {
+                        // استخدام الدوال المعرفة في rop.js و webkit.js
                         var pb = chain.syscall(477, 0, data.length, 7, 0x1000, -1, 0);
                         for (var i = 0; i < data.length; i++) { write8(pb.add32(i), data[i]); }
                         var ta = malloc(8);
                         chain.syscall(79, pb, 0, ta);
                         s("تم إرسال " + fileName + " بنجاح ✅");
-                    } catch (e) { s("خطأ: يرجى تفعيل الثغرة أولاً"); }
-                } else { s("خطأ: تأكد من وجود الملف في مجلد payloads"); }
+                    } catch (e) { s("خطأ: فعل الثغرة أولاً (أدخل الفلاشة)"); }
+                } else { s("خطأ: ملف " + fileName + " غير موجود في مجلد payloads"); }
             };
             xhr.send();
         }
 
-        // سكريبت النجوم
+        [span_4](start_span)// سكريبت النجوم[span_4](end_span)
         var canvas = document.getElementById('canvas'), ctx = canvas.getContext('2d');
         canvas.width = window.innerWidth; canvas.height = window.innerHeight;
         var stars = [];
