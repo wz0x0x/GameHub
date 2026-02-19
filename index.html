@@ -2,11 +2,13 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <title>GAME HUB - FINAL STABLE</title>
+    <title>GAME HUB - FINAL STABLE FIXED</title>
     <script src="jbc.loader/int64.js"></script>
     <script src="jbc.loader/rop.js"></script>
     <script src="jbc.loader/kexploit.js"></script>
+    <script src="jbc.loader/exploit.js"></script> <script src="jbc.loader/malloc.js"></script>
     <script src="jbc.loader/webkit.js"></script>
+    
     <style>
         :root { --primary: #00d4ff; --secondary: #00ff88; --danger: #ff4444; --gold: #ffd700; --bg: #050505; }
         body { background: radial-gradient(circle at top, #111 0%, #050505 100%); color: white; font-family: sans-serif; margin: 0; text-align: center; }
@@ -33,7 +35,7 @@
     </div>
 
     <div class="info-box">
-        <div id="helper">جاري بدء تشغيل الثغرة...</div>
+        <div id="helper">جاري تحضير البيئة... يرجى الانتظار</div>
     </div>
 
     <button class="main-btn" onclick="r('goldhen.bin')">LAUNCH GOLDHEN 2.4</button>
@@ -71,46 +73,35 @@
     </div>
 
     <script>
-        var isReady = false; // متغير للتحقق من جاهزية النظام
+        var isReady = false;
 
         function s(t) { document.getElementById('helper').innerText = t; }
 
-        // هذه الدالة يناديها ملف kexploit.js تلقائياً عند النجاح
+        // الدالة التي يتم استدعاؤها عند نجاح الثغرة تماماً
         function allset() {
             isReady = true;
-            s("تم تفعيل الثغرة بنجاح! ✅ النظام جاهز الآن.");
+            s("تم تفعيل الثغرة! ✅ الجهاز جاهز الآن.");
         }
 
-        // دالة يتم استدعاؤها في حالات معينة من الثغرة
-        function awaitpl() {
-            s("في انتظار البايلود... اضغط على الزر الآن.");
-            isReady = true; 
-        }
-
+        // دالة إرسال البايلودات
         function loadPayload(path) {
             if(!isReady) {
-                s("❌ خطأ: انتظر حتى تكتمل الثغرة وتظهر رسالة (تم التفعيل)");
+                s("❌ انتظر حتى تظهر رسالة (الجهاز جاهز)");
                 return;
             }
-
-            s("جاري إرسال: " + path.split('/').pop());
+            s("جاري الإرسال...");
             var xhr = new XMLHttpRequest();
             xhr.open('GET', path, true);
             xhr.responseType = 'arraybuffer';
             xhr.onload = function() {
                 if (xhr.status === 200) {
                     var data = new Uint8Array(xhr.response);
-                    try {
-                        var pb = chain.syscall(477, 0, data.length, 7, 0x1000, -1, 0);
-                        for (var i = 0; i < data.length; i++) { write8(pb.add32(i), data[i]); }
-                        var ta = malloc(8);
-                        chain.syscall(79, pb, 0, ta);
-                        s("تم التشغيل بنجاح! ✅");
-                    } catch (e) {
-                        s("فشل تقني: حاول إعادة تحديث الصفحة.");
-                    }
-                } else {
-                    s("خطأ: الملف مفقود في مجلد payloads");
+                    // استخدام أوامر النظام المتاحة بعد تعريف userland
+                    var pb = chain.syscall(477, 0, data.length, 7, 0x1000, -1, 0);
+                    for (var i = 0; i < data.length; i++) { write8(pb.add32(i), data[i]); }
+                    var ta = malloc(8);
+                    chain.syscall(79, pb, 0, ta);
+                    s("تم التشغيل بنجاح! ✅");
                 }
             };
             xhr.send();
@@ -119,14 +110,14 @@
         function r(f) { loadPayload("payloads/" + f); }
 
         function startExploit() {
-            s("جاري تهيئة المتصفح... يرجى الانتظار");
+            s("بدء تشغيل المحرك... انتظر قليلاً");
             setTimeout(function() {
                 if (typeof poc === 'function') {
-                    poc(); // تشغيل الثغرة الأصلية
+                    poc(); 
                 } else {
-                    s("خطأ: ملفات jbc.loader غير صحيحة");
+                    s("خطأ: تعذر الوصول لملفات jbc.loader");
                 }
-            }, 2000);
+            }, 1500);
         }
     </script>
 </body>
