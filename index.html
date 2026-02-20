@@ -25,98 +25,47 @@
     </style>
 </head>
 
-<body onload="runPSFree();">
-    <canvas id="canvas"></canvas>
-
-    <div class="header">
-        <span class="w">Welcome</span> <span class="g">Game</span> <span class="h">Hub</span>
-    </div>
-
-    <div class="info-box">
-        <div id="helper">جاري تشغيل ثغرة PSFree (بدون فلاشة)...</div>
-    </div>
-
-    <div class="gold-btn-container">
-        <button class="main-btn" onclick="r('goldhen.bin')">LAUNCH GOLDHEN 2.4</button>
-    </div>
-
-    <div class="grid-container">
-        <div class="category" style="border-top: 3px solid var(--danger);">
-            <h2 style="color: var(--danger);">FAN CONTROL</h2>
-            <button class="btn-sub" onclick="r('fan60.bin')">60°C</button>
-            <button class="btn-sub" onclick="r('fan70.bin')">70°C</button>
-        </div>
-        <div class="category" style="border-top: 3px solid var(--secondary);">
-            <h2 style="color: var(--secondary);">GAME MODS</h2>
-            <button class="btn-sub" onclick="r('gtava3.bin')">GTA V</button>
-            <button class="btn-sub" onclick="r('oystersmenu129.bin')">RDR2</button>
-        </div>
-    </div>
-
+<body onload="initHost();">
     <script>
         function s(t) { document.getElementById('helper').innerText = t; }
 
-        // نظام PSFree من كارو يقوم بتشغيل نفسه، لكننا نربطه بالواجهة هنا
-        function runPSFree() {
-            s("جاري اختراق المتصفح عبر PSFree... يرجى الانتظار");
-            // في نظام كارو، يتم استدعاء الثغرة تلقائياً أو عبر دالة poc
-            if(typeof poc === 'function') {
-                setTimeout(poc, 1500);
-            }
+        // هذه الدوال مهمة جداً لملفات كارو
+        function awaitpl() { s("نجح اختراق المتصفح! ✅ الآن أدخل الفلاشة"); }
+        function allset() { s("تم تفعيل النظام بنجاح! ✅"); }
+
+        function initHost() {
+            s("جاري تشغيل محرك PSFree... يرجى الانتظار");
+            
+            // محاولة تشغيل الثغرة بأكثر من طريقة لضمان الاستجابة
+            setTimeout(function() {
+                if (typeof main === 'function') { main(); }
+                else if (typeof poc === 'function') { poc(); }
+                else { 
+                    // إذا كان الملف يعمل تلقائياً، سنكتفي بتغيير الرسالة
+                    s("المحرك يعمل في الخلفية... انتظر رسالة الفلاشة"); 
+                }
+            }, 2000);
         }
 
-        // هذه الدوال يناديها ملف kexploit.js عند النجاح
-        function awaitpl() { 
-            s("نجح اختراق المتصفح! ✅ الآن أدخل الفلاشة لتفعيل GoldHEN"); 
-        }
-
-        function allset() { 
-            s("تم تفعيل النظام بالكامل! ✅ يمكنك تشغيل الألعاب الآن"); 
-        }
-
-        // دالة شحن البايلود (إصلاح مشكلة الأزرار)
-        function loadPayload(path) {
-            s("جاري إرسال البايلود...");
+        // دالة شحن البايلود
+        function r(f) {
+            s("جاري شحن: " + f);
             var xhr = new XMLHttpRequest();
-            xhr.open('GET', path, true);
+            xhr.open('GET', 'payloads/' + f, true);
             xhr.responseType = 'arraybuffer';
             xhr.onload = function() {
                 if (xhr.status === 200) {
                     var data = new Uint8Array(xhr.response);
-                    try {
-                        // استخدام محرك كارو للشحن
-                        var pb = chain.syscall(477, 0, data.length, 7, 0x1000, -1, 0);
-                        for (var i = 0; i < data.length; i++) { write8(pb.add32(i), data[i]); }
-                        var ta = malloc(8);
-                        chain.syscall(79, pb, 0, ta);
-                        s("تم التشغيل بنجاح! ✅");
-                    } catch (e) { 
-                        s("خطأ: يجب أن تنجح الثغرة وتظهر رسالة (أدخل الفلاشة) أولاً"); 
-                    }
-                } else {
-                    s("خطأ: تأكد من وجود الملف في مجلد payloads");
+                    // الأوامر التقنية للشحن
+                    var pb = chain.syscall(477, 0, data.length, 7, 0x1000, -1, 0);
+                    for (var i = 0; i < data.length; i++) { write8(pb.add32(i), data[i]); }
+                    var ta = malloc(8);
+                    chain.syscall(79, pb, 0, ta);
+                    s("تم التشغيل! ✅");
                 }
             };
             xhr.send();
         }
-
-        function r(f) { loadPayload("payloads/" + f); }
-
-        // سكريبت النجوم (تصميمك)
-        const canvas = document.getElementById('canvas');
-        const ctx = canvas.getContext('2d');
-        canvas.width = window.innerWidth; canvas.height = window.innerHeight;
-        let stars = [];
-        for(let i=0; i<80; i++) stars.push({x: Math.random()*canvas.width, y: Math.random()*canvas.height, r: Math.random()*2, d: Math.random()*0.5});
-        function draw() {
-            ctx.clearRect(0,0,canvas.width, canvas.height); ctx.fillStyle = "white";
-            stars.forEach(st => {
-                ctx.beginPath(); ctx.arc(st.x, st.y, st.r, 0, Math.PI*2); ctx.fill();
-                st.y += st.d; if(st.y > canvas.height) st.y = 0;
-            });
-            requestAnimationFrame(draw);
-        }
-        draw();
     </script>
 </body>
-</html>
+<html>
