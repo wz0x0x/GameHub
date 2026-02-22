@@ -13,31 +13,19 @@
     .btn-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
   </style>
 
-  <!-- سكربتات الـ exploit والـ loader -->
+  <!-- سكربتات كارو الأصلية -->
   <script src="int64.js"></script>
   <script src="rop.js"></script>
   <script src="psfree.js"></script>
   <script src="kexploit.js"></script>
   <script src="loader.js"></script>
 
-  <script>
-    function loadPayload(name) {
-      var xhr = new XMLHttpRequest();
-      xhr.open("GET", "payloads/" + name + ".bin", true);
-      xhr.responseType = "arraybuffer";
-      xhr.onload = function() {
-        if (xhr.status === 200) {
-          binloader(xhr.response); // الدالة الصحيحة من loader.js
-        } else {
-          alert("فشل تحميل الملف: " + name);
-        }
-      };
-      xhr.send();
-    }
-  </script>
+  <!-- ملف الربط الخاص بك -->
+  <script src="bridge.js"></script>
 </head>
 <body>
   <h1>Welcome Game Hub Host</h1>
+  <h2 id="status" style="color:yellow;">Status</h2>
 
   <!-- زر رئيسي -->
   <button onclick="loadPayload('goldhen')">LAUNCH GOLDHEN</button>
