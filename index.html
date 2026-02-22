@@ -6,18 +6,21 @@
   <style>
     body { background-color: #000; color: white; font-family: 'Segoe UI', Arial; margin: 0; display: flex; flex-direction: column; align-items: center; }
     h1 { font-size: 45px; color: #00d4ff; text-shadow: 0 0 20px #00d4ff; margin: 30px 0 15px 0; }
-    .main-btn, .tool-btn { background: #111; border: 1px solid #444; color: #fff; padding: 15px; border-radius: 10px; cursor: pointer; font-size: 15px; margin: 5px; }
-    .main-btn:hover, .tool-btn:hover { background: #00d4ff; color: #000; font-weight: bold; }
+    .main-btn, .tool-btn, .qr-btn { background: #111; border: 1px solid #444; color: #fff; padding: 15px; border-radius: 10px; cursor: pointer; font-size: 15px; margin: 5px; }
+    .main-btn:hover, .tool-btn:hover, .qr-btn:hover { background: #00d4ff; color: #000; font-weight: bold; }
     .panel { background: rgba(20,20,20,0.9); border-radius: 25px; padding: 20px; margin: 20px; }
     .panel h2 { color: #00d4ff; text-align: center; }
     .btn-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+    .footer-section { margin-top: 40px; display: flex; flex-direction: column; align-items: center; gap: 20px; }
+    .footer-btns { display: flex; gap: 25px; }
+    .lev-credit { color: #fff; text-shadow: 0 0 15px #fff; font-size: 22px; font-weight: bold; margin-top: 10px; }
   </style>
 </head>
 <body>
   <h1>Welcome Game Hub Host</h1>
 
   <!-- زر رئيسي -->
-  <a href="Goldhen900/index.html">
+  <a href="payloads/goldhen.bin">
     <button class="main-btn">LAUNCH GOLDHEN</button>
   </a>
 
@@ -25,12 +28,15 @@
   <div class="panel">
     <h2>SYSTEM TOOLS</h2>
     <div class="btn-grid">
-      <a href="ftp/index.html"><button class="tool-btn">FTP Server</button></a>
-      <a href="webrte/index.html"><button class="tool-btn">WebRTE</button></a>
-      <a href="dumper/index.html"><button class="tool-btn">Dumper</button></a>
-      <a href="historyblocker/index.html"><button class="tool-btn">History Blocker</button></a>
-      <a href="kerneldumper/index.html"><button class="tool-btn">Kernel Dumper</button></a>
-      <a href="linuxloader/index.html"><button class="tool-btn">Linux Loader</button></a>
+      <a href="payloads/ftp.bin"><button class="tool-btn">FTP Server</button></a>
+      <a href="payloads/WebRTE.bin"><button class="tool-btn">WebRTE</button></a>
+      <a href="payloads/appdumper.bin"><button class="tool-btn">Dumper</button></a>
+      <a href="payloads/historyblocker.bin"><button class="tool-btn">History Blocker</button></a>
+      <a href="payloads/kerneldumper.bin"><button class="tool-btn">Kernel Dumper</button></a>
+      <a href="payloads/rifrenamer.bin"><button class="tool-btn">Rif Renamer</button></a>
+      <a href="payloads/LinuxLoader.bin"><button class="tool-btn">Linux Loader</button></a>
+      <a href="payloads/app2usb.bin"><button class="tool-btn">App2USB</button></a>
+      <a href="payloads/dbbackup.bin"><button class="tool-btn">DB Backup</button></a>
     </div>
   </div>
 
@@ -38,9 +44,12 @@
   <div class="panel">
     <h2>GAME MODS</h2>
     <div class="btn-grid">
-      <a href="gtava3/index.html"><button class="tool-btn">GTA V v3</button></a>
-      <a href="gtava1/index.html"><button class="tool-btn">GTA V v1</button></a>
-      <a href="rdr2/index.html"><button class="tool-btn">RDR2 Mods</button></a>
+      <a href="payloads/gtava3.bin"><button class="tool-btn">GTA V v3</button></a>
+      <a href="payloads/gtava1.bin"><button class="tool-btn">GTA V v1</button></a>
+      <a href="payloads/oystersmenu129.bin"><button class="tool-btn">RDR2 1.29</button></a>
+      <a href="payloads/oystersmenu124.bin"><button class="tool-btn">RDR2 1.24</button></a>
+      <a href="payloads/oystersmenu100.bin"><button class="tool-btn">RDR2 1.00</button></a>
+      <a href="payloads/ToDex.bin"><button class="tool-btn">ToDex</button></a>
     </div>
   </div>
 
@@ -48,11 +57,22 @@
   <div class="panel">
     <h2>FAN CONTROL</h2>
     <div class="btn-grid">
-      <a href="fan50/index.html"><button class="tool-btn">50°C</button></a>
-      <a href="fan60/index.html"><button class="tool-btn">60°C</button></a>
-      <a href="fan70/index.html"><button class="tool-btn">70°C</button></a>
-      <a href="disableupdates/index.html"><button class="tool-btn">Disable Updates</button></a>
+      <a href="payloads/fan50.bin"><button class="tool-btn">50°C</button></a>
+      <a href="payloads/fan60.bin"><button class="tool-btn">60°C</button></a>
+      <a href="payloads/fan70.bin"><button class="tool-btn">70°C</button></a>
+      <a href="payloads/fan75.bin"><button class="tool-btn">75°C</button></a>
+      <a href="payloads/fan80.bin"><button class="tool-btn">80°C</button></a>
+      <a href="payloads/disableupdates.bin"><button class="tool-btn">Disable Updates</button></a>
     </div>
+  </div>
+
+  <!-- الفوتر -->
+  <div class="footer-section">
+    <div class="footer-btns">
+      <a href="https://t.me/WZ0X0X"><button class="qr-btn">حساب Lev</button></a>
+      <a href="https://discord.gg/xdZ8zqS9G"><button class="qr-btn">سيرفر Game Hub</button></a>
+    </div>
+    <div class="lev-credit">قدم هذا العمل بواسطة (Lev)</div>
   </div>
 </body>
 </html>
