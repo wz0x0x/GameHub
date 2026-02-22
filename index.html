@@ -1,166 +1,58 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <title>GAME HUB MASTER OS - PSFree Edition</title>
-    <script src="int64.js"></script>
-    <script src="rop.js"></script>
-    <script src="kexploit.js"></script>
-    <script src="webkit.js"></script>
-    <script src="psfree.js"></script>
-    
-    <style>
-        :root {
-            --primary: #00d4ff; --secondary: #00ff88; --danger: #ff4444; --gold: #ffd700; --bg: #0a0a0a;
-            --btn-bg: rgba(255, 255, 255, 0.08); --btn-border: rgba(255, 255, 255, 0.2);
-        }
-        body { 
-            background: var(--bg); color: white; font-family: 'Arial Black', sans-serif; 
-            margin: 0; text-align: center; overflow-x: hidden;
-        }
-        #canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; }
-
-        .header { font-size: 3rem; margin: 30px 0 10px; text-transform: uppercase; letter-spacing: 2px; }
-        .header span.w { color: var(--primary); text-shadow: 0 0 15px var(--primary); }
-        .header span.g { color: var(--danger); text-shadow: 0 0 15px var(--danger); }
-        .header span.h { color: var(--secondary); text-shadow: 0 0 15px var(--secondary); }
-
-        .info-box { 
-            background: rgba(0,0,0,0.5); padding: 15px 20px; border-radius: 8px; 
-            margin: 20px auto; width: fit-content; min-width: 350px; 
-            border: 1px solid var(--primary); backdrop-filter: blur(5px);
-        }
-        #helper { font-size: 1.1rem; color: var(--primary); font-weight: bold; }
-
-        .main-btn { 
-            background: linear-gradient(45deg, #c0a100, #ffd700); border: 2px solid #ffd700; 
-            padding: 18px 50px; font-size: 1.4rem; color: #000; font-weight: bold; 
-            border-radius: 8px; cursor: pointer; transition: 0.3s; 
-            box-shadow: 0 0 20px rgba(255, 215, 0, 0.4);
-        }
-        .main-btn:hover { transform: translateY(-3px); box-shadow: 0 0 30px rgba(255, 215, 0, 0.7); }
-
-        .grid-container { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; padding: 20px; max-width: 1200px; margin: 0 auto; }
-        .category { 
-            background: rgba(255,255,255,0.05); border: 1px solid var(--btn-border); 
-            border-radius: 12px; padding: 20px; flex: 1 1 300px; transition: 0.3s; 
-        }
-        .category h2 { font-size: 1.2rem; margin-bottom: 15px; border-bottom: 2px solid; padding-bottom: 10px; }
-        
-        .sub-menu { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 10px; }
-        .btn-sub { 
-            background: var(--btn-bg); border: 1px solid var(--btn-border); color: #e0e0e0; 
-            padding: 12px 5px; border-radius: 6px; cursor: pointer; font-weight: bold; transition: 0.2s;
-        }
-        .btn-sub:hover { background: var(--primary); color: #000; transform: scale(1.05); }
-    </style>
+  <meta charset="UTF-8">
+  <title>Game Hub Host</title>
+  <style>
+    body { background-color: #000; color: white; font-family: 'Segoe UI', Arial; margin: 0; display: flex; flex-direction: column; align-items: center; }
+    h1 { font-size: 45px; color: #00d4ff; text-shadow: 0 0 20px #00d4ff; margin: 30px 0 15px 0; }
+    .main-btn, .tool-btn { background: #111; border: 1px solid #444; color: #fff; padding: 15px; border-radius: 10px; cursor: pointer; font-size: 15px; margin: 5px; }
+    .main-btn:hover, .tool-btn:hover { background: #00d4ff; color: #000; font-weight: bold; }
+    .panel { background: rgba(20,20,20,0.9); border-radius: 25px; padding: 20px; margin: 20px; }
+    .panel h2 { color: #00d4ff; text-align: center; }
+    .btn-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  </style>
 </head>
+<body>
+  <h1>Welcome Game Hub Host</h1>
 
-<body onload="startExploit();">
-    <canvas id="canvas"></canvas>
+  <!-- زر رئيسي -->
+  <a href="Goldhen900/index.html">
+    <button class="main-btn">LAUNCH GOLDHEN</button>
+  </a>
 
-    <div class="header">
-        <span class="w">Welcome</span> <span class="g">Game</span> <span class="h">Hub</span>
+  <!-- قسم الأدوات -->
+  <div class="panel">
+    <h2>SYSTEM TOOLS</h2>
+    <div class="btn-grid">
+      <a href="ftp/index.html"><button class="tool-btn">FTP Server</button></a>
+      <a href="webrte/index.html"><button class="tool-btn">WebRTE</button></a>
+      <a href="dumper/index.html"><button class="tool-btn">Dumper</button></a>
+      <a href="historyblocker/index.html"><button class="tool-btn">History Blocker</button></a>
+      <a href="kerneldumper/index.html"><button class="tool-btn">Kernel Dumper</button></a>
+      <a href="linuxloader/index.html"><button class="tool-btn">Linux Loader</button></a>
     </div>
+  </div>
 
-    <div class="info-box">
-        <div id="helper">انتظر.. جاري تشغيل PSFree</div>
+  <!-- قسم المودات -->
+  <div class="panel">
+    <h2>GAME MODS</h2>
+    <div class="btn-grid">
+      <a href="gtava3/index.html"><button class="tool-btn">GTA V v3</button></a>
+      <a href="gtava1/index.html"><button class="tool-btn">GTA V v1</button></a>
+      <a href="rdr2/index.html"><button class="tool-btn">RDR2 Mods</button></a>
     </div>
+  </div>
 
-    <div style="margin: 30px auto;">
-        <button class="main-btn" onclick="r('goldhen.bin')">LAUNCH GOLDHEN 2.4</button>
+  <!-- قسم التحكم بالمروحة -->
+  <div class="panel">
+    <h2>FAN CONTROL</h2>
+    <div class="btn-grid">
+      <a href="fan50/index.html"><button class="tool-btn">50°C</button></a>
+      <a href="fan60/index.html"><button class="tool-btn">60°C</button></a>
+      <a href="fan70/index.html"><button class="tool-btn">70°C</button></a>
+      <a href="disableupdates/index.html"><button class="tool-btn">Disable Updates</button></a>
     </div>
-
-    <div class="grid-container">
-        <div class="category" style="border-top: 3px solid var(--danger);">
-            <h2 style="color: var(--danger); border-color: var(--danger);">FAN CONTROL</h2>
-            <div class="sub-menu">
-                <button class="btn-sub" onclick="r('fan60.bin')">60°C</button>
-                <button class="btn-sub" onclick="r('fan65.bin')">65°C</button>
-                <button class="btn-sub" onclick="r('fan70.bin')">70°C</button>
-            </div>
-        </div>
-
-        <div class="category" style="border-top: 3px solid var(--primary);">
-            <h2 style="color: var(--primary); border-color: var(--primary);">SYSTEM TOOLS</h2>
-            <div class="sub-menu">
-                <button class="btn-sub" onclick="r('ftp.bin')">FTP</button>
-                <button class="btn-sub" onclick="r('appdumper.bin')">DUMPER</button>
-                <button class="btn-sub" onclick="r('dbbackup.bin')">BACKUP</button>
-            </div>
-        </div>
-    </div>
-
-    <script>
-        function s(t) { document.getElementById('helper').innerText = t; }
-
-        // دوال التوافق مع محرك كارو
-        function awaitpl() { s("نجحت الثغرة! ✅ أدخل الفلاشة الآن لتفعيل GoldHEN"); }
-        function allset() { s("تم التفعيل بنجاح! ✅ استمتع باللعب"); }
-
-        function startExploit() {
-            s("جاري اختراق المتصفح عبر PSFree... يرجى عدم لمس أي شيء");
-            setTimeout(function() {
-                // محاولة تشغيل الثغرة (دالة poc هي الافتراضية في معظم ملفات كارو)
-                if (typeof poc === 'function') {
-                    poc();
-                } else {
-                    s("خطأ: تعذر العثور على محرك الثغرة في ملف webkit.js");
-                }
-            }, 1500);
-        }
-
-        // دالة شحن البايلود المتوافقة مع روت كارو
-        function loadPayload(path) {
-            s("جاري الشحن... انتظر قليلاً");
-            var xhr = new XMLHttpRequest();
-            xhr.open('GET', path, true);
-            xhr.responseType = 'arraybuffer';
-            xhr.onload = function() {
-                if (xhr.status === 200) {
-                    var data = new Uint8Array(xhr.response);
-                    try {
-                        var pb = chain.syscall(477, 0, data.length, 7, 0x1000, -1, 0);
-                        for (var i = 0; i < data.length; i++) { write8(pb.add32(i), data[i]); }
-                        var ta = malloc(8);
-                        chain.syscall(79, pb, 0, ta);
-                        s("تم التشغيل بنجاح! ✅");
-                    } catch (e) {
-                        s("خطأ: الثغرة لم تكتمل بعد. انتظر رسالة الفلاشة.");
-                    }
-                } else {
-                    s("خطأ: الملف غير موجود في مجلد payloads");
-                }
-            };
-            xhr.send();
-        }
-
-        function r(f) { loadPayload("payloads/" + f); }
-
-        // سكريبت الخلفية (تصميمك)
-        const canvas = document.getElementById('canvas');
-        const ctx = canvas.getContext('2d');
-        canvas.width = window.innerWidth; canvas.height = window.innerHeight;
-        let particles = [];
-        function init() {
-            for(let i=0; i<80; i++) {
-                particles.push({
-                    x: Math.random()*canvas.width, y: Math.random()*canvas.height,
-                    vx: Math.random()*0.5-0.25, vy: Math.random()*0.5-0.25, size: Math.random()*2
-                });
-            }
-        }
-        function animate() {
-            ctx.clearRect(0,0,canvas.width, canvas.height); ctx.fillStyle = "rgba(255,255,255,0.5)";
-            particles.forEach(p => {
-                p.x += p.vx; p.y += p.vy;
-                if(p.x<0 || p.x>canvas.width) p.vx *= -1;
-                if(p.y<0 || p.y>canvas.height) p.vy *= -1;
-                ctx.beginPath(); ctx.arc(p.x, p.y, p.size, 0, Math.PI*2); ctx.fill();
-            });
-            requestAnimationFrame(animate);
-        }
-        init(); animate();
-    </script>
+  </div>
 </body>
 </html>
