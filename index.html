@@ -1,181 +1,84 @@
 <!DOCTYPE html>
-<html>
+<html lang="ar" dir="rtl">
 <head>
-<meta charset="utf-8">
-<title>Karo Host For PS4 505 & 672 & 702 & 75X & 900</title>
-<style type="text/css">
-body {
-  background-color: #1A1920;  
-  background-repeat:no-repeat;
-  height:95%;
- }
- button {
-            background:rgba(0,0,0,0.5);
-		    box-shadow: 0 5px 20px 0 white;
-            border: 2px solid black;
-            border-radius: 10px;
-            width: 170px;
-            height: 43px;            
-            text-align: center;
-            padding: 6px;
-            margin: 6px;
-}
-button:hover {
-            box-shadow: 0 5px 50px 0 white;
-            background-color: #0F0F53;
-            color: white;
-            border-radius: 10px;
-}
-#clock{
- float:right;
- margin-right:2.25%;
- margin-top: 18px;
- font-weight:bold;
- font-size:28px;
-  color: white;
-}
-#date {
- float:left;
- margin-left:1.25%;
- font-weight:bold;
- margin-top: 18px;
- font-size:28px;
- color: white;
-}
- .content {
-  width:80%;
-  margin-left:7.5%;
-  background:rgba(0,0,0,0.5);
-  color:white;
-  margin-top:1%;
-  font-size:25px;
-  text-align:center;
-  border-radius:30px;
-  padding:20px;
-  line-height:40px;
- }
- .title {
-  font-size:40px;
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-  font-weight:bolder;
-  margin-bottom:10px;
- }
- .yellow {
-  color:yellow;
- }
- .hue {
-  color:yellow;
-  padding:10px;
-  border-radius:10px;
-  animation:hue 5s linear infinite;
-  -webkit-animation: hue 5s linear infinite;
-  box-shadow: 0px 0px 50px yellow;
-  color:white;
-  background:rgba(255,255,0,0.4);
- }
- .hue:hover{
-  color:yellow;
-  background:transparent;
- }
- @keyframes hue{
- 0%{
- filter:hue-rotate(0deg);
- -webkit-filter:hue-rotate(0deg);
- }
- 10%{
- box-shadow: 0px 1px 50px yellow;
- }
- 20%{
- box-shadow: 1px 1px 50px yellow;
- }
- 30%{
- box-shadow: 1px 0px 50px yellow;
- }
- 40%{
-  box-shadow: 1px -1px 50px yellow;
- }
- 50%{
- box-shadow: 0px -1px 50px yellow;
- }
- 60%{
- box-shadow: -1px -1px 50px yellow;
- }
- 70%{
- box-shadow: -1px 0px 50px yellow;
- }
- 80%{
- box-shadow: -1px 1px 50px yellow;
- }
- 90%{
- box-shadow: 0px 1px 50px yellow;
- }
- 100%{
- filter:hue-rotate(360deg);
- -webkit-filter:hue-rotate(360deg);
- }
- }
- .text {
-  padding-bottom:50px;
- }
-  .back {
-   font-size:25px;
-   margin-top:10px;
-   display:block;
-   line-height:55px;
-   width:20%;
-   text-decoration:none;
-   height:50px;
-   background:white;
-   color:black;
-   border-radius:15px;
-  }
-  .back:hover{
-   border:2px solid white;
-   background:transparent;
-   box-sizing:border-box;
-   color:white;
-  }
-  .pointer {cursor: pointer;}
-</style>
-<script>
-    function showdate() {
-  var dt = new Date();
-    Hour= dt.getHours();
-  Minute= dt.getMinutes();
-     Day=dt.getDate();
-   Month=dt.getMonth()+1;
-   Year=dt.getFullYear();
-if (Minute < 10) { Minute = "0" + Minute; };
-if (Hour < 10) { Hour = "0" + Hour; };
-document.getElementById("date").innerHTML = (Day+"/"+Month+"/"+Year);
-document.getElementById("clock").innerHTML = (Hour+":"+Minute);
-  }
-  
-  setInterval(showdate,0);
-</script>
+  <meta charset="UTF-8">
+  <title>Game Hub Host</title>
+  <style>
+    body { background-color: #000; color: white; font-family: 'Segoe UI', Arial; margin: 0; display: flex; flex-direction: column; align-items: center; }
+    h1 { font-size: 45px; color: #00d4ff; text-shadow: 0 0 20px #00d4ff; margin: 30px 0 15px 0; }
+    button { background: #111; border: 1px solid #444; color: #fff; padding: 15px; border-radius: 10px; cursor: pointer; font-size: 15px; margin: 5px; }
+    button:hover { background: #00d4ff; color: #000; font-weight: bold; }
+    .panel { background: rgba(20,20,20,0.9); border-radius: 25px; padding: 20px; margin: 20px; }
+    .panel h2 { color: #00d4ff; text-align: center; }
+    .btn-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  </style>
+
+  <!-- سكربتات كارو -->
+  <script src="exploit.js"></script>
+  <script src="loader.js"></script>
+
+  <script>
+    function loadPayload(name) {
+      var xhr = new XMLHttpRequest();
+      xhr.open("GET", "payloads/" + name + ".bin", true);
+      xhr.responseType = "arraybuffer";
+      xhr.onload = function() {
+        if (xhr.status === 200) {
+          PL_Loader(xhr.response); // دالة الحقن من loader.js
+        } else {
+          alert("فشل تحميل الملف: " + name);
+        }
+      };
+      xhr.send();
+    }
+  </script>
 </head>
-<body class="bg-darker">
-<div id="container"  style="">
-<span id="date" ></span><span id="clock" ></span><h1 style='font-size:25px;text-align:center;color:yellow;'>Karo Host For PS4 505 & 672 & 702 & 75X & 900</h1>
-<h1 id=msgs2 style='font-size:25px;text-align:center;color:white;'>Status</h1>
-<div style="text-align:center"  id="MyItems">
+<body>
+  <h1>Welcome Game Hub Host</h1>
 
-<!-- Top links (kept as original pages or external links) -->
-<a href="copych/index.html"><button style='width: 200px;height: 40px;font-size:22px;text-align:center;color:yellow' class="pointer" onMouseOver="msgs2.innerHTML='Copy Cheat For 505 & 672 & 702 & 755 & 900'"; onmouseout="msgs2.innerHTML='Status'"  type="button"><b>Copy Cheat </b></button></a>
-<a href="https://karo218.ir/espweb/index.html"><button style='width: 200px;height: 40px;font-size:22px;text-align:center;color:green' class="pointer" onMouseOver="msgs2.innerHTML='Karo WEB ESP For 505 & 672 & 702 & 755 & 900'"; onmouseout="msgs2.innerHTML='Status'"  type="button"><b>WEB ESP </b></button></a>
-<a href="binloader/index.html"><button style='width: 200px;height: 40px;font-size:22px;text-align:center;color:yellow' class="pointer" onMouseOver="msgs2.innerHTML='Binloader For 505 & 672 & 702 & 755 & 900'"; onmouseout="msgs2.innerHTML='Status'"  type="button"><b>Binloader </b></button></a><br>
+  <!-- زر رئيسي -->
+  <button onclick="loadPayload('goldhen')">LAUNCH GOLDHEN</button>
 
-<!-- Firmware sections (kept as pages) -->
-<a href="505/index.html"><button style='font-size:22px;text-align:center;color:white' class="pointer" onMouseOver="msgs2.innerHTML='Karo Host For 505'"; onmouseout="msgs2.innerHTML='Status'"  type="button"><b>5.05 old</b></button></a>
-<a href="505Gold/index.html"><button style='font-size:22px;text-align:center;color:yellow' class="pointer" onMouseOver="msgs2.innerHTML='Karo Host Gold For 505'"; onmouseout="msgs2.innerHTML='Status'"  type="button"><b>5.05 Gold</b></button></a>
-<a href="Goldhen505/index.html"><button style='font-size:22px;text-align:center;color:yellow' class="pointer" onMouseOver="msgs2.innerHTML='Karo Host Goldhen V2.416b2 For 505'"; onmouseout="msgs2.innerHTML='Status'"  type="button"><b>Goldhen505</b></button></a>
-<a href="http://karo218.ir/esp505tr/index.html"><button style='font-size:22px;text-align:center;color:white' class="pointer" onMouseOver="msgs2.innerHTML='ESP host (ps4trainer + goldhen + webrte + binloader) Host For 505'"; onmouseout="msgs2.innerHTML='Status'"  type="button"><b>ESP505tr</b></button></a><br>
+  <!-- قسم الأدوات -->
+  <div class="panel">
+    <h2>SYSTEM TOOLS</h2>
+    <div class="btn-grid">
+      <button onclick="loadPayload('ftp')">FTP Server</button>
+      <button onclick="loadPayload('WebRTE')">WebRTE</button>
+      <button onclick="loadPayload('appdumper')">Dumper</button>
+      <button onclick="loadPayload('historyblocker')">History Blocker</button>
+      <button onclick="loadPayload('kerneldumper')">Kernel Dumper</button>
+      <button onclick="loadPayload('rifrenamer')">Rif Renamer</button>
+      <button onclick="loadPayload('LinuxLoader')">Linux Loader</button>
+      <button onclick="loadPayload('app2usb')">App2USB</button>
+      <button onclick="loadPayload('dbbackup')">DB Backup</button>
+    </div>
+  </div>
 
-<!-- 672 / 702 / 755 sections (kept as pages) -->
-<a href="672/index.html"><button style='font-size:22px;text-align:center;color:green' class="pointer" onMouseOver="msgs2.innerHTML='Karo Host Manual Exploit Full Cache and Compressed version For 672'"; onmouseout="msgs2.innerHTML='Status'"  type="button"><b>6.72 </b></button></a>
-<a href="672A/index.html"><button style='font-size:22px;text-align:center;color:green' class="pointer" onMouseOver="msgs2.innerHTML='Karo Host Auto Exploit Full Cache and Compressed version For 672'"; onmouseout="msgs2.innerHTML='Status'"  type="button"><b>6.72A </b></button></a>
-<a href="672L/index.html"><button style='font-size:22px;text-align:center;color:white' class="pointer" onMouseOver="msgs2.innerHTML='Karo Host Light For 672'"; onmouseout="msgs2.innerHTML='Status'"  type="button"><b>6.72L </b></button></a>
-<a href="Goldhen672/index.html"><button style='font-size:22px;text-align:center;color:yellow' class="pointer" onMouseOver="msgs2.innerHTML='Karo Host Goldhen V2.416b2 For 672'"; onmouseout="msgs2.innerHTML='Status'"  type="button"><b>Goldhen672</b></button></a>
-<a href="http://karo218.ir/esp672tr/index.html">
+  <!-- قسم المودات -->
+  <div class="panel">
+    <h2>GAME MODS</h2>
+    <div class="btn-grid">
+      <button onclick="loadPayload('gtava3')">GTA V v3</button>
+      <button onclick="loadPayload('gtava1')">GTA V v1</button>
+      <button onclick="loadPayload('oystersmenu129')">RDR2 1.29</button>
+      <button onclick="loadPayload('oystersmenu124')">RDR2 1.24</button>
+      <button onclick="loadPayload('oystersmenu100')">RDR2 1.00</button>
+      <button onclick="loadPayload('ToDex')">ToDex</button>
+    </div>
+  </div>
+
+  <!-- قسم التحكم بالمروحة -->
+  <div class="panel">
+    <h2>FAN CONTROL</h2>
+    <div class="btn-grid">
+      <button onclick="loadPayload('fan50')">50°C</button>
+      <button onclick="loadPayload('fan60')">60°C</button>
+      <button onclick="loadPayload('fan70')">70°C</button>
+      <button onclick="loadPayload('fan75')">75°C</button>
+      <button onclick="loadPayload('fan80')">80°C</button>
+      <button onclick="loadPayload('disableupdates')">Disable Updates</button>
+    </div>
+  </div>
+</body>
+</html>
