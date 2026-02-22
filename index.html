@@ -13,8 +13,11 @@
     .btn-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
   </style>
 
-  <!-- سكربتات كارو -->
-  <script src="exploit.js"></script>
+  <!-- سكربتات الـ exploit والـ loader -->
+  <script src="int64.js"></script>
+  <script src="rop.js"></script>
+  <script src="psfree.js"></script>
+  <script src="kexploit.js"></script>
   <script src="loader.js"></script>
 
   <script>
@@ -24,7 +27,7 @@
       xhr.responseType = "arraybuffer";
       xhr.onload = function() {
         if (xhr.status === 200) {
-          PL_Loader(xhr.response); // دالة الحقن من loader.js
+          binloader(xhr.response); // الدالة الصحيحة من loader.js
         } else {
           alert("فشل تحميل الملف: " + name);
         }
