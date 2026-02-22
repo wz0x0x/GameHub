@@ -5,7 +5,7 @@ function loadPayload(name) {
   xhr.responseType = "arraybuffer";
   xhr.onload = function() {
     if (xhr.status === 200) {
-      binloader(xhr.response); // الدالة من loader.js
+      binloader(xhr.response); // الدالة من loader.js الخاص بكارو
       document.getElementById("status").innerText = "تم الحقن بنجاح: " + name;
     } else {
       document.getElementById("status").innerText = "فشل تحميل: " + name;
