@@ -3,69 +3,42 @@
 <head>
   <meta charset="UTF-8">
   <title>Game Hub Host</title>
-  <style>
-    body { background-color: #000; color: white; font-family: 'Segoe UI', Arial; margin: 0; display: flex; flex-direction: column; align-items: center; }
-    h1 { font-size: 45px; color: #00d4ff; text-shadow: 0 0 20px #00d4ff; margin: 30px 0 15px 0; }
-    button { background: #111; border: 1px solid #444; color: #fff; padding: 15px; border-radius: 10px; cursor: pointer; font-size: 15px; margin: 5px; }
-    button:hover { background: #00d4ff; color: #000; font-weight: bold; }
-    .panel { background: rgba(20,20,20,0.9); border-radius: 25px; padding: 20px; margin: 20px; }
-    .panel h2 { color: #00d4ff; text-align: center; }
-    .btn-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
-  </style>
 
-  <!-- سكربتات كارو الأصلية -->
   <script src="int64.js"></script>
   <script src="rop.js"></script>
   <script src="psfree.js"></script>
   <script src="kexploit.js"></script>
   <script src="loader.js"></script>
-
-  <!-- ملف الربط -->
   <script src="bridge.js"></script>
+
+  <style>
+    body { background:#000; color:#fff; text-align:center; font-family:Arial; }
+    h1 { color:#00d4ff; margin-top:30px; }
+    button { padding:15px; margin:8px; background:#111; color:#fff; border:1px solid #444; border-radius:10px; }
+    button:hover { background:#00d4ff; color:#000; }
+    .panel { margin:20px auto; width:90%; background:#111; padding:20px; border-radius:20px; }
+  </style>
 </head>
+
 <body>
-  <h1>Welcome Game Hub Host</h1>
+  <h1>Game Hub Host</h1>
   <h2 id="status" style="color:yellow;">Status</h2>
 
-  <button onclick="loadPayload('goldhen')">LAUNCH GOLDHEN</button>
+  <button onclick="loadPayload('goldhen')">GoldHen</button>
 
   <div class="panel">
-    <h2>SYSTEM TOOLS</h2>
-    <div class="btn-grid">
-      <button onclick="loadPayload('ftp')">FTP Server</button>
-      <button onclick="loadPayload('WebRTE')">WebRTE</button>
-      <button onclick="loadPayload('appdumper')">Dumper</button>
-      <button onclick="loadPayload('historyblocker')">History Blocker</button>
-      <button onclick="loadPayload('kerneldumper')">Kernel Dumper</button>
-      <button onclick="loadPayload('rifrenamer')">Rif Renamer</button>
-      <button onclick="loadPayload('LinuxLoader')">Linux Loader</button>
-      <button onclick="loadPayload('app2usb')">App2USB</button>
-      <button onclick="loadPayload('dbbackup')">DB Backup</button>
-    </div>
+    <h3>System Tools</h3>
+    <button onclick="loadPayload('ftp')">FTP</button>
+    <button onclick="loadPayload('webrte')">WebRTE</button>
+    <button onclick="loadPayload('appdumper')">App Dumper</button>
+    <button onclick="loadPayload('historyblocker')">History Blocker</button>
   </div>
 
   <div class="panel">
-    <h2>GAME MODS</h2>
-    <div class="btn-grid">
-      <button onclick="loadPayload('gtava3')">GTA V v3</button>
-      <button onclick="loadPayload('gtava1')">GTA V v1</button>
-      <button onclick="loadPayload('oystersmenu129')">RDR2 1.29</button>
-      <button onclick="loadPayload('oystersmenu124')">RDR2 1.24</button>
-      <button onclick="loadPayload('oystersmenu100')">RDR2 1.00</button>
-      <button onclick="loadPayload('ToDex')">ToDex</button>
-    </div>
-  </div>
-
-  <div class="panel">
-    <h2>FAN CONTROL</h2>
-    <div class="btn-grid">
-      <button onclick="loadPayload('fan50')">50°C</button>
-      <button onclick="loadPayload('fan60')">60°C</button>
-      <button onclick="loadPayload('fan70')">70°C</button>
-      <button onclick="loadPayload('fan75')">75°C</button>
-      <button onclick="loadPayload('fan80')">80°C</button>
-      <button onclick="loadPayload('disableupdates')">Disable Updates</button>
-    </div>
+    <h3>Fan Control</h3>
+    <button onclick="loadPayload('fan50')">50°C</button>
+    <button onclick="loadPayload('fan60')">60°C</button>
+    <button onclick="loadPayload('fan70')">70°C</button>
   </div>
 </body>
 </html>
